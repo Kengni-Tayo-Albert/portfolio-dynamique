@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="920" viewBox="0 0 1440 920">
+  <defs><style>.bg{fill:#07111f}.soft{fill:#0b1424}.panel{fill:#0f172a;stroke:#31445f}.text{fill:#fff;font-family:Inter,Arial,sans-serif}.muted{fill:#cbd5e1;font-family:Inter,Arial,sans-serif}.blue{fill:#3b82f6}.green{fill:#22c55e}.h1{font-size:54px;font-weight:900}.h2{font-size:32px;font-weight:800}.body{font-size:22px}.small{font-size:17px}</style><clipPath id="photo"><rect x="110" y="210" width="420" height="540" rx="28"/></clipPath></defs>
+  <rect width="1440" height="920" class="bg"/>
+  <rect width="1440" height="90" class="soft"/>
+  <text x="90" y="58" class="text h2">Albert.<tspan class="blue">TAYO</tspan></text>
+  <text x="535" y="56" class="muted small">Accueil</text><text x="645" y="56" class="blue small" font-family="Inter,Arial">A propos</text><text x="775" y="56" class="muted small">Competences</text><text x="930" y="56" class="muted small">Projets</text><text x="1040" y="56" class="muted small">Contact</text>
+  <image href="../src/assets/albert-profile.jpeg" x="110" y="210" width="420" height="540" preserveAspectRatio="xMidYMid slice" clip-path="url(#photo)"/>
+  <rect x="330" y="680" width="250" height="82" rx="16" fill="#fff"/>
+  <circle cx="365" cy="721" r="14" class="green"/><text x="392" y="713" class="bg body" font-weight="800">Disponible</text><text x="392" y="742" fill="#64748b" font-family="Inter,Arial" font-size="17">Alternance 2026</text>
+  <text x="650" y="230" class="blue body" font-weight="800">A PROPOS</text>
+  <text x="650" y="305" class="text h1">Passionne par la</text><text x="650" y="365" class="text h1">technologie et l'humain</text>
+  <text x="650" y="430" class="blue h2" font-family="Inter,Arial">Developpeur Full-Stack en construction</text>
+  <text x="650" y="490" class="muted body">Etudiant a la Fabrique Numerique Paloise, je developpe</text><text x="650" y="525" class="muted body">des interfaces modernes, claires et maintenables.</text>
+  <rect x="650" y="585" width="170" height="120" rx="14" class="panel"/><text x="685" y="633" class="text h2">Rigueur</text><text x="685" y="668" class="muted small">Code propre</text>
+  <rect x="845" y="585" width="170" height="120" rx="14" class="panel"/><text x="880" y="633" class="text h2">Curiosite</text><text x="880" y="668" class="muted small">Progresser</text>
+  <rect x="1040" y="585" width="170" height="120" rx="14" class="panel"/><text x="1080" y="633" class="text h2">Equipe</text><text x="1080" y="668" class="muted small">Avancer ensemble</text>
+  <rect x="650" y="745" width="560" height="90" rx="14" class="panel"/><text x="685" y="785" class="text body" font-weight="800">Technologies principales</text><text x="685" y="820" class="blue small">React  Node.js  Express  MongoDB  Figma</text>
+</svg>

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "Clutch Time Media",
+    "subtitle": "Blog basket moderne",
+    "description": "Site éditorial autour du basket, pensé pour présenter des articles et une expérience responsive claire.",
+    "shortDescription": "Blog basket moderne, responsive et dynamique.",
+    "image": "/projects/clutch-time.png",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "github": "https://github.com/Kengni-Tayo-Albert/clutch-time-media.git",
+    "demo": "https://kengni-tayo-albert.github.io/clutch-time-media/",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Outdoor Adventure",
+    "subtitle": "Site vitrine responsive",
+    "description": "Site vitrine orienté voyage et nature, avec une page d'accueil immersive et une navigation simple.",
+    "shortDescription": "Site vitrine responsive.",
+    "image": "/projects/outdoor-adventure.png",
+    "tags": ["HTML", "CSS"],
+    "github": "https://github.com/Kengni-Tayo-Albert/projet-outdoor.git",
+    "demo": "https://kengni-tayo-albert.github.io/projet-outdoor/",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Pau Playground",
+    "subtitle": "Site vitrine HTML et CSS",
+    "description": "Passion, énergie, communauté. Pau Playground est un projet web vitrine autour du street basketball à Pau. Il met en avant les terrains emblématiques et les événements organisés.",
+    "shortDescription": "Site vitrine autour du street basketball à Pau.",
+    "image": "/projects/pau-playground.png",
+    "tags": ["HTML", "CSS"],
+    "github": "https://github.com/Kengni-Tayo-Albert/Pau-Playground.git",
+    "demo": "https://kengni-tayo-albert.github.io/Pau-Playground/",
+    "featured": false
+  },
+  {
+    "id": 4,
+    "title": "Afrik Food",
+    "subtitle": "Site vitrine pour restaurant africain",
+    "description": "Afrik Food est un site vitrine moderne dédié à un restaurant africain situé à Pau. Il met en valeur la richesse culinaire du continent africain à travers une expérience visuelle immersive, une identité forte et un storytelling centré sur la passion de la cheffe.",
+    "shortDescription": "Site vitrine moderne dédié à un restaurant africain à Pau.",
+    "image": "/projects/afrik-food.png",
+    "tags": ["HTML", "CSS"],
+    "github": "https://github.com/Kengni-Tayo-Albert/AfrikFood.git",
+    "demo": "https://kengni-tayo-albert.github.io/AfrikFood/",
+    "featured": false
+  },
+  {
+    "id": 5,
+    "title": "Cape Town Mountain",
+    "subtitle": "Projet culturel et immersif",
+    "description": "Ce projet a été conçu dans le cadre de mon immersion linguistique et culturelle à Cape Town, en Afrique du Sud, en juin 2025. Il s'inspire de mon ascension de Table Mountain et met en valeur une expérience humaine, technique et créative.",
+    "shortDescription": "Projet culturel inspiré de mon ascension de Table Mountain.",
+    "image": "/projects/cape-town-mountain.png",
+    "tags": ["HTML", "CSS"],
+    "github": "https://github.com/Kengni-Tayo-Albert/capetown-mountain.git",
+    "demo": "https://kengni-tayo-albert.github.io/capetown-mountain/",
+    "featured": false
+  },
+  {
+    "id": 6,
+    "title": "Blog Osmow.ai",
+    "subtitle": "Projet de stage front-end et back-end",
+    "description": "Blog professionnel développé en stage, avec une partie front-end, une logique back-end et une gestion de contenu.",
+    "shortDescription": "Blog développé en stage avec une partie front-end et back-end.",
+    "image": "/projects/osmow-blog.png",
+    "tags": ["Next.js", "React", "Node.js", "API REST", "PgAdmin"],
+    "github": "https://github.com/RedaEA/osmow-front.git",
+    "demo": "https://osmow.ai/",
+    "featured": true
+  }
+]

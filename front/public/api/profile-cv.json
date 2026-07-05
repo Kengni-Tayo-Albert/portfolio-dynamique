@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "name": "Albert TAYO",
+    "title": "Développeur Full-Stack",
+    "summary": "Étudiant à la Fabrique Numérique Paloise, passionné par les nouvelles technologies. Je recherche une alternance à partir de novembre 2026, avec un rythme de 3 semaines en entreprise et 1 semaine en formation."
+  },
+  "identity": {
+    "age": "25 ans",
+    "contacts": [
+      { "icon": "phone", "label": "+33 6 41 84 89 50", "href": "tel:+33641848950" },
+      { "icon": "email", "label": "kengnitayojunior@gmail.com", "href": "mailto:kengnitayojunior@gmail.com" },
+      { "icon": "location", "label": "Pau, Nouvelle-Aquitaine", "href": "https://www.google.com/maps/place/Pau" },
+      { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/albert-tayo/" },
+      { "icon": "github", "label": "GitHub", "href": "https://github.com/Kengni-Tayo-Albert" }
+    ]
+  },
+  "skills": ["HTML/CSS", "React.js", "TypeScript", "Node.js", "MySQL", "PHP", "pgAdmin", "Git", "CI/CD", "Docker", "Figma", "Jira", "Discord"],
+  "softSkills": ["Esprit d'équipe", "Rigueur", "Communication", "Curiosité", "Autonomie"],
+  "languages": ["Français - langue maternelle", "Anglais - B2"],
+  "hobbies": [
+    { "icon": "basketball", "label": "Basket-ball - 10 ans de pratique" },
+    { "icon": "running", "label": "Semi-marathon - 21 km" },
+    { "icon": "book", "label": "Lecture, voyage et aventure" }
+  ],
+  "formations": [
+    {
+      "title": "Concepteur Développeur d'Applications - Bac +3",
+      "place": "Fabrique Numérique Paloise",
+      "date": "2026 - 2028",
+      "detail": "Formation à venir pour renforcer les compétences full-stack."
+    },
+    {
+      "title": "Formation professionnelle en Développement web - Bac +2",
+      "place": "Fabrique Numérique Paloise",
+      "date": "2025 - 2026",
+      "detail": "Développement front avec React, JavaScript et TypeScript. Développement back avec Node.js, API, SQL et CI/CD."
+    },
+    {
+      "title": "Bachelor en Statistique et informatique décisionnelle",
+      "place": "Université de Pau et des Pays de l'Adour",
+      "date": "2022 - 2024",
+      "detail": "Culture data, logique informatique et analyse décisionnelle."
+    }
+  ],
+  "experiences": [
+    {
+      "title": "Développeur Front-End Web - Stage",
+      "company": "DEESI",
+      "date": "Mai 2026",
+      "place": "Pau, France",
+      "missions": ["Création de maquettes Figma.", "Développement responsive en HTML et CSS.", "Intégration UX/UI des pages accueil, services et contact."]
+    },
+    {
+      "title": "Stagiaire développeur Full-stack",
+      "company": "Novane.io",
+      "date": "2025",
+      "place": "Paris, France",
+      "missions": ["Réalisation d'un blog de gestion d'articles avec IA pour Osmow.", "Travail en équipe avec séparation front-end et back-end.", "Respect du cahier des charges et des délais."]
+    },
+    {
+      "title": "Réceptionniste",
+      "company": "Novotel",
+      "date": "2023 - 2025",
+      "place": "Pau, France",
+      "missions": ["Gestion et organisation des réservations.", "Accueil personnalisé et accompagnement client.", "Résolution de problèmes en environnement professionnel."]
+    },
+    {
+      "title": "Équipier polyvalent",
+      "company": "McDonald's",
+      "date": "2022 - 2023",
+      "place": "Lescar, France",
+      "missions": ["Coordination en équipe pour assurer un service rapide.", "Adaptation aux priorités changeantes."]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "groups": [
+    {
+      "icon": "code",
+      "title": "FRONT-END",
+      "color": "blue",
+      "description": "Interfaces modernes et responsive",
+      "items": [
+        { "label": "React.js", "icon": "react" },
+        { "label": "JavaScript", "icon": "javascript" },
+        { "label": "TypeScript", "icon": "typescript" },
+        { "label": "HTML5", "icon": "html" },
+        { "label": "CSS3", "icon": "css" },
+        { "label": "Tailwind CSS", "icon": "tailwind" },
+        { "label": "Bootstrap", "icon": "bootstrap" }
+      ]
+    },
+    {
+      "icon": "server",
+      "title": "BACK-END",
+      "color": "green",
+      "description": "API, serveur et base de données",
+      "items": [
+        { "label": "Node.js", "icon": "node" },
+        { "label": "Express.js", "icon": "express" },
+        { "label": "MongoDB", "icon": "mongodb" },
+        { "label": "Mongoose", "icon": "mongoose" },
+        { "label": "API REST", "icon": "api" },
+        { "label": "JWT", "icon": "jwt" }
+      ]
+    },
+    {
+      "icon": "tools",
+      "title": "OUTILS & DEVOPS",
+      "color": "purple",
+      "description": "Versioning, test et déploiement",
+      "items": [
+        { "label": "Git", "icon": "git" },
+        { "label": "GitHub", "icon": "github" },
+        { "label": "Docker", "icon": "docker" },
+        { "label": "CI/CD", "icon": "cicd" },
+        { "label": "VS Code", "icon": "code" },
+        { "label": "Figma", "icon": "figma" },
+        { "label": "Codex", "icon": "codex" }
+      ]
+    },
+    {
+      "icon": "users",
+      "title": "SOFT SKILLS",
+      "color": "orange",
+      "description": "Qualités humaines présentes sur le CV",
+      "items": [
+        { "label": "Esprit d'équipe", "icon": "users" },
+        { "label": "Communication", "icon": "comments" },
+        { "label": "Rigoureux", "icon": "check" },
+        { "label": "Curieux", "icon": "lightbulb" },
+        { "label": "Autonome", "icon": "user-check" }
+      ]
+    }
+  ],
+  "stats": [
+    { "number": "5K+", "title": "Lignes de code", "text": "Stage et classe" },
+    { "number": "12+", "title": "Projets réalisés", "text": "Web & Full-Stack" },
+    { "number": "15+", "title": "Technologies", "text": "Front, back, outils" },
+    { "number": "100+", "title": "Fonctionnalités", "text": "Projet et production" },
+    { "number": "8+", "title": "Déploiements", "text": "GitHub / Render" },
+    { "number": "600+", "title": "Heures pratique", "text": "Veille et projets" }
+  ]
+}

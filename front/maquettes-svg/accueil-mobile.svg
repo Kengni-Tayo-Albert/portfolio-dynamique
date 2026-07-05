@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="1500" viewBox="0 0 390 1500">
+  <defs>
+    <style>.bg{fill:#07111f}.soft{fill:#0b1424}.panel{fill:#0f172a;stroke:#31445f}.text{fill:#fff;font-family:Inter,Arial,sans-serif}.muted{fill:#cbd5e1;font-family:Inter,Arial,sans-serif}.blue{fill:#3b82f6}.btn{fill:#2563eb}.outline{fill:none;stroke:#31445f;stroke-width:1.5}.h1{font-size:44px;font-weight:900}.h2{font-size:28px;font-weight:800}.body{font-size:16px}.small{font-size:13px}</style>
+    <clipPath id="p"><rect x="55" y="405" width="280" height="320" rx="18"/></clipPath>
+    <clipPath id="c1"><rect x="35" y="895" width="320" height="130" rx="14"/></clipPath>
+    <clipPath id="c2"><rect x="35" y="1080" width="320" height="130" rx="14"/></clipPath>
+    <clipPath id="c3"><rect x="35" y="1265" width="320" height="130" rx="14"/></clipPath>
+  </defs>
+  <rect width="390" height="1500" class="bg"/>
+  <rect width="390" height="82" class="soft"/>
+  <text x="24" y="52" class="text h2">Albert.<tspan class="blue">TAYO</tspan></text>
+  <rect x="328" y="22" width="38" height="38" rx="8" class="outline"/>
+  <text x="338" y="49" class="text h2">≡</text>
+  <text x="38" y="150" class="blue text body" font-weight="800">Bonjour, je suis</text>
+  <text x="38" y="210" class="text h1">Albert</text>
+  <text x="38" y="258" class="text h1">TAYO</text>
+  <text x="38" y="305" class="text h2">Developpeur</text>
+  <text x="38" y="342" class="blue text h2">Full-Stack</text>
+  <rect x="38" y="370" width="70" height="5" rx="3" class="blue"/>
+  <rect x="55" y="405" width="280" height="320" rx="18" fill="#0a1730" stroke="#2563eb"/>
+  <image href="../src/assets/albert-profile.jpeg" x="55" y="405" width="280" height="320" preserveAspectRatio="xMidYMid slice" clip-path="url(#p)"/>
+  <rect x="38" y="760" width="145" height="48" rx="8" class="btn"/>
+  <text x="62" y="791" class="text body" font-weight="800">Voir projets</text>
+  <rect x="207" y="760" width="145" height="48" rx="8" class="outline"/>
+  <text x="231" y="791" class="text body" font-weight="800">Contact</text>
+  <circle cx="195" cy="845" r="28" class="outline"/>
+  <text x="185" y="856" class="text h2">+</text>
+  <rect x="0" y="875" width="390" height="625" fill="#030914"/>
+  <text x="34" y="925" class="blue text h2">PROJETS</text>
+  <rect x="24" y="890" width="342" height="165" rx="14" class="panel"/>
+  <image href="../public/projects/clutch-time.png" x="35" y="895" width="320" height="130" preserveAspectRatio="xMidYMid slice" clip-path="url(#c1)"/>
+  <text x="38" y="1044" class="text body" font-weight="800">Clutch Time Media</text>
+  <rect x="24" y="1075" width="342" height="165" rx="14" class="panel"/>
+  <image href="../public/projects/outdoor-adventure.png" x="35" y="1080" width="320" height="130" preserveAspectRatio="xMidYMid slice" clip-path="url(#c2)"/>
+  <text x="38" y="1229" class="text body" font-weight="800">Outdoor Adventure</text>
+  <rect x="24" y="1260" width="342" height="165" rx="14" class="panel"/>
+  <image href="../public/projects/osmow-blog.png" x="35" y="1265" width="320" height="130" preserveAspectRatio="xMidYMid slice" clip-path="url(#c3)"/>
+  <text x="38" y="1414" class="text body" font-weight="800">Blog Osmow.ai</text>
+</svg>

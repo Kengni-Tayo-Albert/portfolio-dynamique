@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1180" viewBox="0 0 1440 1180">
+  <defs>
+    <style>
+      .bg{fill:#07111f}.panel{fill:#0f172a;stroke:#31445f;stroke-width:1.5}.soft{fill:#0b1424}.blue{fill:#3b82f6}.blue2{fill:#2563eb}.text{fill:#fff;font-family:Inter,Arial,sans-serif}.muted{fill:#cbd5e1;font-family:Inter,Arial,sans-serif}.tiny{font-size:18px}.body{font-size:24px}.title{font-size:78px;font-weight:900}.h2{font-size:44px;font-weight:800}.h3{font-size:28px;font-weight:800}.btn{fill:#2563eb}.outline{fill:none;stroke:#31445f;stroke-width:2}.tag{fill:#112b5f}.image{clip-path:url(#cardClip)}
+    </style>
+    <clipPath id="profileClip"><rect x="870" y="210" width="380" height="520" rx="22"/></clipPath>
+    <clipPath id="projectClip"><rect x="110" y="975" width="330" height="120" rx="18"/></clipPath>
+    <clipPath id="projectClip2"><rect x="555" y="975" width="330" height="120" rx="18"/></clipPath>
+    <clipPath id="projectClip3"><rect x="1000" y="975" width="330" height="120" rx="18"/></clipPath>
+  </defs>
+  <rect width="1440" height="1180" class="bg"/>
+  <rect x="0" y="0" width="1440" height="90" class="soft"/>
+  <text x="90" y="58" class="text h2">Albert.<tspan class="blue">TAYO</tspan></text>
+  <text x="530" y="56" class="muted tiny">Accueil</text>
+  <text x="630" y="56" class="muted tiny">A propos</text>
+  <text x="755" y="56" class="muted tiny">Competences</text>
+  <text x="910" y="56" class="muted tiny">Projets</text>
+  <text x="1015" y="56" class="muted tiny">Contact</text>
+  <rect x="1180" y="24" width="170" height="48" rx="10" class="btn"/>
+  <text x="1214" y="55" class="text tiny" font-weight="800">Telecharger CV</text>
+
+  <text x="90" y="220" class="blue text body" font-weight="800">Bonjour, je suis</text>
+  <text x="90" y="315" class="text title">Albert TAYO</text>
+  <text x="90" y="380" class="text h2">Developpeur <tspan class="blue">Full-Stack</tspan></text>
+  <rect x="90" y="420" width="80" height="6" rx="3" class="blue"/>
+  <text x="90" y="485" class="muted body">Passionne par la creation d'applications web modernes et</text>
+  <text x="90" y="522" class="muted body">performantes. Je transforme des idees en solutions digitales</text>
+  <text x="90" y="559" class="muted body">robustes, elegantes et maintenables.</text>
+  <rect x="90" y="630" width="220" height="64" rx="10" class="btn"/>
+  <text x="124" y="671" class="text body" font-weight="800">Voir mes projets</text>
+  <rect x="340" y="630" width="220" height="64" rx="10" class="outline"/>
+  <text x="383" y="671" class="text body" font-weight="800">Me contacter</text>
+  <text x="90" y="765" class="text body">in LinkedIn</text>
+  <text x="250" y="765" class="text body">GitHub</text>
+  <text x="370" y="765" class="text body">Email</text>
+
+  <rect x="840" y="180" width="440" height="590" rx="28" fill="#0a1730" stroke="#2563eb" stroke-width="3"/>
+  <image href="../src/assets/albert-profile.jpeg" x="870" y="210" width="380" height="520" preserveAspectRatio="xMidYMid slice" clip-path="url(#profileClip)"/>
+  <circle cx="710" cy="720" r="34" class="outline"/>
+  <text x="698" y="733" class="text h3">+</text>
+
+  <rect x="0" y="820" width="1440" height="360" fill="#030914"/>
+  <text x="420" y="875" class="blue text h2">PROJETS LES PLUS MARQUANTS</text>
+  <text x="520" y="925" class="text body">Une selection simple de mes trois realisations.</text>
+  <rect x="90" y="955" width="370" height="190" rx="14" class="panel"/>
+  <image href="../public/projects/clutch-time.png" x="110" y="975" width="330" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#projectClip)"/>
+  <text x="120" y="1125" class="text h3">Clutch Time Media</text>
+  <rect x="535" y="955" width="370" height="190" rx="14" class="panel"/>
+  <image href="../public/projects/outdoor-adventure.png" x="555" y="975" width="330" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#projectClip2)"/>
+  <text x="565" y="1125" class="text h3">Outdoor Adventure</text>
+  <rect x="980" y="955" width="370" height="190" rx="14" class="panel"/>
+  <image href="../public/projects/osmow-blog.png" x="1000" y="975" width="330" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#projectClip3)"/>
+  <text x="1010" y="1125" class="text h3">Blog Osmow.ai</text>
+</svg>

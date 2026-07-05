@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960">
+  <defs><style>.bg{fill:#07111f}.soft{fill:#0b1424}.panel{fill:#0f172a;stroke:#31445f}.field{fill:#07111f;stroke:#31445f}.text{fill:#fff;font-family:Inter,Arial,sans-serif}.muted{fill:#cbd5e1;font-family:Inter,Arial,sans-serif}.blue{fill:#3b82f6}.btn{fill:#2563eb}.h1{font-size:54px;font-weight:900}.h2{font-size:30px;font-weight:800}.body{font-size:20px}.small{font-size:15px}</style></defs>
+  <rect width="1440" height="960" class="bg"/><rect width="1440" height="90" class="soft"/>
+  <text x="90" y="58" class="text h2">Albert.<tspan class="blue">TAYO</tspan></text><text x="535" y="56" class="muted small">Accueil</text><text x="645" y="56" class="muted small">A propos</text><text x="775" y="56" class="muted small">Competences</text><text x="930" y="56" class="muted small">Projets</text><text x="1040" y="56" class="blue small">Contact</text>
+  <text x="665" y="170" class="blue body" font-weight="800">CONTACT</text><text x="460" y="245" class="text h1">Travaillons ensemble</text><text x="380" y="300" class="muted body">Une alternance, une collaboration ou un projet web ? Cette section facilite la prise de contact.</text>
+  <rect x="120" y="390" width="420" height="430" rx="18" class="panel"/><text x="160" y="450" class="text h2">Restons connectes</text><text x="160" y="495" class="muted body">Disponible pour une alternance ou</text><text x="160" y="525" class="muted body">un echange autour d'un projet web.</text>
+  <rect x="160" y="570" width="320" height="58" rx="12" class="field"/><text x="185" y="606" class="text body">Email · kengnitayojunior@gmail.com</text>
+  <rect x="160" y="650" width="320" height="58" rx="12" class="field"/><text x="185" y="686" class="text body">Telephone · +33 6 41 84 89 50</text>
+  <rect x="160" y="730" width="320" height="58" rx="12" class="field"/><text x="185" y="766" class="text body">Pau, Nouvelle-Aquitaine</text>
+  <rect x="620" y="390" width="700" height="430" rx="18" class="panel"/><text x="670" y="450" class="text h2">Envoyer un message</text><text x="670" y="485" class="muted body">Formulaire prevu pour la future integration React.</text>
+  <rect x="670" y="535" width="280" height="58" rx="10" class="field"/><text x="695" y="570" class="muted body">Nom complet</text><rect x="980" y="535" width="280" height="58" rx="10" class="field"/><text x="1005" y="570" class="muted body">Adresse email</text>
+  <rect x="670" y="625" width="590" height="58" rx="10" class="field"/><text x="695" y="660" class="muted body">Sujet</text><rect x="670" y="715" width="590" height="105" rx="10" class="field"/><text x="695" y="755" class="muted body">Message</text>
+  <rect x="670" y="850" width="250" height="58" rx="10" class="btn"/><text x="702" y="886" class="text body" font-weight="800">Envoyer le message</text>
+</svg>
