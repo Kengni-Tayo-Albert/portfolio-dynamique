@@ -9,3 +9,17 @@ export async function getAdminMessages(req, res, next) {
     next(error);
   }
 }
+
+export async function deleteAdminMessage(req, res, next) {
+  try {
+    const deletedMessage = await ContactMessage.findByIdAndDelete(req.params.id);
+
+    if (!deletedMessage) {
+      return res.status(404).json({ message: "Message introuvable." });
+    }
+
+    res.json({ message: "Message supprime avec succes." });
+  } catch (error) {
+    next(error);
+  }
+}

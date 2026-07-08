@@ -159,6 +159,12 @@ export function getAdminMessages() {
   return fetchWithAuth("/api/admin/messages");
 }
 
+export function deleteAdminMessage(messageId) {
+  return fetchWithAuth(`/api/admin/messages/${messageId}`, {
+    method: "DELETE",
+  });
+}
+
 export function uploadAdminProjectImage(imageData) {
   return fetchWithAuth("/api/admin/uploads/images", {
     method: "POST",

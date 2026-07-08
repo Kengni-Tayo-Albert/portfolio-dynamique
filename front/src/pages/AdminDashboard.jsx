@@ -14,6 +14,7 @@ import {
 import {
   createAdminProject,
   createAdminSkill,
+  deleteAdminMessage,
   deleteAdminProject,
   deleteAdminSkill,
   getAdminMessages,
@@ -382,6 +383,16 @@ function AdminDashboard() {
     setStatusMessage("Compétence supprimée avec succès.");
   }
 
+  async function removeMessage(messageId) {
+    const confirmed = window.confirm("Supprimer ce message de contact ?");
+
+    if (!confirmed) return;
+
+    await deleteAdminMessage(messageId);
+    setMessages(await getAdminMessages());
+    setStatusMessage("Message supprime avec succes.");
+  }
+
   if (authStatus === "loading") {
     return (
       <main className="admin-page">
@@ -485,7 +496,9 @@ function AdminDashboard() {
             />
           )}
 
-          {activeSection === "messages" && <MessagesAdmin messages={messages} />}
+          {activeSection === "messages" && (
+            <MessagesAdmin messages={messages} onDelete={removeMessage} />
+          )}
         </section>
       </section>
     </main>
@@ -715,7 +728,7 @@ function ProfileEditor({ form, onChange, onSubmit }) {
   );
 }
 
-function MessagesAdmin({ messages }) {
+function MessagesAdmin({ messages, onDelete }) {
   return (
     <>
       <h2>Messages contact</h2>
@@ -739,6 +752,13 @@ function MessagesAdmin({ messages }) {
                   <a href={`mailto:${message.email}`}>{message.email}</a>
                 </p>
                 <p>{message.message}</p>
+              </div>
+
+              <div className="admin-item-actions">
+                <button type="button" onClick={() => onDelete(message.id)}>
+                  <FaTrash />
+                  Supprimer
+                </button>
               </div>
             </article>
           ))}

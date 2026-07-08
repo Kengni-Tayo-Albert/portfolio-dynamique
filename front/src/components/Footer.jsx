@@ -6,13 +6,13 @@ function Footer() {
         Albert.<span>TAYO</span>
       </p>
 
-      <p>Développeur Full-Stack</p>
-      <p>Email : </p>
-      <p>Téléphone : </p>
+      <p>D&eacute;veloppeur Full-Stack</p>
+      <p>Email : kengnitayojunior@gmail.com</p>
+      <p>T&eacute;l&eacute;phone : +33 6 41 84 89 50</p>
       <p>Pau, Nouvelle-Aquitaine, France</p>
 
       <div className="footer-bottom">
-        © 2026 Albert TAYO. Tous droits réservés.
+        &copy; 2026 Albert TAYO. Tous droits r&eacute;serv&eacute;s.
       </div>
     </footer>
   );

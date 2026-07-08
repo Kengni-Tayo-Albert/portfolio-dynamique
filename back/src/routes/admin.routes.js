@@ -15,7 +15,10 @@ import {
   getAdminProfile,
   updateAdminProfile,
 } from "../controllers/adminProfile.controller.js";
-import { getAdminMessages } from "../controllers/adminMessage.controller.js";
+import {
+  deleteAdminMessage,
+  getAdminMessages,
+} from "../controllers/adminMessage.controller.js";
 import { uploadAdminImage } from "../controllers/adminUpload.controller.js";
 import { requireAdminAuth } from "../middlewares/authMiddleware.js";
 import { validateRequest } from "../middlewares/validateRequest.js";
@@ -50,6 +53,7 @@ router.get("/profile", getAdminProfile);
 router.put("/profile", validateRequest(profileRules), updateAdminProfile);
 
 router.get("/messages", getAdminMessages);
+router.delete("/messages/:id", validateRequest(projectIdRules), deleteAdminMessage);
 
 router.post("/uploads/images", uploadAdminImage);
 

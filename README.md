@@ -236,22 +236,3 @@ VITE_API_URL=https://url-du-back
 ```
 
 Important : après avoir modifié `VITE_API_URL`, il faut relancer un nouveau build du front.
-
-## Vérifications avant soutenance
-
-Avant la présentation, vérifier :
-
-- le front se lance correctement,
-- le back répond sur `/api/health`,
-- MongoDB est connecté,
-- les projets s'affichent depuis l'API,
-- les compétences viennent de MongoDB,
-- le CV vient de MongoDB,
-- le formulaire contact crée un message en base,
-- l'admin peut se connecter,
-- la connexion admin est protegee par un token JWT solide et une limite de tentatives,
-- l'admin peut ajouter, modifier et supprimer un projet,
-- l'admin peut importer une image pour un projet,
-- l'admin peut ajouter, modifier et supprimer une compétence,
-- l'admin peut modifier le profil/CV complet : identité, contacts, compétences, soft skills, langues, loisirs, formations et expériences.
-- l'admin peut consulter les messages envoyés depuis le formulaire de contact.
