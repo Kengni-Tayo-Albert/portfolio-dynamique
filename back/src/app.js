@@ -19,6 +19,7 @@ const currentDirectory = path.dirname(currentFile);
 const publicDirectory = path.resolve(currentDirectory, "../public");
 app.disable("x-powered-by");
 
+/* Liste blanche CORS : le front autorise peut etre plusieurs URLs separees par des virgules. */
 const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
   .split(",")
   .map((origin) => origin.trim())
@@ -27,6 +28,7 @@ const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
 app.use(securityHeaders);
 
 // Autorise le front React a appeler l'API. En production, seules les URLs CLIENT_URL sont autorisees.
+/* CORS controle quelles origines peuvent appeler l'API depuis un navigateur. */
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -43,6 +45,7 @@ app.use(
 );
 
 app.use(express.json({ limit: "5mb" }));
+/* Les images uploadees par l'admin sont servies publiquement depuis /uploads. */
 app.use("/uploads", express.static(path.join(publicDirectory, "uploads")));
 
 app.get("/", (req, res) => {
@@ -51,6 +54,7 @@ app.get("/", (req, res) => {
   });
 });
 
+/* Routes API : endpoints publics, authentification et back-office admin. */
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);

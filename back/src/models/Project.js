@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+/* Project represente une realisation affichee sur l'accueil et la page Projets. */
 const projectSchema = new mongoose.Schema(
   {
     sourceId: {
@@ -56,6 +57,7 @@ const projectSchema = new mongoose.Schema(
   }
 );
 
+/* toJSON expose un id lisible cote front et masque les champs internes MongoDB. */
 projectSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,

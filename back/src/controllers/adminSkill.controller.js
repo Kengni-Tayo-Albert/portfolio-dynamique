@@ -1,5 +1,6 @@
 import Skill from "../models/Skill.js";
 
+/* Recupere le document de competences actif ; les competences sont stockees par groupes. */
 async function getSkillDocument() {
   const skills = await Skill.findOne().sort({ createdAt: -1 });
 
@@ -12,6 +13,7 @@ async function getSkillDocument() {
   return skills;
 }
 
+/* Aplatit les competences pour simplifier l'affichage et l'edition dans le dashboard. */
 function flattenSkillItems(skills) {
   return skills.groups.flatMap((group) =>
     group.items.map((item) => ({
@@ -25,10 +27,12 @@ function flattenSkillItems(skills) {
   );
 }
 
+/* Retrouve le groupe cible dans le document MongoDB. */
 function findGroup(skills, groupTitle) {
   return skills.groups.find((group) => group.title === groupTitle);
 }
 
+/* Liste admin des competences sous forme plate, plus pratique pour une table d'edition. */
 export async function getAdminSkills(req, res, next) {
   try {
     const skills = await getSkillDocument();
@@ -39,6 +43,7 @@ export async function getAdminSkills(req, res, next) {
   }
 }
 
+/* Ajoute une competence dans le groupe choisi depuis le dashboard. */
 export async function createAdminSkill(req, res, next) {
   try {
     const { label, icon, groupTitle } = req.body;
@@ -58,6 +63,7 @@ export async function createAdminSkill(req, res, next) {
   }
 }
 
+/* Deplace ou renomme une competence en supprimant l'ancien item puis en ajoutant le nouveau. */
 export async function updateAdminSkill(req, res, next) {
   try {
     const { id, label, icon, groupTitle } = req.body;
@@ -80,6 +86,7 @@ export async function updateAdminSkill(req, res, next) {
   }
 }
 
+/* Supprime une competence identifiee par son groupe et son libelle. */
 export async function deleteAdminSkill(req, res, next) {
   try {
     const { id } = req.body;

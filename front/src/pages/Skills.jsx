@@ -67,11 +67,13 @@ const itemIconMap = {
   "user-check": FaUserCheck,
 };
 
+/* Skills affiche les competences par groupes et les statistiques depuis l'API. */
 function Skills() {
   const [skillsData, setSkillsData] = useState({ groups: [], stats: [] });
   const [status, setStatus] = useState("loading");
 
   /* EFFECT - Récupération API des compétences */
+  /* Charge les groupes de competences et leurs chiffres cles depuis l'API ou le JSON statique. */
   useEffect(() => {
     async function loadSkills() {
       try {
@@ -138,6 +140,7 @@ function Skills() {
 }
 
 /* COMPONENT - Carte de compétence réutilisable */
+/* SkillCard choisit l'icone du groupe puis liste chaque competence avec son icone dediee. */
 function SkillCard({ icon, title, color, description, items }) {
   const CategoryIcon = categoryIconMap[icon] || FaCode;
 
@@ -172,6 +175,7 @@ function SkillCard({ icon, title, color, description, items }) {
 }
 
 /* COMPONENT - Statistique réutilisable */
+/* Stat isole l'affichage d'un chiffre cle pour garder la page Skills lisible. */
 function Stat({ number, title, text }) {
   return (
     <article className="stat-item">

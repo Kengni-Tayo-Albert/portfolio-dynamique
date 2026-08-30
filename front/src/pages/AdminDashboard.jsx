@@ -64,10 +64,12 @@ const emptyProfileForm = {
   experiences: "",
 };
 
+/* Convertit une liste API en texte multi-lignes pour l'edition dans un textarea. */
 function listToText(items = []) {
   return items.join("\n");
 }
 
+/* Transforme un textarea multi-lignes en tableau nettoye avant envoi a l'API. */
 function textToList(text) {
   return text
     .split("\n")
@@ -75,12 +77,14 @@ function textToList(text) {
     .filter(Boolean);
 }
 
+/* Serialise les contacts avec un separateur simple pour les rendre modifiables dans un champ texte. */
 function contactsToText(contacts = []) {
   return contacts
     .map((contact) => `${contact.icon} | ${contact.label} | ${contact.href}`)
     .join("\n");
 }
 
+/* Reconstruit les objets contact attendus par le schema ProfileCv. */
 function textToContacts(text) {
   return textToList(text).map((line) => {
     const [icon = "", label = "", href = ""] = line.split("|").map((item) => item.trim());
@@ -89,10 +93,12 @@ function textToContacts(text) {
   });
 }
 
+/* Prepare les loisirs pour l'edition : une ligne contient l'icone et le libelle. */
 function hobbiesToText(hobbies = []) {
   return hobbies.map((hobby) => `${hobby.icon} | ${hobby.label}`).join("\n");
 }
 
+/* Reconstruit les loisirs au format objet pour MongoDB. */
 function textToHobbies(text) {
   return textToList(text).map((line) => {
     const [icon = "", label = ""] = line.split("|").map((item) => item.trim());
@@ -101,6 +107,7 @@ function textToHobbies(text) {
   });
 }
 
+/* Prepare chaque formation sur une ligne lisible dans le formulaire admin. */
 function formationsToText(formations = []) {
   return formations
     .map(
@@ -110,6 +117,7 @@ function formationsToText(formations = []) {
     .join("\n");
 }
 
+/* Reconstruit les formations structurees a partir du champ texte admin. */
 function textToFormations(text) {
   return textToList(text).map((line) => {
     const [title = "", place = "", date = "", detail = ""] = line
@@ -120,6 +128,7 @@ function textToFormations(text) {
   });
 }
 
+/* Prepare les experiences, avec les missions separees par des points-virgules. */
 function experiencesToText(experiences = []) {
   return experiences
     .map(
@@ -131,6 +140,7 @@ function experiencesToText(experiences = []) {
     .join("\n");
 }
 
+/* Reconstruit les experiences et leurs missions avant sauvegarde API. */
 function textToExperiences(text) {
   return textToList(text).map((line) => {
     const [title = "", company = "", date = "", place = "", missions = ""] = line
@@ -150,6 +160,7 @@ function textToExperiences(text) {
   });
 }
 
+/* Cree l'etat initial du formulaire CV a partir du document recu de MongoDB. */
 function createProfileForm(profile) {
   if (!profile) return emptyProfileForm;
 
@@ -168,6 +179,7 @@ function createProfileForm(profile) {
   };
 }
 
+/* Recompose le payload ProfileCv attendu par le back-end depuis les champs du formulaire. */
 function buildProfilePayload(form) {
   return {
     hero: {
@@ -188,6 +200,7 @@ function buildProfilePayload(form) {
   };
 }
 
+/* Lit une image locale en Data URL pour l'envoyer dans une requete JSON. */
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -198,6 +211,7 @@ function readFileAsDataUrl(file) {
   });
 }
 
+/* AdminDashboard orchestre la session admin et les sections de gestion du portfolio. */
 function AdminDashboard() {
   const navigate = useNavigate();
   const [admin, setAdmin] = useState(null);
@@ -215,6 +229,7 @@ function AdminDashboard() {
   const [editingProjectId, setEditingProjectId] = useState(null);
   const [editingSkillId, setEditingSkillId] = useState(null);
 
+  /* Verification initiale : controle le token, puis charge toutes les donnees admin en parallele. */
   useEffect(() => {
     async function verifyAdminSession() {
       try {
@@ -242,17 +257,20 @@ function AdminDashboard() {
     verifyAdminSession();
   }, [navigate]);
 
+  /* Deconnexion : supprime le token local puis revient a la page de login. */
   const logout = () => {
     logoutAdmin();
     navigate("/admin/login");
   };
 
+  /* Changement d'onglet : nettoie les messages pour eviter les retours visuels obsoletes. */
   const changeSection = (sectionKey) => {
     setActiveSection(sectionKey);
     setStatusMessage("");
     setUploadStatus("");
   };
 
+  /* Synchronise les champs du formulaire projet avec l'etat local. */
   const handleProjectChange = (event) => {
     const { name, value } = event.target;
 
@@ -262,6 +280,7 @@ function AdminDashboard() {
     }));
   };
 
+  /* Upload d'image : convertit le fichier en base64 puis laisse l'API creer l'URL publique. */
   async function handleProjectImageUpload(file) {
     if (!file) return;
 
@@ -286,6 +305,7 @@ function AdminDashboard() {
     }
   }
 
+  /* Synchronise les champs du formulaire competence. */
   const handleSkillChange = (event) => {
     const { name, value } = event.target;
 
@@ -295,6 +315,7 @@ function AdminDashboard() {
     }));
   };
 
+  /* Synchronise les champs du formulaire profil/CV. */
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
 
@@ -304,6 +325,7 @@ function AdminDashboard() {
     }));
   };
 
+  /* Sauvegarde un projet : cree ou met a jour selon la presence d'un id en edition. */
   async function handleProjectSubmit(event) {
     event.preventDefault();
 
@@ -320,6 +342,7 @@ function AdminDashboard() {
     setProjects(await getAdminProjects());
   }
 
+  /* Sauvegarde une competence : cree un nouvel item ou remplace l'item selectionne. */
   async function handleSkillSubmit(event) {
     event.preventDefault();
 
@@ -336,6 +359,7 @@ function AdminDashboard() {
     setSkills(await getAdminSkills());
   }
 
+  /* Sauvegarde le profil : convertit le formulaire plat en document structure pour l'API. */
   async function handleProfileSubmit(event) {
     event.preventDefault();
 
@@ -346,6 +370,7 @@ function AdminDashboard() {
     setStatusMessage("Profil modifié avec succès.");
   }
 
+  /* Remplit le formulaire projet avec les valeurs existantes pour passer en mode edition. */
   const editProject = (project) => {
     setProjectForm({
       title: project.title || "",
@@ -361,6 +386,7 @@ function AdminDashboard() {
     setEditingProjectId(project.id);
   };
 
+  /* Remplit le formulaire competence et conserve son identifiant compose. */
   const editSkill = (skill) => {
     setSkillForm({
       id: skill.id,
@@ -371,18 +397,21 @@ function AdminDashboard() {
     setEditingSkillId(skill.id);
   };
 
+  /* Supprime un projet puis recharge la liste admin pour garder l'interface a jour. */
   async function removeProject(projectId) {
     await deleteAdminProject(projectId);
     setProjects(await getAdminProjects());
     setStatusMessage("Projet supprimé avec succès.");
   }
 
+  /* Supprime une competence dans son groupe puis recharge la liste aplatie. */
   async function removeSkill(skillId) {
     await deleteAdminSkill(skillId);
     setSkills(await getAdminSkills());
     setStatusMessage("Compétence supprimée avec succès.");
   }
 
+  /* Supprime un message apres confirmation utilisateur pour eviter une action accidentelle. */
   async function removeMessage(messageId) {
     const confirmed = window.confirm("Supprimer ce message de contact ?");
 
@@ -505,6 +534,7 @@ function AdminDashboard() {
   );
 }
 
+/* ProjectAdmin contient le formulaire projet et la liste des projets existants. */
 function ProjectAdmin({
   form,
   projects,
@@ -600,6 +630,7 @@ function ProjectAdmin({
   );
 }
 
+/* SkillAdmin gere les competences une par une, meme si l'API les stocke par groupes. */
 function SkillAdmin({
   form,
   skills,
@@ -654,6 +685,7 @@ function SkillAdmin({
   );
 }
 
+/* ProfileEditor edite toutes les sections du CV dans un formulaire unique. */
 function ProfileEditor({ form, onChange, onSubmit }) {
   return (
     <>
@@ -672,7 +704,7 @@ function ProfileEditor({ form, onChange, onSubmit }) {
           <textarea name="summary" value={form.summary} onChange={onChange} required />
         </label>
         <label>
-          Âge
+          Age
           <input name="age" value={form.age} onChange={onChange} required />
         </label>
         <label className="full-width">
@@ -728,6 +760,7 @@ function ProfileEditor({ form, onChange, onSubmit }) {
   );
 }
 
+/* MessagesAdmin liste les messages de contact et permet leur suppression. */
 function MessagesAdmin({ messages, onDelete }) {
   return (
     <>
@@ -768,6 +801,7 @@ function MessagesAdmin({ messages, onDelete }) {
   );
 }
 
+/* Formate les dates MongoDB en affichage francais pour le tableau admin. */
 function formatMessageDate(dateValue) {
   if (!dateValue) return "Date inconnue";
 
@@ -780,6 +814,7 @@ function formatMessageDate(dateValue) {
   }).format(new Date(dateValue));
 }
 
+/* AdminActions factorise les boutons modifier/supprimer des listes admin. */
 function AdminActions({ item, onEdit, onDelete }) {
   return (
     <div className="admin-item-actions">

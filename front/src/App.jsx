@@ -14,7 +14,7 @@ import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 
-/* APP - Structure principale de l'application */
+/* App centralise le layout commun et toutes les routes de navigation du portfolio. */
 function App() {
 
   return (
@@ -59,6 +59,7 @@ function App() {
   );
 }
 
+/* AdminRoute protege le tableau de bord en verifiant la presence du token admin local. */
 function AdminRoute({ children }) {
   const adminToken = localStorage.getItem("portfolioAdminToken");
 

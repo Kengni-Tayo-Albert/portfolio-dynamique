@@ -30,11 +30,13 @@ const hobbyIconMap = {
   running: FaRunning,
 };
 
+/* Cv affiche le profil complet depuis l'API et compose les blocs reutilisables du CV. */
 function Cv() {
   const [cvData, setCvData] = useState(null);
   const [status, setStatus] = useState("loading");
 
   /* EFFECT - Récupération API du profil et du CV */
+  /* Charge le document ProfileCv : hero, contacts, competences, formations et experiences. */
   useEffect(() => {
     async function loadProfileCv() {
       try {
@@ -69,6 +71,7 @@ function Cv() {
 
   return (
     <main className="cv-page">
+      {/* Hero CV : resume l'identite professionnelle et propose le telechargement PDF. */}
       <section className="cv-hero">
         <p className="section-label">CV EN LIGNE</p>
         <h1>{cvData.hero.name}</h1>
@@ -80,6 +83,7 @@ function Cv() {
       </section>
 
       <section className="cv-layout">
+        {/* Sidebar : informations rapides utiles pour un recruteur. */}
         <aside className="cv-sidebar">
           <CvBlock icon={FaUser} title="Identité & contact">
             <p>{cvData.identity.age}</p>
@@ -143,6 +147,7 @@ function Cv() {
           </CvBlock>
         </aside>
 
+        {/* Contenu principal : parcours academique et experiences sous forme de timeline. */}
         <section className="cv-main">
           <CvSection icon={FaGraduationCap} title="Parcours académique">
             {cvData.formations.map((formation) => (
@@ -161,6 +166,7 @@ function Cv() {
   );
 }
 
+/* CvBlock standardise les cartes laterales avec une icone, un titre et un contenu libre. */
 function CvBlock({ icon: Icon, title, children }) {
   return (
     <article className="cv-block">
@@ -173,6 +179,7 @@ function CvBlock({ icon: Icon, title, children }) {
   );
 }
 
+/* CvSection structure une grande section du CV avec le meme style de titre. */
 function CvSection({ icon: Icon, title, children }) {
   return (
     <section className="cv-section">
@@ -185,6 +192,7 @@ function CvSection({ icon: Icon, title, children }) {
   );
 }
 
+/* TimelineCard represente une formation avec lieu, periode et detail. */
 function TimelineCard({ title, place, date, detail }) {
   return (
     <article className="cv-timeline-card">
@@ -198,6 +206,7 @@ function TimelineCard({ title, place, date, detail }) {
   );
 }
 
+/* ExperienceCard affiche une experience et ses missions sous forme de liste. */
 function ExperienceCard({ title, company, date, place, missions }) {
   return (
     <article className="cv-timeline-card">

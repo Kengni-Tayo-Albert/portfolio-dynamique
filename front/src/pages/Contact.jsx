@@ -37,10 +37,12 @@ const contactItems = [
   },
 ];
 
+/* Contact regroupe les coordonnees et le formulaire relie a l'API de messages. */
 function Contact() {
   const [formData, setFormData] = useState(initialForm);
   const [formStatus, setFormStatus] = useState(null);
 
+  /* Synchronise chaque champ du formulaire avec l'etat React. */
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -50,6 +52,7 @@ function Contact() {
     }));
   };
 
+  /* Valide les champs puis envoie le message via le service API. */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -204,6 +207,7 @@ function Contact() {
   );
 }
 
+/* Validation front : bloque les champs vides, emails invalides et messages trop courts. */
 function validateContactForm({ name, email, subject, message }) {
   if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
     return "Merci de remplir tous les champs du formulaire.";
@@ -221,6 +225,7 @@ function validateContactForm({ name, email, subject, message }) {
 }
 
 /* COMPONENT - Élément de contact réutilisable */
+/* ContactItem affiche une coordonnee cliquable et gere les liens externes proprement. */
 function ContactItem({ icon: Icon, title, text, href }) {
   const isExternalLink = href.startsWith("http");
 

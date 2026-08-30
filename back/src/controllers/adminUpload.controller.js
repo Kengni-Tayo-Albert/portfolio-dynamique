@@ -14,18 +14,21 @@ const allowedMimeTypes = {
   "image/gif": "gif",
 };
 
+/* Cree une erreur HTTP lisible pour les validations d'upload. */
 function createUploadError(message, statusCode = 400) {
   const error = new Error(message);
   error.statusCode = statusCode;
   return error;
 }
 
+/* Isole la partie base64, que le front envoie une Data URL complete ou une chaine brute. */
 function getBase64Content(dataUrl) {
   const [, base64Content] = String(dataUrl || "").split(",");
 
   return base64Content || dataUrl;
 }
 
+/* Reconstruit l'URL publique finale de l'image en fonction de l'hote de l'API. */
 function buildPublicUrl(req, fileName) {
   const host = req.get("host");
   const protocol = req.get("x-forwarded-proto") || req.protocol;
@@ -33,6 +36,7 @@ function buildPublicUrl(req, fileName) {
   return `${protocol}://${host}/uploads/${fileName}`;
 }
 
+/* Valide, renomme et enregistre une image projet uploadee depuis le dashboard admin. */
 export async function uploadAdminImage(req, res, next) {
   try {
     const { fileName, mimeType, data } = req.body;

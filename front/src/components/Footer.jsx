@@ -1,3 +1,4 @@
+/* Footer regroupe les informations fixes qui restent identiques sur toutes les pages. */
 function Footer() {
   return (
     <footer className="footer">

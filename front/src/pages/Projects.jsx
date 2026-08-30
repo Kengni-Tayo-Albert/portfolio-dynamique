@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "../services/api";
 
+/* Projects affiche la liste complete des realisations disponibles dans l'API. */
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [status, setStatus] = useState("loading");
 
   /* EFFECT - Récupération API de tous les projets */
+  /* Charge tous les projets afin que la page reste synchronisee avec le back-office. */
   useEffect(() => {
     async function loadProjects() {
       try {

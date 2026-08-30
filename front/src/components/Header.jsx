@@ -2,9 +2,11 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
+/* Header gere la navigation principale et l'ouverture du menu mobile. */
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  /* Ferme le menu apres un clic sur un lien pour revenir a une interface lisible sur mobile. */
   const closeMenu = () => {
     setIsMenuOpen(false);
   };

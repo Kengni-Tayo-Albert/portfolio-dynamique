@@ -1,3 +1,4 @@
+/* Ajoute des en-tetes HTTP simples pour reduire les risques de sniffing, iframe et permissions navigateur. */
 export function securityHeaders(req, res, next) {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");

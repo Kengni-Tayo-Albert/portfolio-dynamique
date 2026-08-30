@@ -33,8 +33,10 @@ import {
 
 const router = Router();
 
+/* Toutes les routes admin passent d'abord par la verification du token JWT. */
 router.use(requireAdminAuth);
 
+/* Projets : CRUD complet pour alimenter et modifier la page publique Projets. */
 router.get("/projects", getAdminProjects);
 router.post("/projects", validateRequest(projectRules), createAdminProject);
 router.put(
@@ -44,17 +46,21 @@ router.put(
 );
 router.delete("/projects/:id", validateRequest(projectIdRules), deleteAdminProject);
 
+/* Competences : edition des items stockes dans les groupes du document Skill. */
 router.get("/skills", getAdminSkills);
 router.post("/skills", validateRequest(skillRules), createAdminSkill);
 router.put("/skills", validateRequest(updateSkillRules), updateAdminSkill);
 router.delete("/skills", validateRequest(deleteSkillRules), deleteAdminSkill);
 
+/* Profil/CV : lecture et remplacement du document affiche sur la page CV. */
 router.get("/profile", getAdminProfile);
 router.put("/profile", validateRequest(profileRules), updateAdminProfile);
 
+/* Messages : consultation et suppression des messages recus depuis le formulaire public. */
 router.get("/messages", getAdminMessages);
 router.delete("/messages/:id", validateRequest(projectIdRules), deleteAdminMessage);
 
+/* Uploads : creation d'une image publique reutilisable dans une fiche projet. */
 router.post("/uploads/images", uploadAdminImage);
 
 export default router;

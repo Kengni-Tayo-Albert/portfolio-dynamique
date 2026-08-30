@@ -1,9 +1,11 @@
+/* notFoundHandler transforme toute route inconnue en erreur 404 geree par errorHandler. */
 export function notFoundHandler(req, res, next) {
   const error = new Error(`Route introuvable : ${req.originalUrl}`);
   error.statusCode = 404;
   next(error);
 }
 
+/* errorHandler uniformise les reponses d'erreur API : JSON invalide, validation, id MongoDB et conflits. */
 export function errorHandler(error, req, res, next) {
   if (error instanceof SyntaxError && error.status === 400 && "body" in error) {
     return res.status(400).json({

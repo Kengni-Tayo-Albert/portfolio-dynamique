@@ -1,6 +1,7 @@
 import { FaBolt, FaGem, FaUsers } from "react-icons/fa";
 import profileImage from "../assets/albert-profile.jpeg";
 
+/* About explique le parcours, les valeurs de travail et la base technique du portfolio. */
 function About() {
   return (
     <main className="about-page">
@@ -36,6 +37,7 @@ function About() {
             en applications web utiles, accessibles et performantes.
           </p>
 
+          {/* Valeurs : petites cartes reutilisant des icones pour rendre la lecture rapide. */}
           <div className="values-grid">
             <article className="value-card">
               <span>
@@ -62,6 +64,7 @@ function About() {
             </article>
           </div>
 
+          {/* Technologies : resume la stack utilisee dans le projet dynamique. */}
           <div className="tech-box">
             <h3>Technologies principales</h3>
             <p>Première base technique du portfolio dynamique avec administration.</p>

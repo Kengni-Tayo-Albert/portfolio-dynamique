@@ -1,5 +1,6 @@
 import Project from "../models/Project.js";
 
+/* Liste publique des projets, triee par ordre d'origine pour garder un affichage stable. */
 export async function getProjects(req, res, next) {
   try {
     const projects = await Project.find().sort({ sourceId: 1 });
@@ -10,6 +11,7 @@ export async function getProjects(req, res, next) {
   }
 }
 
+/* Detail public d'un projet : renvoie 404 si l'id ne correspond a aucun document. */
 export async function getProjectById(req, res, next) {
   try {
     const project = await Project.findById(req.params.id);

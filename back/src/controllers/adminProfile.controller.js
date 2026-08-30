@@ -1,5 +1,6 @@
 import ProfileCv from "../models/ProfileCv.js";
 
+/* Recupere le document profil/CV actif pour le dashboard admin. */
 async function getProfileDocument() {
   const profile = await ProfileCv.findOne().sort({ createdAt: -1 });
 
@@ -12,6 +13,7 @@ async function getProfileDocument() {
   return profile;
 }
 
+/* Renvoie toutes les sections du CV pour edition dans l'interface admin. */
 export async function getAdminProfile(req, res, next) {
   try {
     const profile = await getProfileDocument();
@@ -22,6 +24,7 @@ export async function getAdminProfile(req, res, next) {
   }
 }
 
+/* Remplace les sections du profil/CV par le payload deja valide par les validators. */
 export async function updateAdminProfile(req, res, next) {
   try {
     const {

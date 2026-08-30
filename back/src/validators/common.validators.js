@@ -1,9 +1,11 @@
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/* Recupere une valeur du body en gardant les validateurs courts et reutilisables. */
 function getValue(req, field) {
   return req.body?.[field];
 }
 
+/* Valide un champ texte obligatoire et le nettoie avant le controleur. */
 export function requiredString(field, label = field, minLength = 1) {
   return (req) => {
     const value = getValue(req, field);
@@ -17,6 +19,7 @@ export function requiredString(field, label = field, minLength = 1) {
   };
 }
 
+/* Valide un champ texte optionnel uniquement s'il est present. */
 export function optionalString(field) {
   return (req) => {
     const value = getValue(req, field);
@@ -34,6 +37,7 @@ export function optionalString(field) {
   };
 }
 
+/* Valide et normalise une adresse email. */
 export function validEmail(field, label = field) {
   return (req) => {
     const value = getValue(req, field);
@@ -47,6 +51,7 @@ export function validEmail(field, label = field) {
   };
 }
 
+/* Valide une URL publique en limitant les protocoles a HTTP/HTTPS. */
 export function validUrl(field, label = field) {
   return (req) => {
     const value = getValue(req, field);
@@ -67,6 +72,7 @@ export function validUrl(field, label = field) {
   };
 }
 
+/* Accepte soit une image locale du front, soit une URL externe valide. */
 export function validImagePath(field, label = field) {
   return (req) => {
     const value = getValue(req, field);
@@ -81,6 +87,7 @@ export function validImagePath(field, label = field) {
   };
 }
 
+/* Accepte les booleens reels ou les booleens envoyes comme chaines depuis un formulaire HTML. */
 export function optionalBooleanString(field) {
   return (req) => {
     const value = getValue(req, field);
@@ -99,6 +106,7 @@ export function optionalBooleanString(field) {
   };
 }
 
+/* Verifie qu'un parametre d'URL ressemble a un ObjectId MongoDB. */
 export function validMongoIdParam(field = "id") {
   return (req) => {
     const value = req.params?.[field];

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+/* Ouvre la connexion MongoDB si MONGO_URI existe ; le serveur reste testable sans base en local. */
 export async function connectDatabase() {
   const mongoUri = process.env.MONGO_URI;
 

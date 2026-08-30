@@ -6,6 +6,7 @@ import {
   registerFailedLogin,
 } from "../middlewares/loginRateLimiter.js";
 
+/* Cree le JWT admin avec les informations minimales necessaires a l'autorisation. */
 function createToken(admin) {
   return jwt.sign(
     {
@@ -18,6 +19,7 @@ function createToken(admin) {
   );
 }
 
+/* Verifie les identifiants admin, limite les echecs et renvoie le token de session. */
 export async function loginAdmin(req, res, next) {
   try {
     const { email, password } = req.body;
@@ -55,6 +57,7 @@ export async function loginAdmin(req, res, next) {
   }
 }
 
+/* Retourne l'admin courant depuis req.admin, rempli par requireAdminAuth. */
 export function getCurrentAdmin(req, res) {
   res.json({
     admin: req.admin,

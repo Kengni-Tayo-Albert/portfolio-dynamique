@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 const router = Router();
 
+/* Healthcheck : permet de verifier rapidement que l'API et la connexion MongoDB repondent. */
 router.get("/", (req, res) => {
   res.json({
     status: "ok",

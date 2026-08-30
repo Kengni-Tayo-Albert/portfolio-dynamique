@@ -1,5 +1,6 @@
 import ContactMessage from "../models/ContactMessage.js";
 
+/* Liste les messages les plus recents pour la section admin Messages. */
 export async function getAdminMessages(req, res, next) {
   try {
     const messages = await ContactMessage.find().sort({ createdAt: -1 });
@@ -10,6 +11,7 @@ export async function getAdminMessages(req, res, next) {
   }
 }
 
+/* Supprime un message de contact depuis le tableau de bord. */
 export async function deleteAdminMessage(req, res, next) {
   try {
     const deletedMessage = await ContactMessage.findByIdAndDelete(req.params.id);

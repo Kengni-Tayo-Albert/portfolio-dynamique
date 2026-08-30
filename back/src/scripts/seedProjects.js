@@ -16,6 +16,7 @@ const projectsJsonPath = path.join(
   "projects.json"
 );
 
+/* Importe les projets statiques du front dans MongoDB pour initialiser l'API dynamique. */
 async function seedProjects() {
   try {
     if (!process.env.MONGO_URI) {

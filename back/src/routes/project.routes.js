@@ -6,6 +6,7 @@ import {
 
 const router = Router();
 
+/* Routes publiques de lecture des projets pour les pages Home et Projects. */
 router.get("/", getProjects);
 router.get("/:id", getProjectById);
 

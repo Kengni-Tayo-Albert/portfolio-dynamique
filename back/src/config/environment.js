@@ -1,10 +1,12 @@
 const minimumJwtSecretLength = 32;
 const minimumAdminPasswordLength = 12;
 
+/* Indique si l'API tourne avec les contraintes de production. */
 export function isProduction() {
   return process.env.NODE_ENV === "production";
 }
 
+/* Verifie la complexite minimale du mot de passe admin avant creation du compte. */
 export function validateStrongPassword(password) {
   const hasMinimumLength = typeof password === "string" && password.length >= minimumAdminPasswordLength;
   const hasLowercase = /[a-z]/.test(password || "");
@@ -21,6 +23,7 @@ export function validateStrongPassword(password) {
   );
 }
 
+/* Controle que le secret JWT est assez long et n'utilise pas la valeur d'exemple. */
 function checkJwtSecret() {
   const jwtSecret = process.env.JWT_SECRET;
 
@@ -35,6 +38,7 @@ function checkJwtSecret() {
   return null;
 }
 
+/* En production, CLIENT_URL limite les appels CORS au vrai front deploye. */
 function checkClientUrl() {
   const clientUrl = process.env.CLIENT_URL;
 
@@ -45,6 +49,7 @@ function checkClientUrl() {
   return null;
 }
 
+/* Centralise les controles de configuration au demarrage de l'API. */
 export function validateEnvironment() {
   const errors = [checkJwtSecret(), checkClientUrl()].filter(Boolean);
 
@@ -59,6 +64,7 @@ export function validateEnvironment() {
   console.warn(message);
 }
 
+/* Utilise par le seed admin pour refuser un mot de passe trop faible. */
 export function validateAdminPassword(password) {
   if (!validateStrongPassword(password)) {
     throw new Error(

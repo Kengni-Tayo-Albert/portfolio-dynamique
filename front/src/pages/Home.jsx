@@ -4,12 +4,14 @@ import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import profileImage from "../assets/albert-profile.jpeg";
 import { getProjects } from "../services/api";
 
+/* Home presente l'identite, les liens principaux et une selection dynamique de projets. */
 /* HOME PAGE - Page d'accueil principale du portfolio */
 function Home() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [projectsStatus, setProjectsStatus] = useState("loading");
 
   /* EFFECT - Récupération API des projets mis en avant */
+  /* Charge les projets publics, conserve seulement ceux marques featured et limite l'accueil a 3 cartes. */
   useEffect(() => {
     async function loadFeaturedProjects() {
       try {
@@ -30,6 +32,7 @@ function Home() {
   }, []);
 
   /* EFFECT - Animation de la boule dorée sur la carte de profil */
+  /* Ajoute l'effet visuel de suivi souris sur la carte sans impacter le rendu React. */
   useEffect(() => {
     const profileCard = document.querySelector(".profile-card-front");
     const orb = document.getElementById("goldOrb");

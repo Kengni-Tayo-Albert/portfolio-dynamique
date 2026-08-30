@@ -1,5 +1,6 @@
 import Project from "../models/Project.js";
 
+/* Accepte les tags envoyes en tableau ou en chaine separee par virgules. */
 function normalizeTags(tags) {
   if (Array.isArray(tags)) {
     return tags.map((tag) => tag.trim()).filter(Boolean);
@@ -11,12 +12,14 @@ function normalizeTags(tags) {
     .filter(Boolean);
 }
 
+/* Genere un ordre d'affichage interne compatible avec les projets seedes depuis JSON. */
 async function getNextSourceId() {
   const lastProject = await Project.findOne().sort({ sourceId: -1 });
 
   return (lastProject?.sourceId || 0) + 1;
 }
 
+/* Nettoie et complete les champs projet avant insertion ou mise a jour MongoDB. */
 function buildProjectPayload(body) {
   return {
     title: body.title,
@@ -31,6 +34,7 @@ function buildProjectPayload(body) {
   };
 }
 
+/* Liste admin des projets : expose tous les projets modifiables dans le dashboard. */
 export async function getAdminProjects(req, res, next) {
   try {
     const projects = await Project.find().sort({ sourceId: 1 });
@@ -41,6 +45,7 @@ export async function getAdminProjects(req, res, next) {
   }
 }
 
+/* Cree un projet depuis le dashboard admin. */
 export async function createAdminProject(req, res, next) {
   try {
     const project = await Project.create({
@@ -54,6 +59,7 @@ export async function createAdminProject(req, res, next) {
   }
 }
 
+/* Met a jour un projet existant et renvoie la version sauvegardee. */
 export async function updateAdminProject(req, res, next) {
   try {
     const project = await Project.findByIdAndUpdate(
@@ -72,6 +78,7 @@ export async function updateAdminProject(req, res, next) {
   }
 }
 
+/* Supprime un projet par son identifiant MongoDB. */
 export async function deleteAdminProject(req, res, next) {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);

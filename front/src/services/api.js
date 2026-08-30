@@ -1,6 +1,7 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || "";
 const ADMIN_TOKEN_KEY = "portfolioAdminToken";
 
+/* fetchJson gere les lectures publiques de l'API et remonte une erreur claire si la requete echoue. */
 async function fetchJson(endpoint) {
   const response = await fetch(`${API_BASE_URL}${endpoint}`);
 
@@ -11,6 +12,7 @@ async function fetchJson(endpoint) {
   return response.json();
 }
 
+/* fetchWithAuth ajoute le token JWT admin sur les routes protegees du back-office. */
 async function fetchWithAuth(endpoint, options = {}) {
   const token = localStorage.getItem(ADMIN_TOKEN_KEY);
 
@@ -30,6 +32,7 @@ async function fetchWithAuth(endpoint, options = {}) {
   return response.json();
 }
 
+/* Donnees publiques : si aucun back n'est configure, le front lit les fichiers JSON statiques. */
 export function getProjects() {
   return fetchJson(API_BASE_URL ? "/api/projects" : "/api/projects.json");
 }
@@ -42,6 +45,7 @@ export function getProfileCv() {
   return fetchJson(API_BASE_URL ? "/api/profile-cv" : "/api/profile-cv.json");
 }
 
+/* Contact : en mode statique, les messages sont gardes en localStorage pour garder une demo fonctionnelle. */
 export async function sendContactMessage(messageData) {
   if (!API_BASE_URL) {
     const storedMessages = JSON.parse(
@@ -69,6 +73,7 @@ export async function sendContactMessage(messageData) {
   return response.json();
 }
 
+/* Authentification admin : l'API renvoie un JWT stocke cote navigateur pour les actions protegees. */
 export async function loginAdmin(credentials) {
   const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
@@ -95,6 +100,7 @@ export function getCurrentAdmin() {
   return fetchWithAuth("/api/auth/me");
 }
 
+/* CRUD admin des projets : creation, edition, suppression et liste complete pour le dashboard. */
 export function getAdminProjects() {
   return fetchWithAuth("/api/admin/projects");
 }
@@ -119,6 +125,7 @@ export function deleteAdminProject(projectId) {
   });
 }
 
+/* CRUD admin des competences : les items sont edites via l'API puis regroupes cote serveur. */
 export function getAdminSkills() {
   return fetchWithAuth("/api/admin/skills");
 }
@@ -144,6 +151,7 @@ export function deleteAdminSkill(skillId) {
   });
 }
 
+/* Edition admin du profil/CV : un seul document MongoDB contient les sections du CV public. */
 export function getAdminProfile() {
   return fetchWithAuth("/api/admin/profile");
 }
@@ -155,6 +163,7 @@ export function updateAdminProfile(profileData) {
   });
 }
 
+/* Messages de contact : lecture et suppression des demandes recues depuis le formulaire public. */
 export function getAdminMessages() {
   return fetchWithAuth("/api/admin/messages");
 }
@@ -165,6 +174,7 @@ export function deleteAdminMessage(messageId) {
   });
 }
 
+/* Upload admin : envoie une image encodee en base64 pour creer une URL publique cote API. */
 export function uploadAdminProjectImage(imageData) {
   return fetchWithAuth("/api/admin/uploads/images", {
     method: "POST",
