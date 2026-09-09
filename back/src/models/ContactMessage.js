@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-/* ContactMessage stocke chaque demande envoyee depuis le formulaire public. */
+/* ContactMessage stocke chaque demande envoyée depuis le formulaire public. */
 const contactMessageSchema = new mongoose.Schema(
   {
     name: {
@@ -38,7 +38,7 @@ const contactMessageSchema = new mongoose.Schema(
   }
 );
 
-/* toJSON simplifie la lecture cote admin en exposant id au lieu de _id. */
+/* toJSON simplifie la lecture côté admin en exposant id au lieu de _id. */
 contactMessageSchema.set("toJSON", {
   versionKey: false,
   transform: (document, returnedObject) => {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-/* Admin stocke le compte autorise a acceder au back-office. */
+/* Admin stocke le compte autorisé à accéder au back-office. */
 const adminSchema = new mongoose.Schema(
   {
     email: {
@@ -26,7 +26,7 @@ const adminSchema = new mongoose.Schema(
   }
 );
 
-/* toJSON retire le hash du mot de passe avant toute reponse API. */
+/* toJSON retire le hash du mot de passe avant toute réponse API. */
 adminSchema.set("toJSON", {
   versionKey: false,
   transform: (document, returnedObject) => {

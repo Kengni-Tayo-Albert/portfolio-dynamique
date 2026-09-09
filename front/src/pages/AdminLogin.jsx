@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaLock, FaUserShield } from "react-icons/fa";
 import { loginAdmin } from "../services/api";
 
-/* AdminLogin gere l'authentification du back-office et redirige vers le dashboard. */
+/* AdminLogin gère l'authentification du back-office et redirige vers le tableau de bord. */
 function AdminLogin() {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
@@ -13,7 +13,7 @@ function AdminLogin() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /* Met a jour email ou mot de passe sans dupliquer la logique des inputs. */
+  /* Met à jour l'email ou le mot de passe avec une seule fonction pour les deux champs. */
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -23,7 +23,7 @@ function AdminLogin() {
     }));
   };
 
-  /* Envoie les identifiants a l'API, stocke le token via le service puis ouvre l'espace admin. */
+  /* Envoie les identifiants à l'API puis ouvre l'espace admin si le token est accepté. */
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");

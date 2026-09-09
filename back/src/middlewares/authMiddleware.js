@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-/* Middleware de protection admin : verifie le JWT et expose l'admin decode dans req.admin. */
+/* Middleware de protection admin : vérifie le JWT et expose l'admin décodé dans req.admin. */
 export function requireAdminAuth(req, res, next) {
   const authorizationHeader = req.headers.authorization;
 

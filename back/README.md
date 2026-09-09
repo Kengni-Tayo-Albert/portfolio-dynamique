@@ -1,6 +1,18 @@
-# Back-end du portfolio dynamique
+# Back-end du portfolio
 
 API REST Node.js / Express du portfolio dynamique.
+
+## Rôle du back
+
+Le back-end fournit :
+
+- les projets affichés sur le site,
+- les compétences,
+- le profil et le CV,
+- l'enregistrement des messages de contact,
+- l'authentification administrateur,
+- les routes protégées du tableau de bord,
+- l'upload d'images pour les projets.
 
 ## Installation
 
@@ -8,15 +20,9 @@ API REST Node.js / Express du portfolio dynamique.
 npm install
 ```
 
-Si Windows bloque le cache npm avec une erreur `EPERM`, utiliser :
-
-```bash
-npm install --cache .npm-cache
-```
-
 ## Configuration
 
-Creer un fichier `.env` a partir de `.env.example`.
+Créer un fichier `.env` à partir de `.env.example`.
 
 ```env
 NODE_ENV=development
@@ -29,158 +35,45 @@ ADMIN_EMAIL=admin@portfolio.local
 ADMIN_PASSWORD=MonMotDePasseAdmin2026!
 ```
 
-Important :
+Points importants :
 
-- `MONGO_URI` doit pointer vers la base `portfolio-dynamique`,
-- `JWT_SECRET` doit contenir au moins 32 caracteres et etre difficile a deviner,
-- `JWT_EXPIRES_IN` definit la duree de validite de la session admin,
-- `ADMIN_PASSWORD` sert seulement a creer le compte admin, puis il est hashe dans MongoDB.
+- `MONGO_URI` pointe vers MongoDB Atlas,
+- `JWT_SECRET` doit contenir au moins 32 caractères,
+- `ADMIN_PASSWORD` sert à créer le compte admin puis il est hashé,
+- `CLIENT_URL` doit correspondre à l'URL du front en production.
 
-## Securite
-
-Le serveur applique plusieurs protections :
-
-- en-tetes HTTP de securite,
-- CORS limite a `CLIENT_URL` en production,
-- validation obligatoire d'un `JWT_SECRET` solide en production,
-- expiration du token admin,
-- blocage temporaire apres 5 tentatives de connexion admin echouees,
-- controle de robustesse du mot de passe admin au moment du seed.
-
-## Lancement en developpement
+## Lancement
 
 ```bash
 npm run dev
 ```
 
-Le serveur doit repondre sur :
+L'API répond sur :
 
 ```txt
 http://localhost:5000
 http://localhost:5000/api/health
 ```
 
-## Lancement en production
+## Données de départ
+
+```bash
+npm run seed:projects
+npm run seed:skills
+npm run seed:profile-cv
+npm run seed:admin
+```
+
+Ces scripts remplissent MongoDB avec les contenus utilisés par le site.
+
+## Vérification
 
 ```bash
 npm start
 ```
 
-## Scripts de donnees
+La route `/api/health` permet de contrôler rapidement l'état de l'API et de la base.
 
-Importer les projets :
+## Sécurité
 
-```bash
-npm run seed:projects
-```
-
-Importer les competences :
-
-```bash
-npm run seed:skills
-```
-
-Importer le profil/CV :
-
-```bash
-npm run seed:profile-cv
-```
-
-Creer ou mettre a jour le compte admin :
-
-```bash
-npm run seed:admin
-```
-
-## Routes disponibles
-
-Routes publiques :
-
-```txt
-GET /
-GET /api/health
-GET /api/projects
-GET /api/projects/:id
-GET /api/skills
-GET /api/profile-cv
-POST /api/contact
-```
-
-Routes d'authentification :
-
-```txt
-POST /api/auth/login
-GET /api/auth/me
-```
-
-Routes admin protegees :
-
-```txt
-GET /api/admin/projects
-POST /api/admin/projects
-PUT /api/admin/projects/:id
-DELETE /api/admin/projects/:id
-
-GET /api/admin/skills
-POST /api/admin/skills
-PUT /api/admin/skills
-DELETE /api/admin/skills
-
-GET /api/admin/profile
-PUT /api/admin/profile
-GET /api/admin/messages
-POST /api/admin/uploads/images
-```
-
-Les routes `/api/admin/...` necessitent un token JWT.
-
-## Validation des donnees
-
-Les routes sensibles valident les donnees recues avant d'appeler les controleurs :
-
-- email valide pour la connexion et le contact,
-- champs obligatoires pour les projets, competences et profil,
-- URLs valides pour GitHub et les demos,
-- identifiants MongoDB valides pour les modifications/suppressions,
-- erreurs JSON/Mongoose converties en reponses API lisibles.
-
-## Deploiement
-
-Le back-end peut etre deploye sur Render, Railway ou un autre hebergeur Node.js.
-
-Parametres conseilles :
-
-```txt
-Root directory: back
-Build command: npm install
-Start command: npm start
-```
-
-Variables d'environnement a configurer :
-
-```env
-NODE_ENV=production
-PORT=5000
-CLIENT_URL=https://url-du-front
-MONGO_URI=mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/portfolio-dynamique?retryWrites=true&w=majority&appName=PortfolioCluster
-JWT_SECRET=une-cle-longue-et-secrete-de-32-caracteres-minimum
-JWT_EXPIRES_IN=2h
-ADMIN_EMAIL=admin@portfolio.local
-ADMIN_PASSWORD=mot-de-passe-admin-fort
-```
-
-Apres deploiement, verifier :
-
-```txt
-https://url-du-back/api/health
-```
-
-La reponse doit indiquer :
-
-```json
-{
-  "status": "ok",
-  "api": "portfolio-dynamique",
-  "database": "connectee"
-}
-```
+L'API protège les routes admin avec un token JWT, valide les données reçues, limite les tentatives de connexion et masque les informations sensibles avant de répondre au front.

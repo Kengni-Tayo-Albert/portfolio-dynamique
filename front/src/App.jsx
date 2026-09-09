@@ -14,16 +14,15 @@ import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 
-/* App centralise le layout commun et toutes les routes de navigation du portfolio. */
+/* Le composant App définit les pages du portfolio et garde le Header/Footer communs. */
 function App() {
 
   return (
     <BrowserRouter>
 
-      {/* HEADER - Visible sur toutes les pages */}
       <Header />
 
-      {/* ROUTER - Navigation sans rechargement */}
+      {/* React Router affiche la bonne page sans recharger tout le site. */}
       <Routes>
 
         <Route
@@ -52,14 +51,13 @@ function App() {
 
       </Routes>
 
-      {/* FOOTER - Visible sur toutes les pages */}
       <Footer />
 
     </BrowserRouter>
   );
 }
 
-/* AdminRoute protege le tableau de bord en verifiant la presence du token admin local. */
+/* Cette protection évite d'ouvrir le tableau de bord sans session admin enregistrée. */
 function AdminRoute({ children }) {
   const adminToken = localStorage.getItem("portfolioAdminToken");
 

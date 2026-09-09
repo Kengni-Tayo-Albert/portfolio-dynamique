@@ -1,30 +1,36 @@
-# Portfolio dynamique avec administration
+# Portfolio dynamique Albert TAYO
 
-Projet de portfolio dynamique développé avec React, Node.js, Express et MongoDB Atlas.
+Ce projet est un portfolio web complet avec une partie publique et un espace d'administration. Il a été développé avec React pour l'interface, Node.js / Express pour l'API, et MongoDB Atlas pour les données dynamiques.
 
-L'application présente un portfolio public et un espace d'administration sécurisé permettant de gérer une partie du contenu.
+## Maquettes Figma
 
-## Objectif du projet
+Les maquettes ne sont pas stockées dans le dépôt GitHub afin de garder le projet léger et lisible. Elles sont consultables ici :
 
-Ce projet répond au besoin d'un portfolio dynamique avec :
+[Portfolio Dynamique Albert TAYO - maquettes](https://www.figma.com/design/CvMneTGOpQwtZYQuK1APP4/Portfolio-Dynamique-Albert-TAYO---maquettes?node-id=3-2&t=3dhkE5ESfFBwFkrh-1)
 
-- une partie front-end React,
-- une API REST Node.js / Express,
-- une base de données MongoDB Atlas,
-- une authentification administrateur,
-- un espace admin pour gérer les projets, les compétences et le profil/CV complet,
-- un upload d'images pour les projets depuis l'administration,
-- un formulaire de contact enregistré en base de données.
+## Objectif
 
-## Structure du projet
+L'objectif est de présenter mon profil, mes compétences, mon CV et mes projets dans une application claire, maintenable et administrable.
+
+Le projet contient :
+
+- un site public responsive,
+- une API REST Express,
+- une base MongoDB Atlas,
+- une authentification administrateur avec JWT,
+- un tableau de bord pour gérer les projets, les compétences, le profil/CV et les messages,
+- un formulaire de contact enregistré en base de données,
+- un système d'upload d'images pour les projets.
+
+## Structure
 
 ```txt
 portfolio-dynamique/
-├── front/   Application React avec Vite
+├── front/   Interface React avec Vite
 └── back/    API Express connectée à MongoDB
 ```
 
-## Technologies utilisées
+## Technologies
 
 Front-end :
 
@@ -32,6 +38,7 @@ Front-end :
 - React Router
 - React Icons
 - Vite
+- CSS responsive
 
 Back-end :
 
@@ -44,48 +51,40 @@ Back-end :
 - CORS
 - dotenv
 
-## Lancement en local
+## Lancer le projet en local
 
-### 1. Lancer le back-end
-
-Ouvrir un premier terminal :
+### Back-end
 
 ```bash
-cd "C:\Users\alber\Documents\Nouveau dossier\portfolio-dynamique\back"
+cd back
 npm install
 npm run dev
 ```
 
-L'API doit répondre sur :
+L'API répond sur :
 
 ```txt
 http://localhost:5000
 http://localhost:5000/api/health
 ```
 
-### 2. Lancer le front-end
-
-Ouvrir un deuxième terminal :
+### Front-end
 
 ```bash
-cd "C:\Users\alber\Documents\Nouveau dossier\portfolio-dynamique\front"
+cd front
 npm install
 npm run dev
 ```
 
-Le site doit répondre sur une URL de ce type :
+Le site s'ouvre généralement sur :
 
 ```txt
 http://localhost:5173
 ```
 
-Si le port `5173` est déjà utilisé, Vite peut ouvrir `5174`.
-
 ## Variables d'environnement
 
-### Back-end
-
-Créer un fichier `back/.env` à partir de `back/.env.example`.
+Créer `back/.env` à partir de `back/.env.example`.
 
 ```env
 NODE_ENV=development
@@ -98,15 +97,15 @@ ADMIN_EMAIL=admin@portfolio.local
 ADMIN_PASSWORD=MonMotDePasseAdmin2026!
 ```
 
-### Front-end
-
-Créer un fichier `front/.env` à partir de `front/.env.example`.
+Créer `front/.env` à partir de `front/.env.example`.
 
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-## Initialisation des données
+Si `VITE_API_URL` est vide, le front peut utiliser les fichiers JSON statiques dans `front/public/api`. Cela permet de présenter le site même sans API active.
+
+## Initialiser les données
 
 Après configuration de MongoDB, lancer ces commandes dans le dossier `back` :
 
@@ -117,24 +116,7 @@ npm run seed:profile-cv
 npm run seed:admin
 ```
 
-Ces commandes remplissent MongoDB avec les données nécessaires au projet.
-
-## Compte administrateur local
-
-Le compte administrateur est créé avec :
-
-```bash
-npm run seed:admin
-```
-
-Les identifiants utilisés viennent du fichier `back/.env` :
-
-```env
-ADMIN_EMAIL=admin@portfolio.local
-ADMIN_PASSWORD=CHANGE_ME_WITH_A_STRONG_PASSWORD
-```
-
-Le mot de passe n'est pas stocké en clair dans MongoDB. Il est hashé avec `bcryptjs`.
+Ces scripts remplissent la base avec les projets, les compétences, le profil/CV et le compte administrateur.
 
 ## Routes principales
 
@@ -143,6 +125,7 @@ Routes publiques :
 ```txt
 GET /api/health
 GET /api/projects
+GET /api/projects/:id
 GET /api/skills
 GET /api/profile-cv
 POST /api/contact
@@ -171,68 +154,29 @@ DELETE /api/admin/skills
 GET /api/admin/profile
 PUT /api/admin/profile
 GET /api/admin/messages
+DELETE /api/admin/messages/:id
 POST /api/admin/uploads/images
 ```
 
+## Sécurité
+
+Le projet applique plusieurs protections :
+
+- mot de passe administrateur hashé avec `bcryptjs`,
+- token JWT pour protéger les routes admin,
+- limitation des tentatives de connexion,
+- validation des données reçues par l'API,
+- configuration CORS contrôlée,
+- en-têtes HTTP de sécurité simples.
+
 ## Déploiement
 
-Un guide complet étape par étape est disponible dans [DEPLOIEMENT.md](DEPLOIEMENT.md).
+Le guide de déploiement est dans [DEPLOIEMENT.md](DEPLOIEMENT.md).
 
-### Base de données
+Avant une mise en ligne, vérifier :
 
-La base est hébergée sur MongoDB Atlas.
-
-À prévoir :
-
-- créer un cluster Atlas,
-- créer un utilisateur de base de données,
-- autoriser l'adresse IP du serveur de déploiement,
-- récupérer la chaîne `MONGO_URI`,
-- vérifier que la base utilisée s'appelle `portfolio-dynamique`.
-
-### Déploiement du back-end
-
-Le back-end peut être déployé sur Render, Railway ou un autre hébergeur Node.js.
-
-Paramètres à renseigner :
-
-```txt
-Build command: npm install
-Start command: npm start
-Root directory: back
-```
-
-Variables d'environnement à ajouter sur l'hébergeur :
-
-```env
-NODE_ENV=production
-PORT=5000
-CLIENT_URL=https://url-du-front
-MONGO_URI=mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/portfolio-dynamique?retryWrites=true&w=majority&appName=PortfolioCluster
-JWT_SECRET=une-cle-longue-et-secrete-de-32-caracteres-minimum
-JWT_EXPIRES_IN=2h
-ADMIN_EMAIL=admin@portfolio.local
-ADMIN_PASSWORD=mot-de-passe-admin-fort
-```
-
-Après le premier déploiement, lancer les scripts de seed depuis l'environnement de l'hébergeur si disponible, ou les lancer localement avec le `MONGO_URI` Atlas.
-
-### Déploiement du front-end
-
-Le front-end peut être déployé sur Vercel, Netlify ou Render Static Site.
-
-Paramètres à renseigner :
-
-```txt
-Build command: npm run build
-Publish directory: dist
-Root directory: front
-```
-
-Variable d'environnement à ajouter :
-
-```env
-VITE_API_URL=https://url-du-back
-```
-
-Important : après avoir modifié `VITE_API_URL`, il faut relancer un nouveau build du front.
+- `VITE_API_URL` pointe vers l'URL réelle du back-end,
+- `CLIENT_URL` contient l'URL réelle du front-end,
+- `MONGO_URI` pointe vers MongoDB Atlas,
+- `JWT_SECRET` est long et unique,
+- les scripts de seed ont été lancés si la base est vide.

@@ -16,7 +16,7 @@ const skillsJsonPath = path.join(
   "skills.json"
 );
 
-/* Importe les competences statiques du front dans MongoDB. */
+/* Importe les compétences statiques du front dans MongoDB. */
 async function seedSkills() {
   try {
     if (!process.env.MONGO_URI) {

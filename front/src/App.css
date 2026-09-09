@@ -1,4 +1,4 @@
-/* VARIABLES - Couleurs principales */
+/* Variables globales : couleurs communes réutilisées dans toute l'interface. */
 :root {
   --bg-dark: #07111f;
   --bg-soft: #0f172a;
@@ -9,7 +9,7 @@
   --border: rgba(148, 163, 184, 0.25);
 }
 
-/* RESET - Base propre */
+/* Base CSS pour éviter les calculs de largeur imprévisibles. */
 * {
   box-sizing: border-box;
 }
@@ -43,13 +43,13 @@ a {
   font-weight: 700;
 }
 
-/* PAGE - Fond général */
+/* Fond général du portfolio. */
 .portfolio {
   min-height: 100vh;
   background: linear-gradient(135deg, #07111f, #111827);
 }
 
-/* HEADER - Navigation */
+/* Header : navigation principale et accès au CV. */
 .header {
   position: relative;
   z-index: 10;
@@ -115,7 +115,7 @@ a {
   border-radius: 8px;
 }
 
-/* HERO - Structure principale */
+/* Accueil : mise en page en deux colonnes pour le texte et le portrait. */
 .hero {
   position: relative;
   min-height: calc(100vh - 90px);
@@ -162,7 +162,7 @@ a {
   line-height: 1.7;
 }
 
-/* BOUTONS - Actions principales */
+/* Boutons principaux de l'accueil. */
 .hero-buttons {
   margin-top: 40px;
   display: flex;
@@ -188,7 +188,7 @@ a {
   border: 1px solid var(--border);
 }
 
-/* SOCIAL - Liens rapides */
+/* Liens professionnels affichés sous l'introduction. */
 .social-links {
   margin-top: 48px;
   display: flex;
@@ -201,14 +201,14 @@ a {
   font-weight: 500;
 }
 
-/* IMAGE - Zone visuelle */
+/* Zone visuelle du hero : portrait et formes décoratives. */
 .hero-visual {
   position: relative;
   min-height: 520px;
   display: grid;
   place-items: center;
 }
-/* CARTE 3D - Conteneur général du portrait */
+/* Conteneur 3D du portrait. */
 .profile-flip-card {
   position: relative;
   z-index: 3;
@@ -218,7 +218,7 @@ a {
   cursor: pointer;
 }
 
-/* CARTE 3D - Rotation au clic maintenu ou au focus */
+/* Rotation de la carte au clic maintenu ou au focus clavier. */
 .profile-card-inner {
   position: relative;
   width: 100%;
@@ -232,7 +232,7 @@ a {
   transform: rotateY(180deg);
 }
 
-/* FACE COMMUNE - Avant et arrière de la carte */
+/* Style commun aux deux faces de la carte. */
 .profile-card {
   position: absolute;
   inset: 0;
@@ -244,20 +244,20 @@ a {
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* FACE AVANT - Photo */
+/* Face avant : photo de profil. */
 .profile-card-front img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* SURVOL - Bordure dorée professionnelle */
+/* Au survol, la carte met le portrait en valeur. */
 .profile-flip-card:hover .profile-card {
   border-color: #facc15;
   box-shadow: 0 0 35px rgba(250, 204, 21, 0.35);
 }
 
-/* SURVOL - Barres diagonales dorées */
+/* Lignes dorées affichées brièvement au survol. */
 .gold-lines {
   position: absolute;
   inset: 0;
@@ -295,8 +295,7 @@ a {
     background-position: 120px 120px;
   }
 }
-/* SURVOL - Cercle doré animé sur la photo */
-/* ORBE DORÉE - Suit le déplacement de la souris */
+/* Halo doré qui suit la souris sur la photo. */
 .gold-orb {
   position: absolute;
 
@@ -333,7 +332,7 @@ a {
   opacity: 1;
 }
 
-/* FACE ARRIÈRE - Message professionnel */
+/* Face arrière : valeurs personnelles affichées pendant la rotation. */
 .profile-card-back {
   display: flex;
   flex-direction: column;
@@ -357,7 +356,7 @@ a {
   margin: 8px 0;
 }
 
-/* ANIMATION - Déplacement des lignes dorées */
+/* Animation de déplacement des lignes dorées. */
 @keyframes goldLinesMove {
   from {
     background-position: 0 0;
@@ -370,7 +369,7 @@ a {
 
 
 
-/* FORMES - Décorations graphiques */
+/* Formes décoratives placées derrière la carte. */
 .blue-shape {
   position: absolute;
   width: 470px;
@@ -407,7 +406,7 @@ a {
   border: 2px solid #f97316;
   border-radius: 14px;
 }
-/* RESPONSIVE HERO - Ajustement mobile du badge code */
+/* Ajustement mobile du badge code. */
 @media (max-width: 768px) {
 
   .code-badge {
@@ -420,9 +419,7 @@ a {
 
 }
 
-/* =========================
-   SOCIAL LINKS
-========================= */
+/* Version complète des liens sociaux avec icônes. */
 
 .social-links {
   display: flex;
@@ -449,7 +446,7 @@ a {
 .social-icon {
   font-size: 1.4rem;
 }
-/* STYLE BOUTON DE TELECHARGEMENT */
+/* Bouton de téléchargement du CV dans la navigation. */
 
 .btn-cv {
   background-color: #2563eb;
@@ -461,7 +458,7 @@ a {
 }
 
 
-/* FLÈCHE - Bouton d’affichage des projets */
+/* Raccourci rond vers la section projets. */
 .scroll-button {
   position: absolute;
   left: 50%;
@@ -494,7 +491,7 @@ a {
   transform: translateX(-50%) scale(1.08);
 }
 
-/* PROJETS - Section dynamique */
+/* Section des projets mis en avant sur l'accueil. */
 .projects-section {
   padding: 80px 6%;
   text-align: center;
@@ -511,7 +508,7 @@ a {
   color: var(--text);
 }
 
-/* PROJECTS GRID - Alignement propre des cartes */
+/* Grille responsive des cartes projets. */
 .projects-grid {
   width: 100%;
 
@@ -525,7 +522,7 @@ a {
 
   align-items: stretch;
 }
-/* PROJECT CARD - Carte projet responsive */
+/* Carte projet réutilisée sur l'accueil et la page projets. */
 .project-card {
   width: 100%;
 
@@ -553,7 +550,7 @@ a {
     box-shadow 0.3s ease;
 }
 
-/* PROJECT IMAGE - Zone image maquette */
+/* Zone image d'un projet. */
 .project-image {
   width: 100%;
 
@@ -578,7 +575,7 @@ a {
   border-radius: 16px;
 }
 
-/* PROJECT CARD HOVER - Effet moderne */
+/* Effet de survol pour signaler que la carte est interactive. */
 .project-card:hover {
   transform: translateY(-10px);
 
@@ -628,7 +625,7 @@ a {
   border-color: var(--blue);
 }
 
-/* FOOTER - Informations de fin de page */
+/* Footer : informations de contact communes. */
 .footer {
   padding: 60px 6% 20px;
   color: var(--text);
@@ -646,7 +643,7 @@ a {
   border-top: 1px solid var(--border);
 }
 
-/* RESPONSIVE - Tablette */
+/* Responsive tablette : passage en navigation mobile et grille simplifiée. */
 @media (max-width: 1024px) {
   .header {
     height: 90px;
@@ -706,7 +703,7 @@ a {
   }
 }
 
-/* RESPONSIVE - Mobile */
+/* Responsive mobile : boutons empilés et visuels réduits. */
 @media (max-width: 640px) {
   .header {
     height: 82px;
@@ -753,7 +750,7 @@ a {
   }
 }
 
-/* ABOUT PAGE - Page de présentation */
+/* Page À propos : présentation personnelle sur fond clair. */
 .about-page {
   position: relative;
   overflow: hidden;
@@ -763,7 +760,7 @@ a {
   background: #f4f8ff;
 }
 
-/* ABOUT CONTAINER - Mise en page principale */
+/* Mise en page principale de la page À propos. */
 .about-container {
   position: relative;
   z-index: 2;
@@ -775,7 +772,7 @@ a {
   gap: 90px;
 }
 
-/* ABOUT IMAGE - Bloc portrait */
+/* Bloc portrait de la page À propos. */
 .about-image-wrapper {
   position: relative;
   max-width: 520px;
@@ -789,7 +786,7 @@ a {
   border-radius: 28px;
 }
 
-/* AVAILABLE CARD - Carte disponibilité */
+/* Carte de disponibilité placée sur le portrait. */
 .available-card {
   position: absolute;
   left: -45px;
@@ -824,7 +821,7 @@ a {
   color: #64748b;
 }
 
-/* ABOUT CONTENT - Texte principal */
+/* Contenu principal de la page À propos. */
 .section-label {
   margin: 0 0 16px;
   color: #2563eb;
@@ -851,7 +848,7 @@ a {
   line-height: 1.6;
 }
 
-/* VALUES - Cartes de valeurs */
+/* Cartes de valeurs personnelles. */
 .values-grid {
   margin: 60px 0;
   display: grid;
@@ -897,7 +894,7 @@ a {
   color: #64748b;
 }
 
-/* TECH BOX - Bloc technologies */
+/* Bloc récapitulatif des technologies principales. */
 .tech-box {
   padding: 30px 36px;
   color: #ffffff;
@@ -944,7 +941,7 @@ a {
   transform: translateY(-4px);
 }
 
-/* ABOUT BUTTON - Action vers les compétences */
+/* Bouton vers la page compétences. */
 .about-button {
   width: fit-content;
   margin: 70px auto 0;
@@ -957,7 +954,7 @@ a {
   border-radius: 18px;
 }
 
-/* ABOUT DECORATION - Cercles d’arrière-plan */
+/* Cercles décoratifs de la page À propos. */
 .about-circle {
   position: absolute;
   z-index: 1;
@@ -979,7 +976,7 @@ a {
   height: 420px;
 }
 
-/* RESPONSIVE ABOUT - Tablette */
+/* Responsive tablette pour la page À propos. */
 @media (max-width: 1024px) {
   .about-container {
     grid-template-columns: 1fr;
@@ -1007,7 +1004,7 @@ a {
   }
 }
 
-/* RESPONSIVE ABOUT - Mobile */
+/* Responsive mobile pour la page À propos. */
 @media (max-width: 640px) {
   .about-page {
     padding: 60px 5%;
@@ -1033,8 +1030,7 @@ a {
   }
 }
 
-/* SKILLS PAGE - Page compétences */
-/* CV PAGE - CV en ligne */
+/* Page CV : affichage clair du profil complet. */
 .cv-page {
   min-height: calc(100vh - 90px);
   padding: 70px 6% 90px;
@@ -1227,7 +1223,7 @@ a {
   background: #030914;
 }
 
-/* SKILLS INTRO - Titre et introduction */
+/* Introduction de la page compétences. */
 .skills-intro {
   text-align: center;
   margin-bottom: 70px;
@@ -1256,14 +1252,14 @@ a {
   color: #cbd5e1;
 }
 
-/* SKILLS GRID - Grille des cartes */
+/* Grille des groupes de compétences. */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 34px;
 }
 
-/* SKILL CARD - Carte compétence */
+/* Carte d'un groupe de compétences. */
 .skill-card {
   padding: 36px;
   background: #0b1626;
@@ -1312,7 +1308,7 @@ a {
 .skill-line.purple { background: #a855f7; }
 .skill-line.orange { background: #f97316; }
 
-/* SKILL LIST - Liste des compétences */
+/* Liste des compétences dans une carte. */
 .skill-list {
   margin: 35px 0 0;
   padding: 0;
@@ -1349,7 +1345,7 @@ a {
   color: #f97316;
 }
 
-/* STATS BOX - Bloc chiffres */
+/* Bloc des chiffres clés. */
 .stats-box {
   margin-top: 34px;
   padding: 32px;
@@ -1380,7 +1376,7 @@ a {
   color: #94a3b8;
 }
 
-/* RESPONSIVE - Tablette */
+/* Responsive tablette pour compétences et statistiques. */
 @media (max-width: 1100px) {
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1391,7 +1387,7 @@ a {
   }
 }
 
-/* RESPONSIVE - Mobile */
+/* Responsive mobile pour compétences et statistiques. */
 @media (max-width: 640px) {
   .skills-page {
     padding: 50px 5%;
@@ -1407,7 +1403,7 @@ a {
   }
 }
 
-/* PROJECTS PAGE - Page complète des projets */
+/* Page projets : liste complète des réalisations. */
 .projects-page {
   min-height: calc(100vh - 90px);
   padding: 70px 6% 90px;
@@ -1415,7 +1411,7 @@ a {
   background: #030914;
 }
 
-/* PROJECTS INTRO - Titre de la page */
+/* Introduction de la page projets. */
 .projects-intro {
   text-align: center;
   margin-bottom: 70px;
@@ -1431,7 +1427,7 @@ a {
   color: #cbd5e1;
 }
 
-/* PROJECTS PAGE GRID - Grille responsive */
+/* Grille complète des projets. */
 .projects-page-grid {
   max-width: 1320px;
   margin: 0 auto;
@@ -1440,7 +1436,7 @@ a {
   gap: 70px 60px;
 }
 
-/* PROJECT IMAGE - Visuel projet */
+/* Image réelle ou capture du projet. */
 .projects-page .project-image {
   height: 210px;
   padding: 0;
@@ -1456,7 +1452,7 @@ a {
   object-fit: cover;
 }
 
-/* PROJECT CONTENT - Texte projet */
+/* Texte descriptif d'un projet. */
 .projects-page .project-card h2 {
   margin-top: 28px;
   font-size: 18px;
@@ -1466,7 +1462,7 @@ a {
   color: #94a3b8;
 }
 
-/* RESPONSIVE PROJECTS - Tablette */
+/* Responsive tablette pour la page projets. */
 @media (max-width: 1024px) {
   .projects-page-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1474,7 +1470,7 @@ a {
   }
 }
 
-/* RESPONSIVE PROJECTS - Mobile */
+/* Responsive mobile pour la page projets. */
 @media (max-width: 640px) {
   .projects-page {
     padding: 50px 5% 70px;
@@ -1485,7 +1481,7 @@ a {
   }
 }
 
-/* CONTACT PAGE - Page complète de contact */
+/* Page contact : coordonnées et formulaire. */
 .contact-page {
   min-height: calc(100vh - 90px);
   padding: 70px 6% 90px;
@@ -1493,7 +1489,7 @@ a {
   background: #f8fbff;
 }
 
-/* CONTACT INTRO - En-tête de page */
+/* Introduction de la page contact. */
 .contact-intro {
   margin-bottom: 60px;
   text-align: center;
@@ -1509,7 +1505,7 @@ a {
   color: #475569;
 }
 
-/* CONTACT CONTAINER - Mise en page principale */
+/* Mise en page principale : informations à gauche, formulaire à droite. */
 .contact-container {
   max-width: 1450px;
   margin: 0 auto;
@@ -1521,7 +1517,7 @@ a {
   overflow: hidden;
 }
 
-/* CONTACT INFO - Bloc sombre à gauche */
+/* Bloc des coordonnées sur fond sombre. */
 .contact-info {
   padding: 70px 42px;
   color: #ffffff;
@@ -1542,7 +1538,7 @@ a {
   line-height: 1.8;
 }
 
-/* CONTACT ITEM - Carte information */
+/* Ligne de contact cliquable. */
 .contact-item {
   margin-bottom: 24px;
   padding: 22px;
@@ -1593,7 +1589,7 @@ a {
   font-size: 16px;
 }
 
-/* CONTACT SOCIALS - Liens professionnels */
+/* Liens professionnels de la page contact. */
 .contact-socials {
   margin-top: 26px;
   display: flex;
@@ -1619,7 +1615,7 @@ a {
   transform: translateY(-3px);
 }
 
-/* CONTACT FORM - Formulaire */
+/* Formulaire envoyé vers l'API de contact. */
 .contact-form {
   padding: 70px 60px;
 }
@@ -1686,7 +1682,7 @@ a {
   border: 1px solid #fca5a5;
 }
 
-/* CONTACT ACTIONS - Boutons du formulaire */
+/* Actions du formulaire : envoyer ou appeler directement. */
 .contact-actions {
   display: grid;
   grid-template-columns: 1.4fr 0.8fr;
@@ -1714,7 +1710,7 @@ a {
   border-color: #2563eb;
 }
 
-/* RESPONSIVE CONTACT - Tablette */
+/* Responsive tablette pour la page contact. */
 @media (max-width: 1024px) {
   .contact-container {
     grid-template-columns: 1fr;
@@ -1725,7 +1721,7 @@ a {
   }
 }
 
-/* RESPONSIVE CONTACT - Mobile */
+/* Responsive mobile pour la page contact. */
 @media (max-width: 640px) {
   .contact-page {
     padding: 50px 5% 70px;
@@ -1742,7 +1738,7 @@ a {
   }
 }
 
-/* Style des cards projets */
+/* Images des cartes projets. */
 
 .project-image {
   width: 100%;
@@ -1759,7 +1755,7 @@ a {
   display: block;
 }
 
-/* ADMIN LOGIN - Connexion administration */
+/* Page de connexion administrateur. */
 .admin-login-page,
 .admin-page {
   min-height: calc(100vh - 90px);
@@ -1895,7 +1891,7 @@ a {
   font-size: 14px;
 }
 
-/* ADMIN DASHBOARD - Tableau de bord */
+/* Tableau de bord administrateur. */
 .admin-header {
   max-width: 1320px;
   margin: 0 auto 34px;

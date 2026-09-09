@@ -1,6 +1,20 @@
-# Front-end du portfolio dynamique
+# Front-end du portfolio
 
-Application React du portfolio dynamique.
+Interface React du portfolio dynamique.
+
+## Rôle du front
+
+Le front affiche :
+
+- l'accueil du portfolio,
+- la page À propos,
+- le CV en ligne,
+- les compétences,
+- les projets,
+- le formulaire de contact,
+- l'espace d'administration.
+
+Les maquettes sont consultables dans Figma depuis le README principal. 
 
 ## Installation
 
@@ -16,9 +30,9 @@ Créer un fichier `.env` à partir de `.env.example`.
 VITE_API_URL=http://localhost:5000
 ```
 
-Cette variable indique au front l'adresse de l'API Express.
+Si cette variable est vide, l'application utilise les fichiers JSON de `public/api`. Cela permet de présenter le site sans lancer le back-end.
 
-## Lancement en développement
+## Lancement
 
 ```bash
 npm run dev
@@ -30,35 +44,16 @@ Le site s'ouvre généralement sur :
 http://localhost:5173
 ```
 
-Si ce port est déjà utilisé, Vite peut proposer `http://localhost:5174`.
-
-## Vérification du code
+## Vérification
 
 ```bash
 npm run lint
-```
-
-## Build de production
-
-```bash
 npm run build
-```
-
-Le dossier généré est :
-
-```txt
-dist
-```
-
-## Prévisualiser le build
-
-```bash
-npm run preview
 ```
 
 ## Déploiement
 
-Pour un hébergement front type Vercel, Netlify ou Render Static Site :
+Configuration conseillée pour Vercel, Netlify ou Render Static Site :
 
 ```txt
 Root directory: front
@@ -66,10 +61,8 @@ Build command: npm run build
 Publish directory: dist
 ```
 
-Variable d'environnement à configurer sur l'hébergeur :
+Variable d'environnement de production :
 
 ```env
 VITE_API_URL=https://url-du-back
 ```
-
-Après modification de `VITE_API_URL`, il faut relancer le build.

@@ -37,12 +37,12 @@ const contactItems = [
   },
 ];
 
-/* Contact regroupe les coordonnees et le formulaire relie a l'API de messages. */
+/* Contact regroupe les coordonnées et le formulaire relié à l'API de messages. */
 function Contact() {
   const [formData, setFormData] = useState(initialForm);
   const [formStatus, setFormStatus] = useState(null);
 
-  /* Synchronise chaque champ du formulaire avec l'etat React. */
+  /* Synchronise chaque champ du formulaire avec l'état React. */
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -52,7 +52,7 @@ function Contact() {
     }));
   };
 
-  /* Valide les champs puis envoie le message via le service API. */
+  /* Valide les champs avant d'envoyer le message au service API. */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -80,7 +80,7 @@ function Contact() {
 
   return (
     <main className="contact-page">
-      {/* CONTACT INTRO - Titre et description */}
+      {/* Introduction courte de la page contact. */}
       <section className="contact-intro">
         <p className="section-label">CONTACT</p>
         <h1>Travaillons ensemble</h1>
@@ -91,7 +91,7 @@ function Contact() {
         <div className="section-line"></div>
       </section>
 
-      {/* CONTACT CONTENT - Informations et formulaire */}
+      {/* Colonne de coordonnées et formulaire de prise de contact. */}
       <section className="contact-container">
         <aside className="contact-info">
           <h2>Mes coordonnées</h2>
@@ -127,7 +127,7 @@ function Contact() {
         </aside>
 
         <form className="contact-form" onSubmit={handleSubmit}>
-          {/* FORM HEADER - Présentation du formulaire */}
+          {/* Le formulaire crée un message consultable depuis l'administration. */}
           <h2>Envoyer un message</h2>
           <p>
             Présentez rapidement votre besoin, je pourrai vous répondre plus
@@ -224,8 +224,7 @@ function validateContactForm({ name, email, subject, message }) {
   return null;
 }
 
-/* COMPONENT - Élément de contact réutilisable */
-/* ContactItem affiche une coordonnee cliquable et gere les liens externes proprement. */
+/* ContactItem affiche une coordonnée cliquable et gère les liens externes proprement. */
 function ContactItem({ icon: Icon, title, text, href }) {
   const isExternalLink = href.startsWith("http");
 

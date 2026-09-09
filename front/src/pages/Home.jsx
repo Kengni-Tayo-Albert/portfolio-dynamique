@@ -4,14 +4,12 @@ import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import profileImage from "../assets/albert-profile.jpeg";
 import { getProjects } from "../services/api";
 
-/* Home presente l'identite, les liens principaux et une selection dynamique de projets. */
-/* HOME PAGE - Page d'accueil principale du portfolio */
+/* Home présente l'identité, les liens principaux et une sélection de projets mis en avant. */
 function Home() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [projectsStatus, setProjectsStatus] = useState("loading");
 
-  /* EFFECT - Récupération API des projets mis en avant */
-  /* Charge les projets publics, conserve seulement ceux marques featured et limite l'accueil a 3 cartes. */
+  /* Charge les projets publics, garde seulement ceux marqués comme importants et limite l'accueil à trois cartes. */
   useEffect(() => {
     async function loadFeaturedProjects() {
       try {
@@ -31,8 +29,7 @@ function Home() {
     loadFeaturedProjects();
   }, []);
 
-  /* EFFECT - Animation de la boule dorée sur la carte de profil */
-  /* Ajoute l'effet visuel de suivi souris sur la carte sans impacter le rendu React. */
+  /* Déplace le halo doré dans la carte de profil sans modifier les données React. */
   useEffect(() => {
     const profileCard = document.querySelector(".profile-card-front");
     const orb = document.getElementById("goldOrb");
@@ -57,9 +54,8 @@ function Home() {
 
   return (
     <>
-      {/* HERO - Section principale de présentation */}
       <main id="accueil" className="hero">
-        {/* HERO CONTENT - Texte principal et actions */}
+        {/* Présentation courte : identité, spécialité et liens d'action. */}
         <section className="hero-content">
           <p className="intro">Bonjour, je suis</p>
 
@@ -77,7 +73,6 @@ function Home() {
             robustes, élégantes et maintenables.
           </p>
 
-          {/* ACTIONS - Navigation vers les pages principales */}
           <div className="hero-buttons">
             <Link to="/projets" className="primary-button">
               Voir mes projets →
@@ -88,7 +83,7 @@ function Home() {
             </Link>
           </div>
 
-          {/* SOCIAL LINKS - Liens professionnels */}
+          {/* Liens professionnels utilisés pour contacter ou vérifier le profil. */}
           <div className="social-links">
             <a
               href="https://www.linkedin.com/in/albert-tayo/?skipRedirect=true"
@@ -115,16 +110,15 @@ function Home() {
           </div>
         </section>
 
-        {/* HERO VISUAL - Image de profil et animations */}
+        {/* Visuel principal : portrait animé et éléments décoratifs de l'accueil. */}
         <section className="hero-visual">
           <div className="blue-shape"></div>
           <div className="orange-ring"></div>
           <div className="code-badge">&lt;/&gt;</div>
 
-          {/* PROFILE CARD - Carte animée avec effet flip */}
+          {/* Carte interactive : la face arrière affiche trois valeurs de travail. */}
           <div className="profile-flip-card">
             <div className="profile-card-inner">
-              {/* FRONT CARD - Face avant de la carte */}
               <div className="profile-card profile-card-front">
                 <img
                   src={profileImage}
@@ -135,7 +129,6 @@ function Home() {
                 <div className="gold-orb" id="goldOrb"></div>
               </div>
 
-              {/* BACK CARD - Face arrière de la carte */}
               <div className="profile-card profile-card-back">
                 <p>EXCELLENCE</p>
                 <p>TRAVAIL</p>
@@ -145,7 +138,7 @@ function Home() {
           </div>
         </section>
 
-        {/* MORE PROJECTS BUTTON - Redirige vers la page projets */}
+        {/* Raccourci vers la page complète des projets. */}
         <Link
           to="/projets"
           className="scroll-button more-projects-button"
@@ -155,7 +148,6 @@ function Home() {
         </Link>
       </main>
 
-      {/* PROJECTS SECTION - Projets mis en avant visibles sur l'accueil */}
       <section id="projets" className="projects-section">
         <h2>PROJETS LES PLUS MARQUANTS</h2>
 
@@ -171,29 +163,27 @@ function Home() {
           </p>
         )}
 
-        {/* PROJECTS GRID - Affichage dynamique des cartes projets */}
+        {/* Les cartes sont générées depuis les données reçues par l'API. */}
         {projectsStatus === "success" && (
           <div className="projects-grid">
             {featuredProjects.map((project) => (
               <article key={project.id} className="project-card">
-                {/* PROJECT IMAGE - Image représentative du projet */}
                 <div className="project-image">
                   <img src={project.image} alt={project.title} />
                 </div>
 
-                {/* PROJECT CONTENT - Informations du projet */}
                 <h3>{project.title}</h3>
 
                 <p>{project.shortDescription}</p>
 
-                {/* PROJECT TAGS - Technologies utilisées */}
+                {/* Chaque tag indique une technologie utilisée dans le projet. */}
                 <div className="tags">
                   {project.tags.map((technology) => (
                     <span key={technology}>{technology}</span>
                   ))}
                 </div>
 
-                {/* PROJECT ACTIONS - Liens externes */}
+                {/* Liens vers le code source et la démo publique du projet. */}
                 <div className="project-actions">
                   <a href={project.github} target="_blank" rel="noreferrer">
                     GitHub

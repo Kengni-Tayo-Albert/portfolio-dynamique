@@ -1,6 +1,6 @@
 import ContactMessage from "../models/ContactMessage.js";
 
-/* Enregistre un message public envoye depuis le formulaire de contact. */
+/* Enregistre un message public envoyé depuis le formulaire de contact. */
 export async function createContactMessage(req, res, next) {
   try {
     const { name, email, subject, message } = req.body;

@@ -10,13 +10,13 @@ import {
 
 const allowedSkillGroups = ["FRONT-END", "BACK-END", "OUTILS & DEVOPS", "SOFT SKILLS"];
 
-/* Regles appliquees a la connexion admin. */
+/* Règles appliquées à la connexion admin. */
 export const loginRules = [
   validEmail("email", "Email"),
   requiredString("password", "Mot de passe", 8),
 ];
 
-/* Regles appliquees au formulaire de contact public. */
+/* Règles appliquées au formulaire de contact public. */
 export const contactRules = [
   requiredString("name", "Nom", 2),
   validEmail("email", "Email"),
@@ -24,10 +24,10 @@ export const contactRules = [
   requiredString("message", "Message", 10),
 ];
 
-/* Validation commune des routes qui recoivent un id MongoDB en parametre. */
+/* Validation commune des routes qui reçoivent un id MongoDB en paramètre. */
 export const projectIdRules = [validMongoIdParam("id")];
 
-/* Regles de creation/mise a jour d'un projet depuis le dashboard. */
+/* Règles de création ou mise à jour d'un projet depuis le dashboard. */
 export const projectRules = [
   requiredString("title", "Titre", 2),
   requiredString("subtitle", "Sous-titre", 2),
@@ -40,7 +40,7 @@ export const projectRules = [
   optionalBooleanString("featured"),
 ];
 
-/* Regles de creation d'une competence dans un groupe autorise. */
+/* Règles de création d'une compétence dans un groupe autorisé. */
 export const skillRules = [
   requiredString("label", "Nom de la competence", 2),
   requiredString("icon", "Icone", 2),
@@ -55,18 +55,18 @@ export const skillRules = [
   },
 ];
 
-/* Regles de mise a jour : l'id compose permet de retrouver l'ancien groupe et l'ancien libelle. */
+/* Règles de mise à jour : l'id composé permet de retrouver l'ancien groupe et l'ancien libellé. */
 export const updateSkillRules = [
   requiredString("id", "Identifiant de la competence", 3),
   ...skillRules,
 ];
 
-/* Regles de suppression d'une competence. */
+/* Règles de suppression d'une compétence. */
 export const deleteSkillRules = [
   requiredString("id", "Identifiant de la competence", 3),
 ];
 
-/* Les fonctions suivantes valident le payload complet du profil/CV, plus profond qu'un simple formulaire. */
+/* Les fonctions suivantes valident tout le profil/CV avant remplacement du document MongoDB. */
 function isObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
@@ -199,7 +199,7 @@ function validateExperiences(profile) {
   return null;
 }
 
-/* Controle toute la structure du CV avant que le controleur ne remplace le document MongoDB. */
+/* Contrôle toute la structure du CV avant que le contrôleur ne remplace le document MongoDB. */
 function validateProfilePayload(req) {
   const profile = req.body;
 
@@ -223,5 +223,5 @@ function validateProfilePayload(req) {
   return validationError || null;
 }
 
-/* Regle unique du profil, composee de plusieurs validations imbriquees. */
+/* Règle unique du profil, composée de plusieurs validations imbriquées. */
 export const profileRules = [validateProfilePayload];

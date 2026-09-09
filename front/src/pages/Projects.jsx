@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "../services/api";
 
-/* Projects affiche la liste complete des realisations disponibles dans l'API. */
+/* Projects affiche toutes les réalisations disponibles dans l'API ou le JSON statique. */
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [status, setStatus] = useState("loading");
 
-  /* EFFECT - Récupération API de tous les projets */
-  /* Charge tous les projets afin que la page reste synchronisee avec le back-office. */
+  /* Charge tous les projets pour garder la page synchronisée avec le back-office. */
   useEffect(() => {
     async function loadProjects() {
       try {
@@ -26,7 +25,7 @@ function Projects() {
 
   return (
     <main className="projects-page">
-      {/* PROJECTS HEADER - Introduction de la page projets */}
+      {/* Introduction courte avant la grille complète des réalisations. */}
       <section className="projects-intro">
         <p className="section-label">PROJETS</p>
         <h1>Tous mes projets</h1>
@@ -47,12 +46,11 @@ function Projects() {
         </p>
       )}
 
-      {/* PROJECTS GRID - Liste des projets */}
+      {/* Grille alimentée par les données projets. */}
       {status === "success" && (
         <section className="projects-page-grid">
           {projects.map((project) => (
             <article className="project-card" key={project.id}>
-              {/* PROJECT IMAGE - Visuel réel du projet */}
               <div className="project-image">
                 <img
                   src={project.image}

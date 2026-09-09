@@ -1,16 +1,17 @@
 import { FaBolt, FaGem, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import profileImage from "../assets/albert-profile.jpeg";
 
-/* About explique le parcours, les valeurs de travail et la base technique du portfolio. */
+/* About présente le parcours, les valeurs de travail et la base technique du portfolio. */
 function About() {
   return (
     <main className="about-page">
-      {/* DECORATION - Cercles lumineux d'arriere-plan */}
+      {/* Ces formes servent uniquement à donner du relief au fond de page. */}
       <div className="about-circle about-circle-top"></div>
       <div className="about-circle about-circle-bottom"></div>
 
       <section className="about-container">
-        {/* IMAGE - Portrait professionnel */}
+        {/* Portrait accompagné d'une indication de disponibilité. */}
         <div className="about-image-wrapper">
           <img src={profileImage} alt="Portrait professionnel de Albert TAYO" />
 
@@ -23,7 +24,7 @@ function About() {
           </div>
         </div>
 
-        {/* CONTENU - Presentation personnelle */}
+        {/* Texte personnel et éléments rapides pour comprendre le profil. */}
         <div className="about-content">
           <p className="section-label">À PROPOS</p>
 
@@ -37,7 +38,7 @@ function About() {
             en applications web utiles, accessibles et performantes.
           </p>
 
-          {/* Valeurs : petites cartes reutilisant des icones pour rendre la lecture rapide. */}
+          {/* Les valeurs résument la manière de travailler, au-delà des outils techniques. */}
           <div className="values-grid">
             <article className="value-card">
               <span>
@@ -64,7 +65,7 @@ function About() {
             </article>
           </div>
 
-          {/* Technologies : resume la stack utilisee dans le projet dynamique. */}
+          {/* Résumé de la stack utilisée dans ce portfolio dynamique. */}
           <div className="tech-box">
             <h3>Technologies principales</h3>
             <p>Première base technique du portfolio dynamique avec administration.</p>
@@ -78,9 +79,9 @@ function About() {
             </div>
           </div>
 
-          <a href="#competences" className="about-button">
+          <Link to="/competences" className="about-button">
             Voir mes compétences →
-          </a>
+          </Link>
         </div>
       </section>
     </main>

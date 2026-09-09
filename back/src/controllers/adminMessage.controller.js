@@ -1,6 +1,6 @@
 import ContactMessage from "../models/ContactMessage.js";
 
-/* Liste les messages les plus recents pour la section admin Messages. */
+/* Liste les messages les plus récents pour la section admin Messages. */
 export async function getAdminMessages(req, res, next) {
   try {
     const messages = await ContactMessage.find().sort({ createdAt: -1 });

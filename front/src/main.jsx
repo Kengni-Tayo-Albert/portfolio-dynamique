@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-/* Point d'entree React : l'application est montee dans la div #root fournie par index.html. */
+/* Point d'entrée React : l'application est montée dans la div #root du fichier index.html. */
 createRoot(document.getElementById('root')).render(
-  /* StrictMode aide a detecter les effets de bord pendant le developpement. */
+  /* StrictMode signale plus vite les erreurs possibles pendant le développement. */
   <StrictMode>
     <App />
   </StrictMode>,

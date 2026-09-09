@@ -2,23 +2,22 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-/* Header gere la navigation principale et l'ouverture du menu mobile. */
+/* Header contient la navigation principale et le menu responsive. */
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  /* Ferme le menu apres un clic sur un lien pour revenir a une interface lisible sur mobile. */
+  /* Après un clic, le menu mobile se referme pour laisser la page visible. */
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
   return (
     <header className={`header ${isMenuOpen ? "menu-open" : ""}`}>
-      {/* LOGO - Identité principale du portfolio */}
       <NavLink to="/" className="logo" onClick={closeMenu}>
         Albert.<span>TAYO</span>
       </NavLink>
 
-      {/* BURGER - Bouton visible en responsive */}
+      {/* Bouton affiché sur mobile pour ouvrir ou fermer la navigation. */}
       <button
         type="button"
         className="burger-button"
@@ -29,7 +28,7 @@ function Header() {
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
 
-      {/* NAVIGATION - Liens internes sans rechargement */}
+      {/* Liens internes du portfolio, gérés par React Router. */}
       <nav className={`nav ${isMenuOpen ? "nav-open" : ""}`}>
         <NavLink to="/" onClick={closeMenu}>
           Accueil
@@ -50,7 +49,7 @@ function Header() {
           Contact
         </NavLink>
 
-        {/* ACTION - Téléchargement du CV */}
+        {/* Lien direct vers le CV PDF placé dans le dossier public. */}
         <a
           href="/cv-albert-tayo.pdf"
           download="CV-Albert-Tayo.pdf"

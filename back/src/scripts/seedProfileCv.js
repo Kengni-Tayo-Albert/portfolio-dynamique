@@ -16,7 +16,7 @@ const profileCvJsonPath = path.join(
   "profile-cv.json"
 );
 
-/* Importe les donnees CV statiques du front dans MongoDB. */
+/* Importe les données CV statiques du front dans MongoDB. */
 async function seedProfileCv() {
   try {
     if (!process.env.MONGO_URI) {

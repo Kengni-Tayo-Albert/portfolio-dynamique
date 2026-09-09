@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-/* Une competence individuelle stocke son libelle et la cle d'icone utilisee par le front. */
+/* Une compétence individuelle stocke son libellé et la clé d'icône utilisée par le front. */
 const skillItemSchema = new mongoose.Schema(
   {
     label: {
@@ -17,7 +17,7 @@ const skillItemSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* Un groupe rassemble les competences par categorie visuelle : front, back, outils ou soft skills. */
+/* Un groupe rassemble les compétences par catégorie visuelle : front, back, outils ou soft skills. */
 const skillGroupSchema = new mongoose.Schema(
   {
     icon: {
@@ -48,7 +48,7 @@ const skillGroupSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* Les statistiques affichent des chiffres courts sur la page Competences. */
+/* Les statistiques affichent des chiffres courts sur la page Compétences. */
 const skillStatSchema = new mongoose.Schema(
   {
     number: {
@@ -70,7 +70,7 @@ const skillStatSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* Skill stocke le contenu complet de la page Competences dans un seul document versionne par date. */
+/* Skill stocke le contenu complet de la page Compétences dans un seul document versionné par date. */
 const skillSchema = new mongoose.Schema(
   {
     groups: {
@@ -87,7 +87,7 @@ const skillSchema = new mongoose.Schema(
   }
 );
 
-/* toJSON nettoie la reponse envoyee au front en remplacant _id par id. */
+/* toJSON nettoie la réponse envoyée au front en remplaçant _id par id. */
 skillSchema.set("toJSON", {
   versionKey: false,
   transform: (document, returnedObject) => {

@@ -1,6 +1,6 @@
 import ProfileCv from "../models/ProfileCv.js";
 
-/* Retourne le dernier profil/CV publie pour alimenter la page CV. */
+/* Retourne le dernier profil/CV publié pour alimenter la page CV. */
 export async function getProfileCv(req, res, next) {
   try {
     const profileCv = await ProfileCv.findOne().sort({ createdAt: -1 });

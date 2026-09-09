@@ -67,13 +67,12 @@ const itemIconMap = {
   "user-check": FaUserCheck,
 };
 
-/* Skills affiche les competences par groupes et les statistiques depuis l'API. */
+/* Skills affiche les compétences par groupes et les chiffres clés du parcours. */
 function Skills() {
   const [skillsData, setSkillsData] = useState({ groups: [], stats: [] });
   const [status, setStatus] = useState("loading");
 
-  /* EFFECT - Récupération API des compétences */
-  /* Charge les groupes de competences et leurs chiffres cles depuis l'API ou le JSON statique. */
+  /* Charge les compétences depuis l'API ou depuis le JSON statique si le back-end est absent. */
   useEffect(() => {
     async function loadSkills() {
       try {
@@ -92,7 +91,7 @@ function Skills() {
 
   return (
     <main className="skills-page">
-      {/* HEADER SECTION - Titre principal de la page compétences */}
+      {/* Introduction de la page compétences. */}
       <section className="skills-intro">
         <p className="section-label">COMPÉTENCES</p>
         <div className="section-line"></div>
@@ -113,7 +112,7 @@ function Skills() {
         </p>
       )}
 
-      {/* SKILLS GRID - Catégories principales de compétences */}
+      {/* Les groupes permettent de séparer front-end, back-end, outils et savoir-être. */}
       {status === "success" && (
         <>
           <section className="skills-grid">
@@ -122,7 +121,7 @@ function Skills() {
             ))}
           </section>
 
-          {/* STATS SECTION - Chiffres clés */}
+          {/* Chiffres courts pour donner un aperçu rapide du parcours. */}
           <section className="stats-box">
             <p className="section-label">EXPÉRIENCE & RÉALISATIONS EN CHIFFRES</p>
             <div className="section-line"></div>
@@ -139,8 +138,7 @@ function Skills() {
   );
 }
 
-/* COMPONENT - Carte de compétence réutilisable */
-/* SkillCard choisit l'icone du groupe puis liste chaque competence avec son icone dediee. */
+/* SkillCard choisit l'icône du groupe puis liste chaque compétence avec son icône. */
 function SkillCard({ icon, title, color, description, items }) {
   const CategoryIcon = categoryIconMap[icon] || FaCode;
 
@@ -174,8 +172,7 @@ function SkillCard({ icon, title, color, description, items }) {
   );
 }
 
-/* COMPONENT - Statistique réutilisable */
-/* Stat isole l'affichage d'un chiffre cle pour garder la page Skills lisible. */
+/* Stat isole l'affichage d'un chiffre clé pour garder la page lisible. */
 function Stat({ number, title, text }) {
   return (
     <article className="stat-item">

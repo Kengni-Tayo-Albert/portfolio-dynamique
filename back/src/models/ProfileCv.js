@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-/* hero contient l'identite principale affichee en haut de la page CV. */
+/* hero contient l'identité principale affichée en haut de la page CV. */
 const heroSchema = new mongoose.Schema(
   {
     name: {
@@ -22,7 +22,7 @@ const heroSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* contactSchema decrit une ligne de contact avec son icone, son texte et son lien. */
+/* contactSchema décrit une ligne de contact avec son icône, son texte et son lien. */
 const contactSchema = new mongoose.Schema(
   {
     icon: {
@@ -60,7 +60,7 @@ const identitySchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* iconLabelSchema sert aux listes simples qui associent une icone a un libelle. */
+/* iconLabelSchema sert aux listes simples qui associent une icône à un libellé. */
 const iconLabelSchema = new mongoose.Schema(
   {
     icon: {
@@ -77,7 +77,7 @@ const iconLabelSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* formationSchema structure une entree du parcours academique. */
+/* formationSchema structure une entrée du parcours académique. */
 const formationSchema = new mongoose.Schema(
   {
     title: {
@@ -104,7 +104,7 @@ const formationSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* experienceSchema structure une experience professionnelle et ses missions. */
+/* experienceSchema structure une expérience professionnelle et ses missions. */
 const experienceSchema = new mongoose.Schema(
   {
     title: {
@@ -135,7 +135,7 @@ const experienceSchema = new mongoose.Schema(
   { _id: false }
 );
 
-/* ProfileCv centralise toutes les donnees necessaires a la page CV publique. */
+/* ProfileCv centralise toutes les données nécessaires à la page CV publique. */
 const profileCvSchema = new mongoose.Schema(
   {
     hero: {
@@ -176,7 +176,7 @@ const profileCvSchema = new mongoose.Schema(
   }
 );
 
-/* toJSON evite d'exposer les champs MongoDB techniques au front. */
+/* toJSON évite d'exposer les champs MongoDB techniques au front. */
 profileCvSchema.set("toJSON", {
   versionKey: false,
   transform: (document, returnedObject) => {

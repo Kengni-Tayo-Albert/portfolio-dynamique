@@ -1,8 +1,7 @@
-/* Footer regroupe les informations fixes qui restent identiques sur toutes les pages. */
+/* Footer regroupe les informations de contact visibles en bas de chaque page. */
 function Footer() {
   return (
     <footer className="footer">
-      {/* FOOTER - Informations principales de contact */}
       <p className="footer-logo">
         Albert.<span>TAYO</span>
       </p>

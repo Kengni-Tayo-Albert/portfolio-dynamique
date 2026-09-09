@@ -7,7 +7,7 @@ import { loginRules } from "../validators/portfolio.validators.js";
 
 const router = Router();
 
-/* Login admin : validation des champs, limitation des tentatives, puis generation du JWT. */
+/* Login admin : validation des champs, limitation des tentatives, puis génération du JWT. */
 router.post("/login", validateRequest(loginRules), limitAdminLoginAttempts, loginAdmin);
 /* Session courante : confirme que le token est encore valide. */
 router.get("/me", requireAdminAuth, getCurrentAdmin);

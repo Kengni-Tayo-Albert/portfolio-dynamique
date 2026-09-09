@@ -64,12 +64,12 @@ const emptyProfileForm = {
   experiences: "",
 };
 
-/* Convertit une liste API en texte multi-lignes pour l'edition dans un textarea. */
+/* Convertit une liste API en texte multi-lignes pour l'édition dans un textarea. */
 function listToText(items = []) {
   return items.join("\n");
 }
 
-/* Transforme un textarea multi-lignes en tableau nettoye avant envoi a l'API. */
+/* Transforme un textarea multi-lignes en tableau nettoyé avant l'envoi à l'API. */
 function textToList(text) {
   return text
     .split("\n")
@@ -77,14 +77,14 @@ function textToList(text) {
     .filter(Boolean);
 }
 
-/* Serialise les contacts avec un separateur simple pour les rendre modifiables dans un champ texte. */
+/* Sérialise les contacts avec un séparateur simple pour les rendre modifiables dans un champ texte. */
 function contactsToText(contacts = []) {
   return contacts
     .map((contact) => `${contact.icon} | ${contact.label} | ${contact.href}`)
     .join("\n");
 }
 
-/* Reconstruit les objets contact attendus par le schema ProfileCv. */
+/* Reconstruit les objets contact attendus par le schéma ProfileCv. */
 function textToContacts(text) {
   return textToList(text).map((line) => {
     const [icon = "", label = "", href = ""] = line.split("|").map((item) => item.trim());
@@ -93,7 +93,7 @@ function textToContacts(text) {
   });
 }
 
-/* Prepare les loisirs pour l'edition : une ligne contient l'icone et le libelle. */
+/* Prépare les loisirs pour l'édition : une ligne contient l'icône et le libellé. */
 function hobbiesToText(hobbies = []) {
   return hobbies.map((hobby) => `${hobby.icon} | ${hobby.label}`).join("\n");
 }
@@ -107,7 +107,7 @@ function textToHobbies(text) {
   });
 }
 
-/* Prepare chaque formation sur une ligne lisible dans le formulaire admin. */
+/* Prépare chaque formation sur une ligne lisible dans le formulaire admin. */
 function formationsToText(formations = []) {
   return formations
     .map(
@@ -117,7 +117,7 @@ function formationsToText(formations = []) {
     .join("\n");
 }
 
-/* Reconstruit les formations structurees a partir du champ texte admin. */
+/* Reconstruit les formations structurées à partir du champ texte admin. */
 function textToFormations(text) {
   return textToList(text).map((line) => {
     const [title = "", place = "", date = "", detail = ""] = line
@@ -128,7 +128,7 @@ function textToFormations(text) {
   });
 }
 
-/* Prepare les experiences, avec les missions separees par des points-virgules. */
+/* Prépare les expériences, avec les missions séparées par des points-virgules. */
 function experiencesToText(experiences = []) {
   return experiences
     .map(
@@ -140,7 +140,7 @@ function experiencesToText(experiences = []) {
     .join("\n");
 }
 
-/* Reconstruit les experiences et leurs missions avant sauvegarde API. */
+/* Reconstruit les expériences et leurs missions avant la sauvegarde API. */
 function textToExperiences(text) {
   return textToList(text).map((line) => {
     const [title = "", company = "", date = "", place = "", missions = ""] = line
@@ -160,7 +160,7 @@ function textToExperiences(text) {
   });
 }
 
-/* Cree l'etat initial du formulaire CV a partir du document recu de MongoDB. */
+/* Crée l'état initial du formulaire CV à partir du document reçu de MongoDB. */
 function createProfileForm(profile) {
   if (!profile) return emptyProfileForm;
 
@@ -200,7 +200,7 @@ function buildProfilePayload(form) {
   };
 }
 
-/* Lit une image locale en Data URL pour l'envoyer dans une requete JSON. */
+/* Lit une image locale en Data URL pour l'envoyer dans une requête JSON. */
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -229,7 +229,7 @@ function AdminDashboard() {
   const [editingProjectId, setEditingProjectId] = useState(null);
   const [editingSkillId, setEditingSkillId] = useState(null);
 
-  /* Verification initiale : controle le token, puis charge toutes les donnees admin en parallele. */
+  /* Vérification initiale : contrôle le token puis charge toutes les données admin en parallèle. */
   useEffect(() => {
     async function verifyAdminSession() {
       try {
@@ -257,20 +257,20 @@ function AdminDashboard() {
     verifyAdminSession();
   }, [navigate]);
 
-  /* Deconnexion : supprime le token local puis revient a la page de login. */
+  /* Déconnexion : supprime le token local puis revient à la page de login. */
   const logout = () => {
     logoutAdmin();
     navigate("/admin/login");
   };
 
-  /* Changement d'onglet : nettoie les messages pour eviter les retours visuels obsoletes. */
+  /* Changement d'onglet : nettoie les messages pour éviter les retours visuels obsolètes. */
   const changeSection = (sectionKey) => {
     setActiveSection(sectionKey);
     setStatusMessage("");
     setUploadStatus("");
   };
 
-  /* Synchronise les champs du formulaire projet avec l'etat local. */
+  /* Synchronise les champs du formulaire projet avec l'état local. */
   const handleProjectChange = (event) => {
     const { name, value } = event.target;
 
@@ -280,7 +280,7 @@ function AdminDashboard() {
     }));
   };
 
-  /* Upload d'image : convertit le fichier en base64 puis laisse l'API creer l'URL publique. */
+  /* Upload d'image : convertit le fichier en base64 puis laisse l'API créer l'URL publique. */
   async function handleProjectImageUpload(file) {
     if (!file) return;
 
@@ -305,7 +305,7 @@ function AdminDashboard() {
     }
   }
 
-  /* Synchronise les champs du formulaire competence. */
+  /* Synchronise les champs du formulaire compétence. */
   const handleSkillChange = (event) => {
     const { name, value } = event.target;
 
@@ -325,7 +325,7 @@ function AdminDashboard() {
     }));
   };
 
-  /* Sauvegarde un projet : cree ou met a jour selon la presence d'un id en edition. */
+  /* Sauvegarde un projet : crée ou met à jour selon la présence d'un id en édition. */
   async function handleProjectSubmit(event) {
     event.preventDefault();
 
@@ -342,7 +342,7 @@ function AdminDashboard() {
     setProjects(await getAdminProjects());
   }
 
-  /* Sauvegarde une competence : cree un nouvel item ou remplace l'item selectionne. */
+  /* Sauvegarde une compétence : crée un nouvel item ou remplace l'item sélectionné. */
   async function handleSkillSubmit(event) {
     event.preventDefault();
 
@@ -359,7 +359,7 @@ function AdminDashboard() {
     setSkills(await getAdminSkills());
   }
 
-  /* Sauvegarde le profil : convertit le formulaire plat en document structure pour l'API. */
+  /* Sauvegarde le profil : convertit le formulaire plat en document structuré pour l'API. */
   async function handleProfileSubmit(event) {
     event.preventDefault();
 
@@ -370,7 +370,7 @@ function AdminDashboard() {
     setStatusMessage("Profil modifié avec succès.");
   }
 
-  /* Remplit le formulaire projet avec les valeurs existantes pour passer en mode edition. */
+  /* Remplit le formulaire projet avec les valeurs existantes pour passer en mode édition. */
   const editProject = (project) => {
     setProjectForm({
       title: project.title || "",
@@ -386,7 +386,7 @@ function AdminDashboard() {
     setEditingProjectId(project.id);
   };
 
-  /* Remplit le formulaire competence et conserve son identifiant compose. */
+  /* Remplit le formulaire compétence et conserve son identifiant composé. */
   const editSkill = (skill) => {
     setSkillForm({
       id: skill.id,
@@ -397,21 +397,21 @@ function AdminDashboard() {
     setEditingSkillId(skill.id);
   };
 
-  /* Supprime un projet puis recharge la liste admin pour garder l'interface a jour. */
+  /* Supprime un projet puis recharge la liste admin pour garder l'interface à jour. */
   async function removeProject(projectId) {
     await deleteAdminProject(projectId);
     setProjects(await getAdminProjects());
     setStatusMessage("Projet supprimé avec succès.");
   }
 
-  /* Supprime une competence dans son groupe puis recharge la liste aplatie. */
+  /* Supprime une compétence dans son groupe puis recharge la liste aplatie. */
   async function removeSkill(skillId) {
     await deleteAdminSkill(skillId);
     setSkills(await getAdminSkills());
     setStatusMessage("Compétence supprimée avec succès.");
   }
 
-  /* Supprime un message apres confirmation utilisateur pour eviter une action accidentelle. */
+  /* Supprime un message après confirmation utilisateur pour éviter une action accidentelle. */
   async function removeMessage(messageId) {
     const confirmed = window.confirm("Supprimer ce message de contact ?");
 
@@ -630,7 +630,7 @@ function ProjectAdmin({
   );
 }
 
-/* SkillAdmin gere les competences une par une, meme si l'API les stocke par groupes. */
+/* SkillAdmin gère les compétences une par une, même si l'API les stocke par groupes. */
 function SkillAdmin({
   form,
   skills,
@@ -685,7 +685,7 @@ function SkillAdmin({
   );
 }
 
-/* ProfileEditor edite toutes les sections du CV dans un formulaire unique. */
+/* ProfileEditor édite toutes les sections du CV dans un formulaire unique. */
 function ProfileEditor({ form, onChange, onSubmit }) {
   return (
     <>
@@ -801,7 +801,7 @@ function MessagesAdmin({ messages, onDelete }) {
   );
 }
 
-/* Formate les dates MongoDB en affichage francais pour le tableau admin. */
+/* Formate les dates MongoDB en affichage français pour le tableau admin. */
 function formatMessageDate(dateValue) {
   if (!dateValue) return "Date inconnue";
 

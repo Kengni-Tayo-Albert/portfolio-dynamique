@@ -5,7 +5,7 @@ import { validateEnvironment } from "./config/environment.js";
 
 const PORT = process.env.PORT || 5000;
 
-/* Demarre l'API : validation de la configuration, connexion MongoDB, puis ecoute HTTP. */
+/* Démarre l'API : validation de la configuration, connexion MongoDB, puis écoute HTTP. */
 async function startServer() {
   validateEnvironment();
   await connectDatabase();

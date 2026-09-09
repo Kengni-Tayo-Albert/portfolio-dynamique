@@ -1,6 +1,6 @@
 import Project from "../models/Project.js";
 
-/* Accepte les tags envoyes en tableau ou en chaine separee par virgules. */
+/* Accepte les tags envoyés en tableau ou en chaîne séparée par virgules. */
 function normalizeTags(tags) {
   if (Array.isArray(tags)) {
     return tags.map((tag) => tag.trim()).filter(Boolean);
@@ -12,14 +12,14 @@ function normalizeTags(tags) {
     .filter(Boolean);
 }
 
-/* Genere un ordre d'affichage interne compatible avec les projets seedes depuis JSON. */
+/* Génère un ordre d'affichage interne compatible avec les projets importés depuis JSON. */
 async function getNextSourceId() {
   const lastProject = await Project.findOne().sort({ sourceId: -1 });
 
   return (lastProject?.sourceId || 0) + 1;
 }
 
-/* Nettoie et complete les champs projet avant insertion ou mise a jour MongoDB. */
+/* Nettoie et complète les champs projet avant insertion ou mise à jour MongoDB. */
 function buildProjectPayload(body) {
   return {
     title: body.title,
@@ -45,7 +45,7 @@ export async function getAdminProjects(req, res, next) {
   }
 }
 
-/* Cree un projet depuis le dashboard admin. */
+/* Crée un projet depuis le dashboard admin. */
 export async function createAdminProject(req, res, next) {
   try {
     const project = await Project.create({
@@ -59,7 +59,7 @@ export async function createAdminProject(req, res, next) {
   }
 }
 
-/* Met a jour un projet existant et renvoie la version sauvegardee. */
+/* Met à jour un projet existant et renvoie la version sauvegardée. */
 export async function updateAdminProject(req, res, next) {
   try {
     const project = await Project.findByIdAndUpdate(

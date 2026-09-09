@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import Admin from "../models/Admin.js";
 import { validateAdminPassword } from "../config/environment.js";
 
-/* Cree ou met a jour le compte admin a partir des variables d'environnement. */
+/* Crée ou met à jour le compte admin à partir des variables d'environnement. */
 async function seedAdmin() {
   try {
     const adminEmail = process.env.ADMIN_EMAIL;

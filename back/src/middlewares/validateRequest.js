@@ -1,4 +1,4 @@
-/* Execute une liste de regles de validation avant d'autoriser le controleur a traiter la requete. */
+/* Exécute les règles de validation avant d'autoriser le contrôleur à traiter la requête. */
 export function validateRequest(rules) {
   return (req, res, next) => {
     const errors = [];
