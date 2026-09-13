@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+/* ==========================================================================
+   1. SCHEMAS INTERNES DES COMPETENCES
+   Ces schemas decrivent une competence, un groupe et une statistique.
+========================================================================== */
 /* Une compétence individuelle stocke son libellé et la clé d'icône utilisée par le front. */
 const skillItemSchema = new mongoose.Schema(
   {
@@ -70,6 +74,10 @@ const skillStatSchema = new mongoose.Schema(
   { _id: false }
 );
 
+/* ==========================================================================
+   2. SCHEMA PRINCIPAL MONGOOSE
+   Un seul document contient les groupes de competences et les statistiques.
+========================================================================== */
 /* Skill stocke le contenu complet de la page Compétences dans un seul document versionné par date. */
 const skillSchema = new mongoose.Schema(
   {
@@ -87,6 +95,10 @@ const skillSchema = new mongoose.Schema(
   }
 );
 
+/* ==========================================================================
+   3. FORMAT DE REPONSE POUR LE FRONT
+   On remplace _id par id pour simplifier l'utilisation cote React.
+========================================================================== */
 /* toJSON nettoie la réponse envoyée au front en remplaçant _id par id. */
 skillSchema.set("toJSON", {
   versionKey: false,

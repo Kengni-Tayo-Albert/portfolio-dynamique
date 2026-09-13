@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+/* ==========================================================================
+   1. SCHEMAS INTERNES DU CV
+   Chaque petit schema decrit une partie precise de la page CV.
+========================================================================== */
 /* hero contient l'identité principale affichée en haut de la page CV. */
 const heroSchema = new mongoose.Schema(
   {
@@ -135,6 +139,10 @@ const experienceSchema = new mongoose.Schema(
   { _id: false }
 );
 
+/* ==========================================================================
+   2. SCHEMA PRINCIPAL MONGOOSE
+   Ce document rassemble toutes les donnees dynamiques du CV public.
+========================================================================== */
 /* ProfileCv centralise toutes les données nécessaires à la page CV publique. */
 const profileCvSchema = new mongoose.Schema(
   {
@@ -176,6 +184,10 @@ const profileCvSchema = new mongoose.Schema(
   }
 );
 
+/* ==========================================================================
+   3. FORMAT DE REPONSE POUR LE FRONT
+   On envoie un id simple au front et on cache les champs techniques MongoDB.
+========================================================================== */
 /* toJSON évite d'exposer les champs MongoDB techniques au front. */
 profileCvSchema.set("toJSON", {
   versionKey: false,

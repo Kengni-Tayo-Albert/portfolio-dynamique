@@ -1,10 +1,18 @@
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/* ==========================================================================
+   1. OUTIL COMMUN
+   Cette fonction lit une valeur envoyee par le front dans req.body.
+========================================================================== */
 /* Lit une valeur envoyee dans le body de la requete. */
 function getBodyValue(req, field) {
   return req.body?.[field];
 }
 
+/* ==========================================================================
+   2. VALIDATION DES CHAMPS TEXTE
+   Ces fonctions verifient les donnees avant de les laisser arriver aux routes.
+========================================================================== */
 /* Un champ texte obligatoire est verifie puis nettoye avant le controleur. */
 export function requiredString(field, label = field, minLength = 1) {
   return (req) => {
@@ -33,6 +41,10 @@ export function validEmail(field, label = field) {
   };
 }
 
+/* ==========================================================================
+   3. VALIDATION DES LIENS ET IMAGES
+   On accepte uniquement des URL valides ou des chemins d'images prevus.
+========================================================================== */
 /* On accepte seulement les liens web classiques : http ou https. */
 export function validUrl(field, label = field) {
   return (req) => {
@@ -69,6 +81,10 @@ export function validImagePath(field, label = field) {
   };
 }
 
+/* ==========================================================================
+   4. VALIDATION DES TYPES SIMPLES
+   Ces controles servent aux formulaires admin et aux routes avec id MongoDB.
+========================================================================== */
 /* Le front envoie parfois un booleen sous forme de texte depuis un formulaire. */
 export function optionalBooleanString(field) {
   return (req) => {

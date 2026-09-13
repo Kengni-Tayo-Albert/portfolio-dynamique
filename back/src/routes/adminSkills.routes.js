@@ -9,6 +9,10 @@ import {
 
 const router = Router();
 
+/* ==========================================================================
+   1. OUTILS POUR LIRE ET PREPARER LES COMPETENCES
+   Ces fonctions evitent de repeter la recherche MongoDB dans chaque route.
+========================================================================== */
 async function getSkillDocument() {
   const skills = await Skill.findOne().sort({ createdAt: -1 });
 
@@ -38,6 +42,10 @@ function findGroup(skills, groupTitle) {
   return skills.groups.find((group) => group.title === groupTitle);
 }
 
+/* ==========================================================================
+   2. ROUTES ADMIN : LIRE, AJOUTER, MODIFIER, SUPPRIMER
+   Chaque fonction correspond a une action du tableau de bord admin.
+========================================================================== */
 async function getAdminSkills(req, res, next) {
   try {
     const skills = await getSkillDocument();
@@ -109,6 +117,10 @@ async function deleteAdminSkill(req, res, next) {
   }
 }
 
+/* ==========================================================================
+   3. BRANCHEMENT DES URL EXPRESS
+   validateRequest controle les donnees avant les fonctions de route.
+========================================================================== */
 router.get("/", getAdminSkills);
 router.post("/", validateRequest(skillRules), createAdminSkill);
 router.put("/", validateRequest(updateSkillRules), updateAdminSkill);
