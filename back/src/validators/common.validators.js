@@ -1,14 +1,14 @@
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/* Récupère une valeur du body en gardant les validateurs courts et réutilisables. */
-function getValue(req, field) {
+/* Lit une valeur envoyee dans le body de la requete. */
+function getBodyValue(req, field) {
   return req.body?.[field];
 }
 
-/* Valide un champ texte obligatoire et le nettoie avant le contrôleur. */
+/* Un champ texte obligatoire est verifie puis nettoye avant le controleur. */
 export function requiredString(field, label = field, minLength = 1) {
   return (req) => {
-    const value = getValue(req, field);
+    const value = getBodyValue(req, field);
 
     if (typeof value !== "string" || value.trim().length < minLength) {
       return `${label} doit contenir au moins ${minLength} caractere(s).`;
@@ -19,28 +19,10 @@ export function requiredString(field, label = field, minLength = 1) {
   };
 }
 
-/* Valide un champ texte optionnel uniquement s'il est présent. */
-export function optionalString(field) {
-  return (req) => {
-    const value = getValue(req, field);
-
-    if (value === undefined || value === null || value === "") {
-      return null;
-    }
-
-    if (typeof value !== "string") {
-      return `${field} doit etre une chaine de caracteres.`;
-    }
-
-    req.body[field] = value.trim();
-    return null;
-  };
-}
-
-/* Valide et normalise une adresse email. */
+/* L'email est stocke en minuscules pour eviter les doublons. */
 export function validEmail(field, label = field) {
   return (req) => {
-    const value = getValue(req, field);
+    const value = getBodyValue(req, field);
 
     if (typeof value !== "string" || !emailRegex.test(value.trim())) {
       return `${label} doit etre une adresse email valide.`;
@@ -51,35 +33,35 @@ export function validEmail(field, label = field) {
   };
 }
 
-/* Valide une URL publique en limitant les protocoles à HTTP/HTTPS. */
+/* On accepte seulement les liens web classiques : http ou https. */
 export function validUrl(field, label = field) {
   return (req) => {
-    const value = getValue(req, field);
+    const value = getBodyValue(req, field);
+    const trimmedValue = typeof value === "string" ? value.trim() : "";
 
     try {
-      const url = new URL(value);
-      const isValidProtocol = ["http:", "https:"].includes(url.protocol);
+      const url = new URL(trimmedValue);
 
-      if (!isValidProtocol) {
+      if (!["http:", "https:"].includes(url.protocol)) {
         return `${label} doit etre une URL http ou https.`;
       }
     } catch {
       return `${label} doit etre une URL valide.`;
     }
 
-    req.body[field] = value.trim();
+    req.body[field] = trimmedValue;
     return null;
   };
 }
 
-/* Accepte soit une image locale du front, soit une URL externe valide. */
+/* Une image peut venir du dossier public du front, des uploads ou d'une URL externe. */
 export function validImagePath(field, label = field) {
   return (req) => {
-    const value = getValue(req, field);
-    const isLocalAsset = typeof value === "string" && value.trim().startsWith("/projects/");
+    const value = getBodyValue(req, field);
+    const trimmedValue = typeof value === "string" ? value.trim() : "";
 
-    if (isLocalAsset) {
-      req.body[field] = value.trim();
+    if (trimmedValue.startsWith("/projects/") || trimmedValue.startsWith("/uploads/")) {
+      req.body[field] = trimmedValue;
       return null;
     }
 
@@ -87,10 +69,10 @@ export function validImagePath(field, label = field) {
   };
 }
 
-/* Accepte les booléens réels ou les booléens envoyés comme chaînes depuis un formulaire HTML. */
+/* Le front envoie parfois un booleen sous forme de texte depuis un formulaire. */
 export function optionalBooleanString(field) {
   return (req) => {
-    const value = getValue(req, field);
+    const value = getBodyValue(req, field);
 
     if (
       value === undefined ||
@@ -106,7 +88,7 @@ export function optionalBooleanString(field) {
   };
 }
 
-/* Vérifie qu'un paramètre d'URL ressemble à un ObjectId MongoDB. */
+/* Un id MongoDB contient 24 caracteres hexadecimaux. */
 export function validMongoIdParam(field = "id") {
   return (req) => {
     const value = req.params?.[field];

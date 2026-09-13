@@ -1,7 +1,11 @@
+import { Router } from "express";
 import ContactMessage from "../models/ContactMessage.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import { projectIdRules } from "../validators/portfolio.validators.js";
 
-/* Liste les messages les plus récents pour la section admin Messages. */
-export async function getAdminMessages(req, res, next) {
+const router = Router();
+
+async function getAdminMessages(req, res, next) {
   try {
     const messages = await ContactMessage.find().sort({ createdAt: -1 });
 
@@ -11,8 +15,7 @@ export async function getAdminMessages(req, res, next) {
   }
 }
 
-/* Supprime un message de contact depuis le tableau de bord. */
-export async function deleteAdminMessage(req, res, next) {
+async function deleteAdminMessage(req, res, next) {
   try {
     const deletedMessage = await ContactMessage.findByIdAndDelete(req.params.id);
 
@@ -25,3 +28,8 @@ export async function deleteAdminMessage(req, res, next) {
     next(error);
   }
 }
+
+router.get("/", getAdminMessages);
+router.delete("/:id", validateRequest(projectIdRules), deleteAdminMessage);
+
+export default router;

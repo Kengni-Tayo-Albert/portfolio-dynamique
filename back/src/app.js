@@ -17,17 +17,20 @@ const app = express();
 const currentFile = fileURLToPath(import.meta.url);
 const currentDirectory = path.dirname(currentFile);
 const publicDirectory = path.resolve(currentDirectory, "../public");
+
+/* On masque Express pour ne pas donner d'information technique inutile. */
 app.disable("x-powered-by");
 
-/* Liste blanche CORS : plusieurs URLs front peuvent être séparées par des virgules. */
+/* Liste des fronts autorises a appeler l'API depuis un navigateur. */
 const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+/* Headers simples contre certains abus navigateur. */
 app.use(securityHeaders);
 
-/* CORS contrôle quelles origines peuvent appeler l'API depuis un navigateur. */
+/* CORS bloque les appels venant d'un site non autorise. */
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -43,8 +46,10 @@ app.use(
   })
 );
 
+/* Permet a Express de lire le body JSON envoye par le front. */
 app.use(express.json({ limit: "5mb" }));
-/* Les images uploadées par l'admin sont servies publiquement depuis /uploads. */
+
+/* Les images envoyees par l'admin deviennent accessibles avec /uploads/nom-du-fichier. */
 app.use("/uploads", express.static(path.join(publicDirectory, "uploads")));
 
 app.get("/", (req, res) => {
@@ -53,7 +58,7 @@ app.get("/", (req, res) => {
   });
 });
 
-/* Routes API : endpoints publics, authentification et back-office admin. */
+/* Chaque route branche un domaine du projet : auth, admin, projets, contact, etc. */
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
@@ -62,7 +67,10 @@ app.use("/api/skills", skillRoutes);
 app.use("/api/profile-cv", profileCvRoutes);
 app.use("/api/contact", contactRoutes);
 
+/* Si aucune route ne correspond, on renvoie une erreur 404. */
 app.use(notFoundHandler);
+
+/* Derniere etape : convertir les erreurs en reponses JSON propres. */
 app.use(errorHandler);
 
 export default app;

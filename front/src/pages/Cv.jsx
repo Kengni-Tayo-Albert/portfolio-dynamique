@@ -16,6 +16,13 @@ import {
 } from "react-icons/fa";
 import { getProfileCv } from "../services/api";
 
+/* ==========================================================================
+   1. CONFIGURATION DU CV
+   Le PDF est dans public, les tableaux associent les noms d'icones au visuel.
+========================================================================== */
+const cvPdfPath = "/cv-albert-tayo.pdf";
+const cvPdfFileName = "CV-Albert-Tayo.pdf";
+
 const contactIconMap = {
   email: FaEnvelope,
   github: FaGithub,
@@ -30,11 +37,23 @@ const hobbyIconMap = {
   running: FaRunning,
 };
 
+function removeDashSeparator(text) {
+  return String(text).replace(/\s+-\s+/g, " ");
+}
+
+/* ==========================================================================
+   2. COMPOSANT PRINCIPAL : PAGE CV
+   Cette page recupere le profil complet puis construit le CV a l'ecran.
+========================================================================== */
 /* Cv affiche le profil complet depuis l'API et réutilise des blocs pour garder la page lisible. */
 function Cv() {
   const [cvData, setCvData] = useState(null);
   const [status, setStatus] = useState("loading");
 
+  /* --------------------------------------------------------------------------
+     2.1 CHARGEMENT DU PROFIL CV DEPUIS L'API
+     Le front appelle /api/profile-cv et garde la reponse dans cvData.
+  -------------------------------------------------------------------------- */
   /* Charge le document ProfileCv : identité, contacts, compétences, formations et expériences. */
   useEffect(() => {
     async function loadProfileCv() {
@@ -52,6 +71,10 @@ function Cv() {
     loadProfileCv();
   }, []);
 
+  /* --------------------------------------------------------------------------
+     2.2 ETATS DE CHARGEMENT ET D'ERREUR
+     On evite d'afficher le CV tant que les donnees ne sont pas pretes.
+  -------------------------------------------------------------------------- */
   if (status === "loading") {
     return (
       <main className="cv-page">
@@ -68,6 +91,10 @@ function Cv() {
     );
   }
 
+  /* --------------------------------------------------------------------------
+     2.3 AFFICHAGE DU CV
+     Toute cette partie transforme cvData en interface visible.
+  -------------------------------------------------------------------------- */
   return (
     <main className="cv-page">
       {/* Résumé de l'identité professionnelle avec téléchargement du CV PDF. */}
@@ -76,7 +103,8 @@ function Cv() {
         <h1>{cvData.hero.name}</h1>
         <h2>{cvData.hero.title}</h2>
         <p>{cvData.hero.summary}</p>
-        <a href="/cv-albert-tayo.pdf" download="CV-Albert-Tayo.pdf">
+        {/* Le PDF est dans front/public, donc Vite le rend accessible avec ce chemin. */}
+        <a href={cvPdfPath} download={cvPdfFileName}>
           Télécharger le CV PDF
         </a>
       </section>
@@ -125,7 +153,7 @@ function Cv() {
           <CvBlock icon={FaGlobeEurope} title="Langues">
             <ul className="cv-simple-list">
               {cvData.languages.map((language) => (
-                <li key={language}>{language}</li>
+                <li key={language}>{removeDashSeparator(language)}</li>
               ))}
             </ul>
           </CvBlock>
@@ -138,7 +166,7 @@ function Cv() {
                 return (
                   <li key={label}>
                     <Icon />
-                    <span>{label}</span>
+                    <span>{removeDashSeparator(label)}</span>
                   </li>
                 );
               })}
@@ -165,6 +193,10 @@ function Cv() {
   );
 }
 
+/* ==========================================================================
+   3. COMPOSANTS REUTILISABLES DU CV
+   Ils gardent le meme style pour les blocs, sections et cartes.
+========================================================================== */
 /* CvBlock standardise les cartes latérales : icône, titre et contenu libre. */
 function CvBlock({ icon: Icon, title, children }) {
   return (
@@ -196,10 +228,10 @@ function TimelineCard({ title, place, date, detail }) {
   return (
     <article className="cv-timeline-card">
       <div>
-        <h3>{title}</h3>
+        <h3>{removeDashSeparator(title)}</h3>
         <p>{place}</p>
       </div>
-      <span>{date}</span>
+      <span>{removeDashSeparator(date)}</span>
       <p>{detail}</p>
     </article>
   );
@@ -210,15 +242,13 @@ function ExperienceCard({ title, company, date, place, missions }) {
   return (
     <article className="cv-timeline-card">
       <div>
-        <h3>{title}</h3>
-        <p>
-          {company} - {place}
-        </p>
+        <h3>{removeDashSeparator(title)}</h3>
+        <p>{company} {place}</p>
       </div>
-      <span>{date}</span>
+      <span>{removeDashSeparator(date)}</span>
       <ul>
         {missions.map((mission) => (
-          <li key={mission}>{mission}</li>
+          <li key={mission}>{removeDashSeparator(mission)}</li>
         ))}
       </ul>
     </article>

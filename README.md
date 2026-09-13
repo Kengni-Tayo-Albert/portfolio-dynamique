@@ -1,36 +1,41 @@
 # Portfolio dynamique Albert TAYO
 
-Ce projet est un portfolio web complet avec une partie publique et un espace d'administration. Il a été développé avec React pour l'interface, Node.js / Express pour l'API, et MongoDB Atlas pour les données dynamiques.
+Portfolio web dynamique avec une partie publique et un espace d'administration.
+
+Le projet utilise :
+
+- React et Vite pour le front-end,
+- Node.js et Express pour l'API,
+- MongoDB Atlas et Mongoose pour les donnees,
+- JWT et bcryptjs pour l'authentification administrateur.
+
+## Objectif du projet
+
+Ce portfolio permet de presenter mon profil, mes competences, mon CV, mes projets et un formulaire de contact.
+
+La partie administration permet de gerer les contenus dynamiques sans modifier directement le code :
+
+- ajouter, modifier et supprimer des projets,
+- ajouter, modifier et supprimer des competences,
+- modifier le contenu du CV en ligne,
+- consulter et supprimer les messages recus via le formulaire de contact,
+- envoyer une image de projet depuis le tableau de bord admin.
 
 ## Maquettes Figma
 
-Les maquettes ne sont pas stockées dans le dépôt GitHub afin de garder le projet léger et lisible. Elles sont consultables ici :
+Les maquettes ne sont pas stockees dans le depot GitHub afin de garder le projet leger.
 
 [Portfolio Dynamique Albert TAYO - maquettes](https://www.figma.com/design/CvMneTGOpQwtZYQuK1APP4/Portfolio-Dynamique-Albert-TAYO---maquettes?node-id=3-2&t=3dhkE5ESfFBwFkrh-1)
 
-## Objectif
-
-L'objectif est de présenter mon profil, mes compétences, mon CV et mes projets dans une application claire, maintenable et administrable.
-
-Le projet contient :
-
-- un site public responsive,
-- une API REST Express,
-- une base MongoDB Atlas,
-- une authentification administrateur avec JWT,
-- un tableau de bord pour gérer les projets, les compétences, le profil/CV et les messages,
-- un formulaire de contact enregistré en base de données,
-- un système d'upload d'images pour les projets.
-
-## Structure
+## Structure du projet
 
 ```txt
 portfolio-dynamique/
 ├── front/   Interface React avec Vite
-└── back/    API Express connectée à MongoDB
+└── back/    API Express connectee a MongoDB
 ```
 
-## Technologies
+## Technologies utilisees
 
 Front-end :
 
@@ -53,7 +58,7 @@ Back-end :
 
 ## Lancer le projet en local
 
-### Back-end
+### 1. Lancer le back-end
 
 ```bash
 cd back
@@ -61,14 +66,14 @@ npm install
 npm run dev
 ```
 
-L'API répond sur :
+L'API est disponible sur :
 
 ```txt
 http://localhost:5000
 http://localhost:5000/api/health
 ```
 
-### Front-end
+### 2. Lancer le front-end
 
 ```bash
 cd front
@@ -76,7 +81,7 @@ npm install
 npm run dev
 ```
 
-Le site s'ouvre généralement sur :
+Le site est disponible sur :
 
 ```txt
 http://localhost:5173
@@ -84,7 +89,7 @@ http://localhost:5173
 
 ## Variables d'environnement
 
-Créer `back/.env` à partir de `back/.env.example`.
+Creer `back/.env` a partir de `back/.env.example`.
 
 ```env
 NODE_ENV=development
@@ -97,17 +102,17 @@ ADMIN_EMAIL=admin@portfolio.local
 ADMIN_PASSWORD=MonMotDePasseAdmin2026!
 ```
 
-Créer `front/.env` à partir de `front/.env.example`.
+Creer `front/.env` a partir de `front/.env.example`.
 
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-Si `VITE_API_URL` est vide, le front peut utiliser les fichiers JSON statiques dans `front/public/api`. Cela permet de présenter le site même sans API active.
+En production, `VITE_API_URL` doit pointer vers l'URL Render du back-end.
 
-## Initialiser les données
+## Initialiser les donnees
 
-Après configuration de MongoDB, lancer ces commandes dans le dossier `back` :
+Apres la configuration de MongoDB Atlas, lancer ces commandes dans le dossier `back` :
 
 ```bash
 npm run seed:projects
@@ -116,9 +121,9 @@ npm run seed:profile-cv
 npm run seed:admin
 ```
 
-Ces scripts remplissent la base avec les projets, les compétences, le profil/CV et le compte administrateur.
+Ces scripts remplissent MongoDB avec les projets, les competences, le profil/CV et le compte administrateur.
 
-## Routes principales
+## Routes principales de l'API
 
 Routes publiques :
 
@@ -138,7 +143,7 @@ POST /api/auth/login
 GET /api/auth/me
 ```
 
-Routes admin protégées :
+Routes admin protegees :
 
 ```txt
 GET /api/admin/projects
@@ -158,25 +163,112 @@ DELETE /api/admin/messages/:id
 POST /api/admin/uploads/images
 ```
 
-## Sécurité
+## Securite
 
-Le projet applique plusieurs protections :
+Le projet applique les protections suivantes :
 
-- mot de passe administrateur hashé avec `bcryptjs`,
-- token JWT pour protéger les routes admin,
-- limitation des tentatives de connexion,
-- validation des données reçues par l'API,
-- configuration CORS contrôlée,
-- en-têtes HTTP de sécurité simples.
+- le mot de passe administrateur est hache avec `bcryptjs`,
+- les routes admin sont protegees par un token JWT,
+- les donnees recues par l'API sont validees avant l'enregistrement,
+- la connexion admin est limitee contre les essais repetes,
+- les secrets sont places dans des variables d'environnement,
+- le CORS limite les appels au front-end autorise.
 
-## Déploiement
+## Deploiement
 
-Le guide de déploiement est dans [DEPLOIEMENT.md](DEPLOIEMENT.md).
+Le projet est separe en trois services :
 
-Avant une mise en ligne, vérifier :
+- le front-end React est deploye sur Vercel,
+- le back-end Express est deploye sur Render,
+- la base de donnees est hebergee sur MongoDB Atlas.
 
-- `VITE_API_URL` pointe vers l'URL réelle du back-end,
-- `CLIENT_URL` contient l'URL réelle du front-end,
-- `MONGO_URI` pointe vers MongoDB Atlas,
-- `JWT_SECRET` est long et unique,
-- les scripts de seed ont été lancés si la base est vide.
+### Front-end sur Vercel
+
+Dans Vercel, le dossier racine du projet front est `front`.
+
+Configuration :
+
+```txt
+Build Command : npm run build
+Output Directory : dist
+Environment Variable : VITE_API_URL=https://url-du-back-render
+```
+
+Role de `VITE_API_URL` :
+
+- en local, le front appelle `http://localhost:5000`,
+- en production, le front appelle l'API Render,
+- le fichier `front/src/services/api.js` centralise les appels `fetch`.
+
+### Back-end sur Render
+
+Dans Render, le dossier racine du service back est `back`.
+
+Configuration :
+
+```txt
+Build Command : npm install
+Start Command : npm start
+```
+
+Variables d'environnement a renseigner sur Render :
+
+```env
+NODE_ENV=production
+CLIENT_URL=https://url-du-front-vercel
+MONGO_URI=mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/portfolio-dynamique
+JWT_SECRET=cle_longue_et_unique
+JWT_EXPIRES_IN=2h
+ADMIN_EMAIL=email_admin
+ADMIN_PASSWORD=mot_de_passe_admin_initial
+```
+
+Role de ces variables :
+
+- `CLIENT_URL` autorise le front Vercel a appeler l'API,
+- `MONGO_URI` connecte Express a MongoDB Atlas,
+- `JWT_SECRET` permet de signer et verifier les tokens admin,
+- `ADMIN_EMAIL` et `ADMIN_PASSWORD` servent a creer le compte admin au demarrage des donnees.
+
+### Base de donnees sur MongoDB Atlas
+
+MongoDB Atlas stocke les donnees dynamiques du portfolio :
+
+- projets,
+- competences,
+- profil/CV,
+- messages de contact,
+- compte administrateur.
+
+Le back-end communique avec MongoDB grace a Mongoose. Le front-end ne se connecte jamais directement a MongoDB : il passe toujours par l'API Express.
+
+### CI/CD
+
+Le depot GitHub est connecte a Vercel et Render.
+
+Quand une nouvelle version est poussee sur GitHub :
+
+1. Vercel detecte le changement et reconstruit le front-end.
+2. Render detecte le changement et redemarre le back-end.
+3. Le back-end garde la meme base MongoDB Atlas.
+4. Les variables d'environnement restent protegees dans Vercel, Render et MongoDB Atlas.
+
+Cette organisation permet de separer clairement :
+
+- l'interface utilisateur,
+- l'API serveur,
+- la base de donnees,
+- les secrets de production.
+
+## Verification avant mise en production
+
+Avant de publier une version, verifier :
+
+- `npm run lint` dans `front`,
+- `npm run build` dans `front`,
+- `npm start` dans `back`,
+- `GET /api/health` sur l'URL Render,
+- `VITE_API_URL` sur Vercel,
+- `CLIENT_URL` sur Render,
+- `MONGO_URI` sur Render,
+- `JWT_SECRET` long et unique.

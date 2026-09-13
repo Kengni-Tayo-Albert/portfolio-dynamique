@@ -1,9 +1,26 @@
 import { Router } from "express";
-import { getProfileCv } from "../controllers/profileCv.controller.js";
+import ProfileCv from "../models/ProfileCv.js";
 
 const router = Router();
 
-/* Route publique qui fournit les données structurées de la page CV. */
+async function getProfileCv(req, res, next) {
+  try {
+    /* Le contenu dynamique du CV vient du dernier document ProfileCv. */
+    const profileCv = await ProfileCv.findOne().sort({ createdAt: -1 });
+
+    if (!profileCv) {
+      return res.status(404).json({
+        message: "Aucun profil CV trouve.",
+      });
+    }
+
+    res.json(profileCv);
+  } catch (error) {
+    next(error);
+  }
+}
+
+/* Route publique qui fournit les donnees structurees de la page CV. */
 router.get("/", getProfileCv);
 
 export default router;

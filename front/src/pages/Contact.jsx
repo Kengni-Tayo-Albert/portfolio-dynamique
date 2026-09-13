@@ -9,6 +9,10 @@ import {
 } from "react-icons/fa";
 import { sendContactMessage } from "../services/api";
 
+/* ==========================================================================
+   1. DONNEES FIXES DU FORMULAIRE ET DES COORDONNEES
+   initialForm initialise les champs, contactItems alimente les cartes contact.
+========================================================================== */
 const initialForm = {
   name: "",
   email: "",
@@ -37,13 +41,22 @@ const contactItems = [
   },
 ];
 
+/* ==========================================================================
+   2. COMPOSANT PRINCIPAL : PAGE CONTACT
+   Cette page affiche les coordonnees et envoie les messages vers l'API.
+========================================================================== */
 /* Contact regroupe les coordonnées et le formulaire relié à l'API de messages. */
 function Contact() {
   const [formData, setFormData] = useState(initialForm);
   const [formStatus, setFormStatus] = useState(null);
 
+  /* --------------------------------------------------------------------------
+     2.1 SAISIE DU FORMULAIRE
+     A chaque frappe, React garde la valeur du champ dans formData.
+  -------------------------------------------------------------------------- */
   /* Synchronise chaque champ du formulaire avec l'état React. */
   const handleChange = (event) => {
+    /* name vaut "email", "subject", etc. value est ce que tape le visiteur. */
     const { name, value } = event.target;
 
     setFormData((currentData) => ({
@@ -52,8 +65,13 @@ function Contact() {
     }));
   };
 
+  /* --------------------------------------------------------------------------
+     2.2 ENVOI DU MESSAGE
+     On valide cote front, puis api.js envoie la requete POST au back-end.
+  -------------------------------------------------------------------------- */
   /* Valide les champs avant d'envoyer le message au service API. */
   const handleSubmit = async (event) => {
+    /* preventDefault empeche le rechargement de la page au submit. */
     event.preventDefault();
 
     const errorMessage = validateContactForm(formData);
@@ -64,6 +82,7 @@ function Contact() {
     }
 
     try {
+      /* sendContactMessage envoie les donnees vers POST /api/contact. */
       await sendContactMessage(formData);
       setFormStatus({
         type: "success",
@@ -78,6 +97,10 @@ function Contact() {
     }
   };
 
+  /* --------------------------------------------------------------------------
+     2.3 AFFICHAGE DE LA PAGE
+     Le JSX separe les coordonnees a gauche et le formulaire a droite.
+  -------------------------------------------------------------------------- */
   return (
     <main className="contact-page">
       {/* Introduction courte de la page contact. */}
@@ -207,12 +230,18 @@ function Contact() {
   );
 }
 
+/* ==========================================================================
+   3. VALIDATION FRONT DU FORMULAIRE
+   C'est une premiere verification avant la validation serveur obligatoire.
+========================================================================== */
 /* Validation front : bloque les champs vides, emails invalides et messages trop courts. */
 function validateContactForm({ name, email, subject, message }) {
+  /* Premiere securite cote front : eviter l'envoi d'un formulaire vide. */
   if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
     return "Merci de remplir tous les champs du formulaire.";
   }
 
+  /* Verification simple du format email avant l'appel API. */
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return "Merci de saisir une adresse email valide.";
   }
@@ -224,6 +253,10 @@ function validateContactForm({ name, email, subject, message }) {
   return null;
 }
 
+/* ==========================================================================
+   4. COMPOSANT REUTILISABLE : CARTE DE CONTACT
+   Chaque coordonnee utilise le meme affichage et gere les liens externes.
+========================================================================== */
 /* ContactItem affiche une coordonnée cliquable et gère les liens externes proprement. */
 function ContactItem({ icon: Icon, title, text, href }) {
   const isExternalLink = href.startsWith("http");

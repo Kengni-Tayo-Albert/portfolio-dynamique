@@ -1,8 +1,10 @@
+import { Router } from "express";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+const router = Router();
 const currentFile = fileURLToPath(import.meta.url);
 const currentDirectory = path.dirname(currentFile);
 const uploadDirectory = path.resolve(currentDirectory, "../../public/uploads");
@@ -14,21 +16,18 @@ const allowedMimeTypes = {
   "image/gif": "gif",
 };
 
-/* Crée une erreur HTTP lisible pour les validations d'upload. */
 function createUploadError(message, statusCode = 400) {
   const error = new Error(message);
   error.statusCode = statusCode;
   return error;
 }
 
-/* Isole la partie base64, que le front envoie une Data URL complète ou une chaîne brute. */
 function getBase64Content(dataUrl) {
   const [, base64Content] = String(dataUrl || "").split(",");
 
   return base64Content || dataUrl;
 }
 
-/* Reconstruit l'URL publique finale de l'image en fonction de l'hôte de l'API. */
 function buildPublicUrl(req, fileName) {
   const host = req.get("host");
   const protocol = req.get("x-forwarded-proto") || req.protocol;
@@ -36,8 +35,7 @@ function buildPublicUrl(req, fileName) {
   return `${protocol}://${host}/uploads/${fileName}`;
 }
 
-/* Valide, renomme et enregistre une image projet uploadée depuis le dashboard admin. */
-export async function uploadAdminImage(req, res, next) {
+async function uploadAdminImage(req, res, next) {
   try {
     const { fileName, mimeType, data } = req.body;
     const extension = allowedMimeTypes[mimeType];
@@ -77,3 +75,7 @@ export async function uploadAdminImage(req, res, next) {
     next(error);
   }
 }
+
+router.post("/images", uploadAdminImage);
+
+export default router;

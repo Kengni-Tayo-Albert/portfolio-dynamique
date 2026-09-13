@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-/* ContactMessage stocke chaque demande envoyée depuis le formulaire public. */
+/* Donnees du formulaire contact : nom, email, sujet et message. */
 const contactMessageSchema = new mongoose.Schema(
   {
     name: {
@@ -13,7 +13,9 @@ const contactMessageSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      /* L'email est normalise en minuscules avant stockage. */
       lowercase: true,
+      /* Mongoose refuse les emails qui ne respectent pas ce format simple. */
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
     subject: {
@@ -27,18 +29,13 @@ const contactMessageSchema = new mongoose.Schema(
       trim: true,
       minlength: 10,
     },
-    status: {
-      type: String,
-      enum: ["new", "read", "archived"],
-      default: "new",
-    },
   },
   {
     timestamps: true,
   }
 );
 
-/* toJSON simplifie la lecture côté admin en exposant id au lieu de _id. */
+/* On expose id au front admin, pas le champ interne _id de MongoDB. */
 contactMessageSchema.set("toJSON", {
   versionKey: false,
   transform: (document, returnedObject) => {

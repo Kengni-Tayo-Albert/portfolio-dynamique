@@ -1,25 +1,19 @@
+import { Router } from "express";
 import Project from "../models/Project.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+import {
+  projectIdRules,
+  projectRules,
+} from "../validators/portfolio.validators.js";
 
-/* Accepte les tags envoyés en tableau ou en chaîne séparée par virgules. */
-function normalizeTags(tags) {
-  if (Array.isArray(tags)) {
-    return tags.map((tag) => tag.trim()).filter(Boolean);
-  }
+const router = Router();
 
-  return String(tags || "")
-    .split(",")
-    .map((tag) => tag.trim())
-    .filter(Boolean);
-}
-
-/* Génère un ordre d'affichage interne compatible avec les projets importés depuis JSON. */
 async function getNextSourceId() {
   const lastProject = await Project.findOne().sort({ sourceId: -1 });
 
   return (lastProject?.sourceId || 0) + 1;
 }
 
-/* Nettoie et complète les champs projet avant insertion ou mise à jour MongoDB. */
 function buildProjectPayload(body) {
   return {
     title: body.title,
@@ -27,15 +21,14 @@ function buildProjectPayload(body) {
     description: body.description,
     shortDescription: body.shortDescription || body.description,
     image: body.image,
-    tags: normalizeTags(body.tags),
+    tags: body.tags,
     github: body.github,
     demo: body.demo,
     featured: body.featured === true || body.featured === "true",
   };
 }
 
-/* Liste admin des projets : expose tous les projets modifiables dans le dashboard. */
-export async function getAdminProjects(req, res, next) {
+async function getAdminProjects(req, res, next) {
   try {
     const projects = await Project.find().sort({ sourceId: 1 });
 
@@ -45,9 +38,9 @@ export async function getAdminProjects(req, res, next) {
   }
 }
 
-/* Crée un projet depuis le dashboard admin. */
-export async function createAdminProject(req, res, next) {
+async function createAdminProject(req, res, next) {
   try {
+    /* Project.create ajoute un nouveau document dans MongoDB. */
     const project = await Project.create({
       ...buildProjectPayload(req.body),
       sourceId: await getNextSourceId(),
@@ -59,9 +52,9 @@ export async function createAdminProject(req, res, next) {
   }
 }
 
-/* Met à jour un projet existant et renvoie la version sauvegardée. */
-export async function updateAdminProject(req, res, next) {
+async function updateAdminProject(req, res, next) {
   try {
+    /* L'id vient de l'URL : /api/admin/projects/:id. */
     const project = await Project.findByIdAndUpdate(
       req.params.id,
       buildProjectPayload(req.body),
@@ -78,9 +71,9 @@ export async function updateAdminProject(req, res, next) {
   }
 }
 
-/* Supprime un projet par son identifiant MongoDB. */
-export async function deleteAdminProject(req, res, next) {
+async function deleteAdminProject(req, res, next) {
   try {
+    /* findByIdAndDelete supprime le document qui correspond a l'id. */
     const project = await Project.findByIdAndDelete(req.params.id);
 
     if (!project) {
@@ -92,3 +85,10 @@ export async function deleteAdminProject(req, res, next) {
     next(error);
   }
 }
+
+router.get("/", getAdminProjects);
+router.post("/", validateRequest(projectRules), createAdminProject);
+router.put("/:id", validateRequest([...projectIdRules, ...projectRules]), updateAdminProject);
+router.delete("/:id", validateRequest(projectIdRules), deleteAdminProject);
+
+export default router;

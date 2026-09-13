@@ -29,6 +29,11 @@ import {
   uploadAdminProjectImage,
 } from "../services/api";
 
+/* ==========================================================================
+   1. VALEURS INITIALES DES FORMULAIRES
+   Ces objets servent a initialiser ou vider les formulaires du dashboard.
+========================================================================== */
+
 const emptyProjectForm = {
   title: "",
   subtitle: "",
@@ -65,6 +70,10 @@ const emptyProfileForm = {
 };
 
 /* Convertit une liste API en texte multi-lignes pour l'édition dans un textarea. */
+/* ==========================================================================
+   2. OUTILS DE CONVERSION POUR LE PROFIL / CV
+   MongoDB stocke des listes et objets, le formulaire admin affiche du texte.
+========================================================================== */
 function listToText(items = []) {
   return items.join("\n");
 }
@@ -201,6 +210,10 @@ function buildProfilePayload(form) {
 }
 
 /* Lit une image locale en Data URL pour l'envoyer dans une requête JSON. */
+/* ==========================================================================
+   3. OUTILS TECHNIQUES DU DASHBOARD
+   Lecture d'image locale et messages d'erreur lisibles.
+========================================================================== */
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -211,13 +224,22 @@ function readFileAsDataUrl(file) {
   });
 }
 
+function getErrorMessage(error, fallbackMessage) {
+  return error instanceof Error ? error.message : fallbackMessage;
+}
+
 /* AdminDashboard orchestre la session admin et les sections de gestion du portfolio. */
+/* ==========================================================================
+   4. COMPOSANT PRINCIPAL : TABLEAU DE BORD ADMIN
+   Il verifie la session, charge les donnees et affiche la bonne section.
+========================================================================== */
 function AdminDashboard() {
   const navigate = useNavigate();
   const [admin, setAdmin] = useState(null);
   const [authStatus, setAuthStatus] = useState("loading");
   const [activeSection, setActiveSection] = useState("projects");
   const [statusMessage, setStatusMessage] = useState("");
+  const [statusType, setStatusType] = useState("success");
   const [uploadStatus, setUploadStatus] = useState("");
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -230,6 +252,10 @@ function AdminDashboard() {
   const [editingSkillId, setEditingSkillId] = useState(null);
 
   /* Vérification initiale : contrôle le token puis charge toutes les données admin en parallèle. */
+  /* --------------------------------------------------------------------------
+     4.1 SESSION ADMIN ET CHARGEMENT INITIAL
+     Au chargement, on verifie le token puis on recupere les donnees admin.
+  -------------------------------------------------------------------------- */
   useEffect(() => {
     async function verifyAdminSession() {
       try {
@@ -264,13 +290,32 @@ function AdminDashboard() {
   };
 
   /* Changement d'onglet : nettoie les messages pour éviter les retours visuels obsolètes. */
+  /* --------------------------------------------------------------------------
+     4.2 NAVIGATION ET MESSAGES DE RETOUR
+     Ces fonctions changent d'onglet et affichent succes ou erreur.
+  -------------------------------------------------------------------------- */
   const changeSection = (sectionKey) => {
     setActiveSection(sectionKey);
     setStatusMessage("");
+    setStatusType("success");
     setUploadStatus("");
   };
 
+  const showSuccess = (message) => {
+    setStatusType("success");
+    setStatusMessage(message);
+  };
+
+  const showError = (error, fallbackMessage) => {
+    setStatusType("error");
+    setStatusMessage(getErrorMessage(error, fallbackMessage));
+  };
+
   /* Synchronise les champs du formulaire projet avec l'état local. */
+  /* --------------------------------------------------------------------------
+     4.3 PROJETS : SAISIE, UPLOAD, AJOUT ET MODIFICATION
+     C'est la partie a montrer pour expliquer le CRUD projet cote front.
+  -------------------------------------------------------------------------- */
   const handleProjectChange = (event) => {
     const { name, value } = event.target;
 
@@ -306,6 +351,9 @@ function AdminDashboard() {
   }
 
   /* Synchronise les champs du formulaire compétence. */
+  /* --------------------------------------------------------------------------
+     4.4 COMPETENCES : SAISIE, AJOUT ET MODIFICATION
+  -------------------------------------------------------------------------- */
   const handleSkillChange = (event) => {
     const { name, value } = event.target;
 
@@ -316,6 +364,9 @@ function AdminDashboard() {
   };
 
   /* Synchronise les champs du formulaire profil/CV. */
+  /* --------------------------------------------------------------------------
+     4.5 PROFIL / CV : SAISIE ET SAUVEGARDE
+  -------------------------------------------------------------------------- */
   const handleProfileChange = (event) => {
     const { name, value } = event.target;
 
@@ -327,51 +378,72 @@ function AdminDashboard() {
 
   /* Sauvegarde un projet : crée ou met à jour selon la présence d'un id en édition. */
   async function handleProjectSubmit(event) {
+    /* Le submit est gere par React pour eviter un rechargement complet. */
     event.preventDefault();
 
-    if (editingProjectId) {
-      await updateAdminProject(editingProjectId, projectForm);
-      setStatusMessage("Projet modifié avec succès.");
-    } else {
-      await createAdminProject(projectForm);
-      setStatusMessage("Projet ajouté avec succès.");
-    }
+    try {
+      if (editingProjectId) {
+        /* Si un id est en cours d'edition, on modifie le projet existant. */
+        await updateAdminProject(editingProjectId, projectForm);
+        showSuccess("Projet modifie avec succes.");
+      } else {
+        /* Sinon, on cree un nouveau projet dans MongoDB via l'API. */
+        await createAdminProject(projectForm);
+        showSuccess("Projet ajoute avec succes.");
+      }
 
-    setProjectForm(emptyProjectForm);
-    setEditingProjectId(null);
-    setProjects(await getAdminProjects());
+      /* Apres sauvegarde, on vide le formulaire et on recharge la liste. */
+      setProjectForm(emptyProjectForm);
+      setEditingProjectId(null);
+      setProjects(await getAdminProjects());
+    } catch (error) {
+      showError(error, "Le projet n'a pas pu etre sauvegarde.");
+    }
   }
 
   /* Sauvegarde une compétence : crée un nouvel item ou remplace l'item sélectionné. */
   async function handleSkillSubmit(event) {
     event.preventDefault();
 
-    if (editingSkillId) {
-      await updateAdminSkill({ ...skillForm, id: editingSkillId });
-      setStatusMessage("Compétence modifiée avec succès.");
-    } else {
-      await createAdminSkill(skillForm);
-      setStatusMessage("Compétence ajoutée avec succès.");
-    }
+    try {
+      if (editingSkillId) {
+        await updateAdminSkill({ ...skillForm, id: editingSkillId });
+        showSuccess("Competence modifiee avec succes.");
+      } else {
+        await createAdminSkill(skillForm);
+        showSuccess("Competence ajoutee avec succes.");
+      }
 
-    setSkillForm(emptySkillForm);
-    setEditingSkillId(null);
-    setSkills(await getAdminSkills());
+      setSkillForm(emptySkillForm);
+      setEditingSkillId(null);
+      setSkills(await getAdminSkills());
+    } catch (error) {
+      showError(error, "La competence n'a pas pu etre sauvegardee.");
+    }
   }
 
   /* Sauvegarde le profil : convertit le formulaire plat en document structuré pour l'API. */
   async function handleProfileSubmit(event) {
     event.preventDefault();
 
-    const updatedProfile = await updateAdminProfile(buildProfilePayload(profileForm));
+    try {
+      const updatedProfile = await updateAdminProfile(buildProfilePayload(profileForm));
 
-    setProfile(updatedProfile);
-    setProfileForm(createProfileForm(updatedProfile));
-    setStatusMessage("Profil modifié avec succès.");
+      setProfile(updatedProfile);
+      setProfileForm(createProfileForm(updatedProfile));
+      showSuccess("Profil modifie avec succes.");
+    } catch (error) {
+      showError(error, "Le profil n'a pas pu etre sauvegarde.");
+    }
   }
 
   /* Remplit le formulaire projet avec les valeurs existantes pour passer en mode édition. */
+  /* --------------------------------------------------------------------------
+     4.6 EDITION ET SUPPRESSION DES ELEMENTS EXISTANTS
+     Ces fonctions remplissent un formulaire ou demandent une suppression API.
+  -------------------------------------------------------------------------- */
   const editProject = (project) => {
+    /* On remet les valeurs du projet dans le formulaire pour les modifier. */
     setProjectForm({
       title: project.title || "",
       subtitle: project.subtitle || "",
@@ -399,16 +471,25 @@ function AdminDashboard() {
 
   /* Supprime un projet puis recharge la liste admin pour garder l'interface à jour. */
   async function removeProject(projectId) {
-    await deleteAdminProject(projectId);
-    setProjects(await getAdminProjects());
-    setStatusMessage("Projet supprimé avec succès.");
+    try {
+      /* On envoie l'id au back pour supprimer le projet correspondant. */
+      await deleteAdminProject(projectId);
+      setProjects(await getAdminProjects());
+      showSuccess("Projet supprime avec succes.");
+    } catch (error) {
+      showError(error, "Le projet n'a pas pu etre supprime.");
+    }
   }
 
   /* Supprime une compétence dans son groupe puis recharge la liste aplatie. */
   async function removeSkill(skillId) {
-    await deleteAdminSkill(skillId);
-    setSkills(await getAdminSkills());
-    setStatusMessage("Compétence supprimée avec succès.");
+    try {
+      await deleteAdminSkill(skillId);
+      setSkills(await getAdminSkills());
+      showSuccess("Competence supprimee avec succes.");
+    } catch (error) {
+      showError(error, "La competence n'a pas pu etre supprimee.");
+    }
   }
 
   /* Supprime un message après confirmation utilisateur pour éviter une action accidentelle. */
@@ -417,11 +498,19 @@ function AdminDashboard() {
 
     if (!confirmed) return;
 
-    await deleteAdminMessage(messageId);
-    setMessages(await getAdminMessages());
-    setStatusMessage("Message supprime avec succes.");
+    try {
+      await deleteAdminMessage(messageId);
+      setMessages(await getAdminMessages());
+      showSuccess("Message supprime avec succes.");
+    } catch (error) {
+      showError(error, "Le message n'a pas pu etre supprime.");
+    }
   }
 
+  /* --------------------------------------------------------------------------
+     4.7 AFFICHAGE DU DASHBOARD
+     Selon activeSection, React affiche Projets, Competences, Profil ou Messages.
+  -------------------------------------------------------------------------- */
   if (authStatus === "loading") {
     return (
       <main className="admin-page">
@@ -488,7 +577,7 @@ function AdminDashboard() {
 
         <section className="admin-panel">
           {statusMessage && (
-            <p className="form-status success">{statusMessage}</p>
+            <p className={`form-status ${statusType}`}>{statusMessage}</p>
           )}
 
           {activeSection === "projects" && (
@@ -535,6 +624,10 @@ function AdminDashboard() {
 }
 
 /* ProjectAdmin contient le formulaire projet et la liste des projets existants. */
+/* ==========================================================================
+   5. SECTION PROJETS
+   Formulaire d'ajout/modification + liste des projets existants.
+========================================================================== */
 function ProjectAdmin({
   form,
   projects,
@@ -631,6 +724,10 @@ function ProjectAdmin({
 }
 
 /* SkillAdmin gère les compétences une par une, même si l'API les stocke par groupes. */
+/* ==========================================================================
+   6. SECTION COMPETENCES
+   Formulaire d'ajout/modification + liste des competences existantes.
+========================================================================== */
 function SkillAdmin({
   form,
   skills,
@@ -686,6 +783,10 @@ function SkillAdmin({
 }
 
 /* ProfileEditor édite toutes les sections du CV dans un formulaire unique. */
+/* ==========================================================================
+   7. SECTION PROFIL / CV
+   Formulaire qui modifie le contenu dynamique de la page CV.
+========================================================================== */
 function ProfileEditor({ form, onChange, onSubmit }) {
   return (
     <>
@@ -761,6 +862,10 @@ function ProfileEditor({ form, onChange, onSubmit }) {
 }
 
 /* MessagesAdmin liste les messages de contact et permet leur suppression. */
+/* ==========================================================================
+   8. SECTION MESSAGES DE CONTACT
+   Liste les messages stockes dans MongoDB et permet leur suppression.
+========================================================================== */
 function MessagesAdmin({ messages, onDelete }) {
   return (
     <>
@@ -802,6 +907,10 @@ function MessagesAdmin({ messages, onDelete }) {
 }
 
 /* Formate les dates MongoDB en affichage français pour le tableau admin. */
+/* ==========================================================================
+   9. PETITS COMPOSANTS REUTILISABLES
+   Fonctions d'affichage utilisees par plusieurs sections.
+========================================================================== */
 function formatMessageDate(dateValue) {
   if (!dateValue) return "Date inconnue";
 

@@ -13,6 +13,7 @@ import Cv from "./pages/Cv";
 import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
+import { hasAdminToken } from "./services/api";
 
 /* Le composant App définit les pages du portfolio et garde le Header/Footer communs. */
 function App() {
@@ -59,9 +60,7 @@ function App() {
 
 /* Cette protection évite d'ouvrir le tableau de bord sans session admin enregistrée. */
 function AdminRoute({ children }) {
-  const adminToken = localStorage.getItem("portfolioAdminToken");
-
-  if (!adminToken) {
+  if (!hasAdminToken()) {
     return <Navigate to="/admin/login" replace />;
   }
 

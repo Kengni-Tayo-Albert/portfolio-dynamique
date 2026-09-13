@@ -1,6 +1,5 @@
 import {
   optionalBooleanString,
-  optionalString,
   requiredString,
   validEmail,
   validImagePath,
@@ -10,13 +9,13 @@ import {
 
 const allowedSkillGroups = ["FRONT-END", "BACK-END", "OUTILS & DEVOPS", "SOFT SKILLS"];
 
-/* Règles appliquées à la connexion admin. */
+/* Regles appliquees a la connexion admin. */
 export const loginRules = [
   validEmail("email", "Email"),
   requiredString("password", "Mot de passe", 8),
 ];
 
-/* Règles appliquées au formulaire de contact public. */
+/* Regles appliquees au formulaire de contact public. */
 export const contactRules = [
   requiredString("name", "Nom", 2),
   validEmail("email", "Email"),
@@ -24,23 +23,39 @@ export const contactRules = [
   requiredString("message", "Message", 10),
 ];
 
-/* Validation commune des routes qui reçoivent un id MongoDB en paramètre. */
+/* Validation commune des routes qui recoivent un id MongoDB en parametre. */
 export const projectIdRules = [validMongoIdParam("id")];
 
-/* Règles de création ou mise à jour d'un projet depuis le dashboard. */
+function validTagList(req) {
+  const value = req.body?.tags;
+  /* Le front envoie les technologies sous forme de texte separe par des virgules. */
+  const tags = Array.isArray(value) ? value : String(value || "").split(",");
+  /* On retire les espaces et les valeurs vides avant d'enregistrer en base. */
+  const cleanTags = tags.map((tag) => String(tag).trim()).filter(Boolean);
+
+  if (cleanTags.length === 0) {
+    return "Technologies doit contenir au moins une technologie.";
+  }
+
+  req.body.tags = cleanTags;
+  return null;
+}
+
+/* Regles de creation ou mise a jour d'un projet depuis le dashboard. */
 export const projectRules = [
+  /* Le back revalide tout, meme si le front a deja controle le formulaire. */
   requiredString("title", "Titre", 2),
   requiredString("subtitle", "Sous-titre", 2),
   requiredString("description", "Description", 10),
   requiredString("shortDescription", "Description courte", 5),
   validImagePath("image", "Image"),
-  requiredString("tags", "Technologies", 2),
+  validTagList,
   validUrl("github", "Lien GitHub"),
   validUrl("demo", "Lien demo"),
   optionalBooleanString("featured"),
 ];
 
-/* Règles de création d'une compétence dans un groupe autorisé. */
+/* Regles de creation d'une competence dans un groupe autorise. */
 export const skillRules = [
   requiredString("label", "Nom de la competence", 2),
   requiredString("icon", "Icone", 2),
@@ -55,13 +70,13 @@ export const skillRules = [
   },
 ];
 
-/* Règles de mise à jour : l'id composé permet de retrouver l'ancien groupe et l'ancien libellé. */
+/* L'id compose permet de retrouver l'ancien groupe et l'ancien libelle. */
 export const updateSkillRules = [
   requiredString("id", "Identifiant de la competence", 3),
   ...skillRules,
 ];
 
-/* Règles de suppression d'une compétence. */
+/* Regles de suppression d'une competence. */
 export const deleteSkillRules = [
   requiredString("id", "Identifiant de la competence", 3),
 ];

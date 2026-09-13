@@ -4,11 +4,19 @@ import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import profileImage from "../assets/albert-profile.jpeg";
 import { getProjects } from "../services/api";
 
+/* ==========================================================================
+   1. COMPOSANT PRINCIPAL : PAGE ACCUEIL
+   Cette page affiche l'identite, les liens et les projets mis en avant.
+========================================================================== */
 /* Home présente l'identité, les liens principaux et une sélection de projets mis en avant. */
 function Home() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [projectsStatus, setProjectsStatus] = useState("loading");
 
+  /* --------------------------------------------------------------------------
+     1.1 CHARGEMENT DES PROJETS DEPUIS L'API
+     Le front demande les projets publics puis garde seulement les 3 favoris.
+  -------------------------------------------------------------------------- */
   /* Charge les projets publics, garde seulement ceux marqués comme importants et limite l'accueil à trois cartes. */
   useEffect(() => {
     async function loadFeaturedProjects() {
@@ -29,6 +37,10 @@ function Home() {
     loadFeaturedProjects();
   }, []);
 
+  /* --------------------------------------------------------------------------
+     1.2 ANIMATION VISUELLE DE LA CARTE PROFIL
+     React garde le contenu, ce petit effet de souris ne change que le style.
+  -------------------------------------------------------------------------- */
   /* Déplace le halo doré dans la carte de profil sans modifier les données React. */
   useEffect(() => {
     const profileCard = document.querySelector(".profile-card-front");
@@ -52,6 +64,10 @@ function Home() {
     };
   }, []);
 
+  /* --------------------------------------------------------------------------
+     1.3 AFFICHAGE DE LA PAGE
+     Le JSX decrit ce que le visiteur voit dans le navigateur.
+  -------------------------------------------------------------------------- */
   return (
     <>
       <main id="accueil" className="hero">
@@ -148,6 +164,10 @@ function Home() {
         </Link>
       </main>
 
+      {/* ----------------------------------------------------------------------
+          1.4 SECTION PROJETS MIS EN AVANT
+          Les cartes sont creees automatiquement avec les donnees de l'API.
+      ---------------------------------------------------------------------- */}
       <section id="projets" className="projects-section">
         <h2>PROJETS LES PLUS MARQUANTS</h2>
 
