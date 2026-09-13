@@ -16,10 +16,7 @@ import {
 } from "react-icons/fa";
 import { getProfileCv } from "../services/api";
 
-/* ==========================================================================
-   1. CONFIGURATION DU CV
-   Le PDF est dans public, les tableaux associent les noms d'icones au visuel.
-========================================================================== */
+/* Reglages simples du CV : fichier PDF et icones. */
 const cvPdfPath = "/cv-albert-tayo.pdf";
 const cvPdfFileName = "CV-Albert-Tayo.pdf";
 
@@ -41,20 +38,12 @@ function removeDashSeparator(text) {
   return String(text).replace(/\s+-\s+/g, " ");
 }
 
-/* ==========================================================================
-   2. COMPOSANT PRINCIPAL : PAGE CV
-   Cette page recupere le profil complet puis construit le CV a l'ecran.
-========================================================================== */
-/* Cv affiche le profil complet depuis l'API et réutilise des blocs pour garder la page lisible. */
+/* Page CV : les donnees viennent de l'API puis sont affichees en blocs. */
 function Cv() {
   const [cvData, setCvData] = useState(null);
   const [status, setStatus] = useState("loading");
 
-  /* --------------------------------------------------------------------------
-     2.1 CHARGEMENT DU PROFIL CV DEPUIS L'API
-     Le front appelle /api/profile-cv et garde la reponse dans cvData.
-  -------------------------------------------------------------------------- */
-  /* Charge le document ProfileCv : identité, contacts, compétences, formations et expériences. */
+  /* Chargement du profil CV. */
   useEffect(() => {
     async function loadProfileCv() {
       try {
@@ -71,10 +60,7 @@ function Cv() {
     loadProfileCv();
   }, []);
 
-  /* --------------------------------------------------------------------------
-     2.2 ETATS DE CHARGEMENT ET D'ERREUR
-     On evite d'afficher le CV tant que les donnees ne sont pas pretes.
-  -------------------------------------------------------------------------- */
+  /* Ecrans simples pendant le chargement ou en cas d'erreur. */
   if (status === "loading") {
     return (
       <main className="cv-page">
@@ -91,10 +77,7 @@ function Cv() {
     );
   }
 
-  /* --------------------------------------------------------------------------
-     2.3 AFFICHAGE DU CV
-     Toute cette partie transforme cvData en interface visible.
-  -------------------------------------------------------------------------- */
+  /* Affichage du CV quand les donnees sont disponibles. */
   return (
     <main className="cv-page">
       {/* Résumé de l'identité professionnelle avec téléchargement du CV PDF. */}
@@ -193,11 +176,7 @@ function Cv() {
   );
 }
 
-/* ==========================================================================
-   3. COMPOSANTS REUTILISABLES DU CV
-   Ils gardent le meme style pour les blocs, sections et cartes.
-========================================================================== */
-/* CvBlock standardise les cartes latérales : icône, titre et contenu libre. */
+/* Composants reutilisables pour les blocs du CV. */
 function CvBlock({ icon: Icon, title, children }) {
   return (
     <article className="cv-block">

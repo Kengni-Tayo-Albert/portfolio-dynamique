@@ -4,20 +4,12 @@ import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import profileImage from "../assets/albert-profile.jpeg";
 import { getProjects } from "../services/api";
 
-/* ==========================================================================
-   1. COMPOSANT PRINCIPAL : PAGE ACCUEIL
-   Cette page affiche l'identite, les liens et les projets mis en avant.
-========================================================================== */
-/* Home présente l'identité, les liens principaux et une sélection de projets mis en avant. */
+/* Page d'accueil : presentation rapide + projets mis en avant. */
 function Home() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [projectsStatus, setProjectsStatus] = useState("loading");
 
-  /* --------------------------------------------------------------------------
-     1.1 CHARGEMENT DES PROJETS DEPUIS L'API
-     Le front demande les projets publics puis garde seulement les 3 favoris.
-  -------------------------------------------------------------------------- */
-  /* Charge les projets publics, garde seulement ceux marqués comme importants et limite l'accueil à trois cartes. */
+/* Je charge les projets publics et je garde les 3 projets marques comme favoris. */
   useEffect(() => {
     async function loadFeaturedProjects() {
       try {
@@ -37,11 +29,7 @@ function Home() {
     loadFeaturedProjects();
   }, []);
 
-  /* --------------------------------------------------------------------------
-     1.2 ANIMATION VISUELLE DE LA CARTE PROFIL
-     React garde le contenu, ce petit effet de souris ne change que le style.
-  -------------------------------------------------------------------------- */
-  /* Déplace le halo doré dans la carte de profil sans modifier les données React. */
+/* Petit effet visuel sur la carte profil. */
   useEffect(() => {
     const profileCard = document.querySelector(".profile-card-front");
     const orb = document.getElementById("goldOrb");
@@ -64,10 +52,7 @@ function Home() {
     };
   }, []);
 
-  /* --------------------------------------------------------------------------
-     1.3 AFFICHAGE DE LA PAGE
-     Le JSX decrit ce que le visiteur voit dans le navigateur.
-  -------------------------------------------------------------------------- */
+  /* Affichage principal de l'accueil. */
   return (
     <>
       <main id="accueil" className="hero">
@@ -164,10 +149,7 @@ function Home() {
         </Link>
       </main>
 
-      {/* ----------------------------------------------------------------------
-          1.4 SECTION PROJETS MIS EN AVANT
-          Les cartes sont creees automatiquement avec les donnees de l'API.
-      ---------------------------------------------------------------------- */}
+      {/* Projets mis en avant, generes avec les donnees recues. */}
       <section id="projets" className="projects-section">
         <h2>PROJETS LES PLUS MARQUANTS</h2>
 

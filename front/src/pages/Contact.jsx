@@ -9,10 +9,7 @@ import {
 } from "react-icons/fa";
 import { sendContactMessage } from "../services/api";
 
-/* ==========================================================================
-   1. DONNEES FIXES DU FORMULAIRE ET DES COORDONNEES
-   initialForm initialise les champs, contactItems alimente les cartes contact.
-========================================================================== */
+/* Donnees de depart du formulaire et des cartes contact. */
 const initialForm = {
   name: "",
   email: "",
@@ -41,20 +38,12 @@ const contactItems = [
   },
 ];
 
-/* ==========================================================================
-   2. COMPOSANT PRINCIPAL : PAGE CONTACT
-   Cette page affiche les coordonnees et envoie les messages vers l'API.
-========================================================================== */
-/* Contact regroupe les coordonnées et le formulaire relié à l'API de messages. */
+/* Page contact : coordonnees + formulaire envoye a l'API. */
 function Contact() {
   const [formData, setFormData] = useState(initialForm);
   const [formStatus, setFormStatus] = useState(null);
 
-  /* --------------------------------------------------------------------------
-     2.1 SAISIE DU FORMULAIRE
-     A chaque frappe, React garde la valeur du champ dans formData.
-  -------------------------------------------------------------------------- */
-  /* Synchronise chaque champ du formulaire avec l'état React. */
+  /* Mise a jour de formData quand le visiteur remplit un champ. */
   const handleChange = (event) => {
     /* name vaut "email", "subject", etc. value est ce que tape le visiteur. */
     const { name, value } = event.target;
@@ -65,11 +54,7 @@ function Contact() {
     }));
   };
 
-  /* --------------------------------------------------------------------------
-     2.2 ENVOI DU MESSAGE
-     On valide cote front, puis api.js envoie la requete POST au back-end.
-  -------------------------------------------------------------------------- */
-  /* Valide les champs avant d'envoyer le message au service API. */
+  /* Envoi du message apres une premiere validation cote front. */
   const handleSubmit = async (event) => {
     /* preventDefault empeche le rechargement de la page au submit. */
     event.preventDefault();
@@ -97,10 +82,7 @@ function Contact() {
     }
   };
 
-  /* --------------------------------------------------------------------------
-     2.3 AFFICHAGE DE LA PAGE
-     Le JSX separe les coordonnees a gauche et le formulaire a droite.
-  -------------------------------------------------------------------------- */
+  /* Affichage de la page contact. */
   return (
     <main className="contact-page">
       {/* Introduction courte de la page contact. */}
@@ -230,11 +212,7 @@ function Contact() {
   );
 }
 
-/* ==========================================================================
-   3. VALIDATION FRONT DU FORMULAIRE
-   C'est une premiere verification avant la validation serveur obligatoire.
-========================================================================== */
-/* Validation front : bloque les champs vides, emails invalides et messages trop courts. */
+/* Validation front du formulaire. Le serveur recontrole ensuite. */
 function validateContactForm({ name, email, subject, message }) {
   /* Premiere securite cote front : eviter l'envoi d'un formulaire vide. */
   if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
@@ -253,11 +231,7 @@ function validateContactForm({ name, email, subject, message }) {
   return null;
 }
 
-/* ==========================================================================
-   4. COMPOSANT REUTILISABLE : CARTE DE CONTACT
-   Chaque coordonnee utilise le meme affichage et gere les liens externes.
-========================================================================== */
-/* ContactItem affiche une coordonnée cliquable et gère les liens externes proprement. */
+/* Carte reutilisee pour chaque coordonnee. */
 function ContactItem({ icon: Icon, title, text, href }) {
   const isExternalLink = href.startsWith("http");
 

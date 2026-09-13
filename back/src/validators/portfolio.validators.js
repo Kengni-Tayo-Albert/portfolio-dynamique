@@ -9,10 +9,7 @@ import {
 
 const allowedSkillGroups = ["FRONT-END", "BACK-END", "OUTILS & DEVOPS", "SOFT SKILLS"];
 
-/* ==========================================================================
-   1. REGLES DES FORMULAIRES SIMPLES
-   Ces tableaux sont utilises par validateRequest avant les routes Express.
-========================================================================== */
+/* Regles de base pour les formulaires simples. */
 /* Regles appliquees a la connexion admin. */
 export const loginRules = [
   validEmail("email", "Email"),
@@ -30,10 +27,7 @@ export const contactRules = [
 /* Validation commune des routes qui recoivent un id MongoDB en parametre. */
 export const projectIdRules = [validMongoIdParam("id")];
 
-/* ==========================================================================
-   2. VALIDATION DES PROJETS
-   Le back nettoie les technologies et controle chaque champ du projet.
-========================================================================== */
+/* Validation des projets envoyes depuis le dashboard. */
 function validTagList(req) {
   const value = req.body?.tags;
   /* Le front envoie les technologies sous forme de texte separe par des virgules. */
@@ -63,10 +57,7 @@ export const projectRules = [
   optionalBooleanString("featured"),
 ];
 
-/* ==========================================================================
-   3. VALIDATION DES COMPETENCES
-   Une competence doit appartenir a un groupe autorise.
-========================================================================== */
+/* Validation des competences admin. */
 /* Regles de creation d'une competence dans un groupe autorise. */
 export const skillRules = [
   requiredString("label", "Nom de la competence", 2),
@@ -93,10 +84,7 @@ export const deleteSkillRules = [
   requiredString("id", "Identifiant de la competence", 3),
 ];
 
-/* ==========================================================================
-   4. OUTILS POUR CONTROLER LE PROFIL / CV
-   Ces petites fonctions nettoient les textes et verifient les listes simples.
-========================================================================== */
+/* Outils simples pour nettoyer le profil/CV. */
 /* Les fonctions suivantes valident tout le profil/CV avant remplacement du document MongoDB. */
 function isObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -134,10 +122,7 @@ function validateTextList(source, field, label) {
   return null;
 }
 
-/* ==========================================================================
-   5. VALIDATION DES BLOCS IMBRIQUES DU CV
-   On controle les contacts, loisirs, formations et experiences.
-========================================================================== */
+/* Validation des blocs du CV : contacts, loisirs, formations, experiences. */
 function validateContactList(identity) {
   if (!Array.isArray(identity.contacts)) {
     return "Les contacts doivent etre une liste.";
@@ -234,10 +219,7 @@ function validateExperiences(profile) {
   return null;
 }
 
-/* ==========================================================================
-   6. VALIDATION COMPLETE DU PROFIL CV
-   Cette regle verifie toute la structure avant l'enregistrement MongoDB.
-========================================================================== */
+/* Validation finale du document CV avant l'enregistrement. */
 /* Contrôle toute la structure du CV avant que le contrôleur ne remplace le document MongoDB. */
 function validateProfilePayload(req) {
   const profile = req.body;

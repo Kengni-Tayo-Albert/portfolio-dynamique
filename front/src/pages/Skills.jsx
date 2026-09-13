@@ -32,10 +32,7 @@ import {
 } from "react-icons/si";
 import { getSkills } from "../services/api";
 
-/* ==========================================================================
-   1. CONFIGURATION DES ICONES
-   Les textes viennent de l'API, les icones sont choisies avec ces tableaux.
-========================================================================== */
+/* Association entre les noms recus et les icones affichees. */
 const categoryIconMap = {
   code: FaCode,
   server: FaServer,
@@ -71,20 +68,12 @@ const itemIconMap = {
   "user-check": FaUserCheck,
 };
 
-/* ==========================================================================
-   2. COMPOSANT PRINCIPAL : PAGE COMPETENCES
-   Cette page charge les competences puis les affiche par categorie.
-========================================================================== */
-/* Skills affiche les compétences par groupes et les chiffres clés du parcours. */
+/* Page competences : chargement API puis affichage par categorie. */
 function Skills() {
   const [skillsData, setSkillsData] = useState({ groups: [], stats: [] });
   const [status, setStatus] = useState("loading");
 
-  /* --------------------------------------------------------------------------
-     2.1 CHARGEMENT DES COMPETENCES DEPUIS L'API
-     Le front appelle /api/skills puis stocke le resultat dans skillsData.
-  -------------------------------------------------------------------------- */
-  /* Charge les compétences depuis l'API ou depuis le JSON statique si le back-end est absent. */
+  /* Recuperation des competences depuis l'API. */
   useEffect(() => {
     async function loadSkills() {
       try {
@@ -101,10 +90,7 @@ function Skills() {
     loadSkills();
   }, []);
 
-  /* --------------------------------------------------------------------------
-     2.2 AFFICHAGE DE LA PAGE
-     Selon status, on affiche le chargement, une erreur ou les donnees.
-  -------------------------------------------------------------------------- */
+  /* Affichage selon l'etat du chargement. */
   return (
     <main className="skills-page">
       {/* Introduction de la page compétences. */}
@@ -154,11 +140,7 @@ function Skills() {
   );
 }
 
-/* ==========================================================================
-   3. COMPOSANTS REUTILISABLES
-   Ces petits composants evitent de repeter le meme JSX plusieurs fois.
-========================================================================== */
-/* SkillCard choisit l'icône du groupe puis liste chaque compétence avec son icône. */
+/* Petits composants pour eviter de repeter le meme affichage. */
 function SkillCard({ icon, title, color, description, items }) {
   const CategoryIcon = categoryIconMap[icon] || FaCode;
 
