@@ -1,0 +1,119 @@
+/* Page CV. */
+
+.cv-page {
+  min-height: calc(100vh - 90px);
+  padding: 70px 6% 90px;
+  color: #0f172a;
+  background: var(--light);
+}
+
+.cv-hero {
+  max-width: 980px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.cv-hero h1 {
+  margin: 28px 0 10px;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1;
+}
+
+.cv-hero h2 {
+  color: var(--blue);
+  font-size: clamp(26px, 3vw, 40px);
+}
+
+.cv-layout {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.6fr;
+  gap: 28px;
+}
+
+.cv-sidebar,
+.cv-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cv-block,
+.cv-section {
+  padding: 30px;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+}
+
+.cv-block h3,
+.cv-section h2 {
+  margin: 0 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cv-block svg,
+.cv-section svg,
+.cv-contact-list svg,
+.cv-hobbies svg {
+  color: var(--blue);
+}
+
+.cv-contact-list,
+.cv-hobbies {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cv-contact-list a,
+.cv-hobbies li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #0f172a;
+}
+
+.cv-simple-list,
+.cv-hobbies,
+.cv-timeline-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-simple-list li {
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.cv-timeline-card {
+  margin-bottom: 22px;
+  padding: 24px;
+  background: #f8fbff;
+  border: 1px solid var(--border-light);
+  border-left: 5px solid var(--blue);
+  border-radius: 16px;
+}
+
+.cv-timeline-card:last-child {
+  margin-bottom: 0;
+}
+
+.cv-timeline-card p,
+.cv-timeline-card li {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.cv-timeline-card > span {
+  display: inline-flex;
+  margin: 12px 0;
+  padding: 8px 14px;
+  color: var(--blue);
+  font-weight: 800;
+  background: #dbeafe;
+  border-radius: 999px;
+}

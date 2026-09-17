@@ -1,0 +1,148 @@
+/* Page A propos. */
+
+.about-page {
+  min-height: calc(100vh - 90px);
+  padding: 70px 6% 90px;
+  color: #0f172a;
+  background: var(--light);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.about-image-wrapper {
+  position: relative;
+  max-width: 520px;
+}
+
+.about-image-wrapper img {
+  width: 100%;
+  height: 620px;
+  object-fit: cover;
+  border: 6px solid #17345c;
+  border-radius: 28px;
+}
+
+.available-card {
+  position: absolute;
+  left: -35px;
+  bottom: -30px;
+  padding: 22px 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--white);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow);
+}
+
+.available-card span {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  font-size: 26px;
+  font-weight: 900;
+  background: #dbeafe;
+  border-radius: var(--radius);
+}
+
+.about-content h1 {
+  margin: 0 0 40px;
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.05;
+  text-align: center;
+}
+
+.about-content h2 {
+  margin: 0 0 24px;
+  font-size: clamp(28px, 3vw, 42px);
+}
+
+.about-text {
+  max-width: 780px;
+  font-size: 20px;
+}
+
+.values-grid {
+  margin: 55px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.value-card {
+  padding: 28px;
+  background: var(--white);
+  border-radius: var(--radius-large);
+}
+
+.value-card span {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  color: var(--orange);
+  font-size: 26px;
+  background: #fff7ed;
+  border-radius: var(--radius);
+}
+
+.value-card:nth-child(1) span {
+  color: #f59e0b;
+  background: #dbeafe;
+}
+
+.value-card:nth-child(2) span {
+  color: var(--green);
+  background: #dcfce7;
+}
+
+.tech-box {
+  padding: 30px 36px;
+  color: var(--white);
+  background: #111827;
+  border-radius: var(--radius-large);
+}
+
+.tech-box p {
+  color: var(--text-light);
+}
+
+.about-button {
+  width: fit-content;
+  margin: 60px auto 0;
+}
+
+.about-circle {
+  position: absolute;
+  z-index: 1;
+  background: #dbeafe;
+  border-radius: 50%;
+}
+
+.about-circle-top {
+  top: -120px;
+  right: -80px;
+  width: 560px;
+  height: 560px;
+}
+
+.about-circle-bottom {
+  left: -120px;
+  bottom: -120px;
+  width: 420px;
+  height: 420px;
+}

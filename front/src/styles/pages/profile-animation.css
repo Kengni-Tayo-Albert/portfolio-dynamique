@@ -1,0 +1,146 @@
+/* Animation du portrait sur la page d'accueil. */
+
+.profile-flip-card {
+  position: relative;
+  z-index: 3;
+  width: min(420px, 90vw);
+  height: 520px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.profile-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s ease;
+  transform-style: preserve-3d;
+}
+
+.profile-flip-card:active .profile-card-inner,
+.profile-flip-card:focus-within .profile-card-inner {
+  transform: rotateY(180deg);
+}
+
+.profile-card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--dark-2);
+  border: 2px solid rgba(37, 99, 235, 0.55);
+  border-radius: 36px 36px 0 0;
+  backface-visibility: hidden;
+}
+
+.profile-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-flip-card:hover .profile-card {
+  border-color: #facc15;
+  box-shadow: 0 0 35px rgba(250, 204, 21, 0.35);
+}
+
+.profile-card-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue-light);
+  text-align: center;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--dark), #111827);
+  transform: rotateY(180deg);
+}
+
+.profile-card-back p {
+  margin: 8px 0;
+}
+
+.gold-orb {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(250, 204, 21, 0.65), transparent 70%);
+  border-radius: 50%;
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, left 0.08s linear, top 0.08s linear;
+}
+
+.profile-flip-card:hover .gold-orb {
+  opacity: 1;
+}
+
+.gold-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 18px,
+    rgba(250, 204, 21, 0.18) 18px 23px,
+    transparent 23px 42px
+  );
+}
+
+.profile-flip-card:hover .gold-lines {
+  animation: goldLinesShow 1.5s ease forwards;
+}
+
+@keyframes goldLinesShow {
+  0% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+
+  20%,
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    background-position: 120px 120px;
+  }
+}
+
+.blue-shape {
+  position: absolute;
+  width: 470px;
+  height: 210px;
+  background: linear-gradient(135deg, #1d4ed8, var(--blue));
+  border-radius: 120px;
+  transform: rotate(-42deg);
+}
+
+.orange-ring {
+  position: absolute;
+  right: -20px;
+  width: 420px;
+  height: 420px;
+  border: 2px solid rgba(249, 115, 22, 0.25);
+  border-radius: 50%;
+}
+
+.code-badge {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  z-index: 2;
+  padding: 12px 22px;
+  color: var(--orange);
+  font-size: 28px;
+  font-weight: 900;
+  background: var(--dark-2);
+  border: 2px solid var(--orange);
+  border-radius: 14px;
+  transform: translateY(-50%);
+}

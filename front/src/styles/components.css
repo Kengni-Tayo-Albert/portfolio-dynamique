@@ -1,0 +1,153 @@
+/* Petits styles reutilisables : boutons, badges et cartes. */
+
+.primary-button,
+.secondary-button,
+.about-button,
+.cv-hero a,
+.contact-actions button,
+.contact-actions a,
+.admin-login-card button,
+.admin-header button,
+.admin-form button,
+.admin-item-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  font-weight: 800;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.primary-button,
+.about-button,
+.cv-hero a,
+.contact-actions button,
+.admin-login-card button,
+.admin-header button,
+.admin-form button {
+  color: var(--white);
+  background: var(--blue);
+  border: 1px solid var(--blue);
+}
+
+.secondary-button,
+.contact-actions a,
+.admin-item-actions button {
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--border-dark);
+}
+
+.tags,
+.tech-list,
+.cv-tags,
+.social-links,
+.contact-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.tags span,
+.cv-tags span,
+.tech-list span {
+  padding: 9px 16px;
+  color: var(--blue-light);
+  font-weight: 700;
+  background: rgba(37, 99, 235, 0.15);
+  border-radius: 999px;
+}
+
+.project-card,
+.skill-card,
+.cv-block,
+.cv-section,
+.admin-login-card,
+.admin-menu,
+.admin-panel,
+.admin-item {
+  border-radius: var(--radius-large);
+}
+
+.available-card p,
+.value-card p,
+.about-text,
+.contact-intro p,
+.cv-hero p,
+.admin-header p,
+.admin-section-text {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.contact-form label,
+.admin-login-card label,
+.admin-form label {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+.admin-login-card input,
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 16px 18px;
+  color: #0f172a;
+  background: #f8fbff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.contact-form textarea,
+.admin-form textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus,
+.admin-login-card input:focus,
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  border-color: var(--blue);
+}
+
+.form-status,
+.admin-login-error,
+.admin-upload-status {
+  margin: 0 0 24px;
+  padding: 16px 18px;
+  font-weight: 700;
+  border-radius: var(--radius);
+}
+
+.admin-login-error,
+.admin-upload-status {
+  margin-bottom: 0;
+}
+
+.form-status.success {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.form-status.error,
+.admin-login-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+}

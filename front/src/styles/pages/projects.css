@@ -1,0 +1,28 @@
+/* Page projets.
+   Les cartes sont communes avec l'accueil et sont definies dans home.css. */
+
+.projects-page {
+  min-height: calc(100vh - 90px);
+  padding: 70px 6% 90px;
+  color: var(--white);
+  background: #030914;
+}
+
+.projects-intro {
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.projects-intro h1 {
+  margin: 45px 0 28px;
+  font-size: 28px;
+}
+
+.projects-intro p {
+  color: var(--text-light);
+}
+
+.projects-page-grid {
+  margin-top: 0;
+  gap: 60px 40px;
+}

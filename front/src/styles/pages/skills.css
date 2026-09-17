@@ -1,0 +1,142 @@
+/* Page competences. */
+
+.skills-page {
+  min-height: calc(100vh - 90px);
+  padding: 70px 6% 90px;
+  color: var(--white);
+  background: #030914;
+}
+
+.skills-intro {
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.skills-intro h1 {
+  margin: 45px 0 28px;
+  font-size: 28px;
+}
+
+.skills-intro p {
+  color: var(--text-light);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.skill-card {
+  padding: 30px;
+  background: #0b1626;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.skill-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.skill-icon {
+  min-width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  font-size: 26px;
+  border-radius: 14px;
+}
+
+.skill-icon.blue,
+.skill-line.blue {
+  background: var(--blue);
+}
+
+.skill-icon.green,
+.skill-line.green {
+  background: var(--green);
+}
+
+.skill-icon.purple,
+.skill-line.purple {
+  background: var(--purple);
+}
+
+.skill-icon.orange,
+.skill-line.orange {
+  background: var(--orange);
+}
+
+.skill-card h2 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.skill-card p,
+.stat-item span {
+  color: #94a3b8;
+}
+
+.skill-line {
+  width: 55px;
+  height: 4px;
+  border-radius: 20px;
+}
+
+.skill-list {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-list li {
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e5e7eb;
+}
+
+.skill-item-icon {
+  min-width: 22px;
+  font-size: 22px;
+}
+
+.skill-item-icon.blue {
+  color: #61dafb;
+}
+
+.skill-item-icon.green {
+  color: #22c55e;
+}
+
+.skill-item-icon.purple {
+  color: #a855f7;
+}
+
+.skill-item-icon.orange {
+  color: var(--orange);
+}
+
+.stats-box {
+  margin-top: 34px;
+  padding: 32px;
+  text-align: center;
+  background: var(--dark);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: var(--radius-large);
+}
+
+.stats-grid {
+  margin-top: 45px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+
+.stat-item strong {
+  color: var(--blue-light);
+  font-size: 20px;
+}

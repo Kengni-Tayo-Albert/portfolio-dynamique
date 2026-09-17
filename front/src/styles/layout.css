@@ -1,0 +1,75 @@
+/* Header, navigation principale et footer. */
+
+.header {
+  position: relative;
+  z-index: 10;
+  height: 90px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--dark);
+}
+
+.logo,
+.footer-logo {
+  color: var(--white);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.logo span,
+.footer-logo span {
+  color: var(--blue-light);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav a {
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+.nav a.active,
+.nav a:hover {
+  color: var(--blue-light);
+}
+
+.btn-cv,
+.cv-button {
+  padding: 14px 24px;
+  color: var(--white);
+  font-weight: 700;
+  background: var(--blue);
+  border-radius: var(--radius);
+}
+
+.burger-button {
+  display: none;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 24px;
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.footer {
+  padding: 55px 6% 20px;
+  color: var(--text-light);
+  background: #030914;
+}
+
+.footer-bottom {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-dark);
+}
