@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import profileImage from "../assets/albert-profile.jpeg";
 import { getProjects } from "../services/api";
+import { applyProjectImageFallback, getProjectImageSource } from "../utils/projectImages";
 
 /* Page d'accueil : presentation rapide + projets mis en avant. */
 function Home() {
@@ -171,7 +172,11 @@ function Home() {
             {featuredProjects.map((project) => (
               <article key={project.id} className="project-card">
                 <div className="project-image">
-                  <img src={project.image} alt={project.title} />
+                  <img
+                    src={getProjectImageSource(project)}
+                    alt={project.title}
+                    onError={(event) => applyProjectImageFallback(event, project)}
+                  />
                 </div>
 
                 <h3>{project.title}</h3>

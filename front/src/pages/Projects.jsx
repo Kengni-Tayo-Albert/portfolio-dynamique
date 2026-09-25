@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "../services/api";
+import { applyProjectImageFallback, getProjectImageSource } from "../utils/projectImages";
 
 /* Projects affiche toutes les réalisations disponibles dans l'API ou le JSON statique. */
 function Projects() {
@@ -53,7 +54,8 @@ function Projects() {
             <article className="project-card" key={project.id}>
               <div className="project-image">
                 <img
-                  src={project.image}
+                  src={getProjectImageSource(project)}
+                  onError={(event) => applyProjectImageFallback(event, project)}
                   alt={`Aperçu du projet ${project.title}`}
                 />
               </div>
